@@ -3,696 +3,709 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="TrainWithKrish — Elite calisthenics and bodyweight fitness coaching. Train anywhere, anytime. No gym required.">
-<meta name="keywords" content="calisthenics, bodyweight training, fitness coach, home workout, street workout">
-<meta name="author" content="TrainWithKrish">
 <title>TrainWithKrish — Master Your Body</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
-/* ===================== RESET & VARIABLES ===================== */
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --bg:#050508;--bg2:#0a0a0f;--bg3:#0f0f18;
-  --card:rgba(255,255,255,0.03);
-  --accent:#00d4ff;--green:#39ff14;--purple:#7b2fff;
-  --aglow:rgba(0,212,255,0.25);--gglow:rgba(57,255,20,0.25);
-  --w:#ffffff;--g1:#e0e0e0;--g2:#a0a0a0;--g3:#505050;
-  --border:rgba(255,255,255,0.08);--baccent:rgba(0,212,255,0.25);
-  --fd:'Bebas Neue',cursive;--fb:'Space Grotesk',sans-serif;
-  --t:all 0.3s cubic-bezier(0.4,0,0.2,1);
+
+/* ─── RESET & VARS ─── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --black:  #070b09;
+  --dark:   #0e1410;
+  --card:   #141c16;
+  --border: rgba(255,255,255,0.07);
+  --accent: #00C896;
+  --light:  #34D399;
+  --dim:    #007A5C;
+  --glow:   rgba(0,200,150,0.22);
+  --white:  #f5fbf8;
+  --off:    #d4ede6;
+  --muted:  #7a9b90;
+  --faint:  #3a5248;
+  --head: 'Oswald', sans-serif;
+  --body: 'Inter', sans-serif;
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
 }
-html{scroll-behavior:smooth;overflow-x:hidden}
-body{background:var(--bg);color:var(--w);font-family:var(--fb);overflow-x:hidden;cursor:none}
-body.loading{overflow:hidden}
+html { scroll-behavior: smooth; overflow-x: hidden; }
+body { background: var(--black); color: var(--white); font-family: var(--body); overflow-x: hidden; cursor: none; }
+body.loading { overflow: hidden; }
+img { display: block; width: 100%; object-fit: cover; }
+a { text-decoration: none; }
 
-/* ===================== CURSOR ===================== */
-.cur-dot{width:8px;height:8px;background:var(--accent);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s}
-.cur-ring{width:36px;height:36px;border:1.5px solid rgba(0,212,255,0.5);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:99998;transform:translate(-50%,-50%)}
-.mglow{position:fixed;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(0,212,255,0.04) 0%,transparent 70%);pointer-events:none;z-index:0;transform:translate(-50%,-50%)}
+/* ─── CURSOR ─── */
+#cur { width: 10px; height: 10px; background: var(--accent); border-radius: 50%; position: fixed; pointer-events: none; z-index: 99999; transform: translate(-50%,-50%); transition: width .15s, height .15s; top: 0; left: 0; box-shadow: 0 0 10px var(--glow); }
+#cur-ring { width: 36px; height: 36px; border: 1.5px solid rgba(0,200,150,.4); border-radius: 50%; position: fixed; pointer-events: none; z-index: 99998; transform: translate(-50%,-50%); top: 0; left: 0; }
 
-/* ===================== SCROLL PROGRESS ===================== */
-.sprog{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--green));z-index:9999;box-shadow:0 0 8px var(--accent);transition:width .1s linear}
+/* ─── PROGRESS ─── */
+#prog { position: fixed; top: 0; left: 0; height: 2px; background: linear-gradient(90deg, var(--accent), var(--light)); z-index: 9999; width: 0; transition: width .1s linear; }
 
-/* ===================== LOADER ===================== */
-.loader{position:fixed;inset:0;background:#000;z-index:999999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:24px;transition:opacity .7s ease,visibility .7s ease}
-.loader.hide{opacity:0;visibility:hidden}
-.loader-logo{font-family:var(--fd);font-size:clamp(28px,5vw,56px);letter-spacing:.2em;animation:lpulse 1.5s ease-in-out infinite}
-.loader-logo span{color:var(--accent)}
-.loader-bar{width:220px;height:2px;background:rgba(255,255,255,0.08);border-radius:2px;overflow:hidden}
-.loader-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--green));width:0%;animation:lfill 2.2s ease-in-out forwards;box-shadow:0 0 10px var(--accent)}
-@keyframes lfill{0%{width:0%}60%{width:65%}100%{width:100%}}
-@keyframes lpulse{0%,100%{opacity:1}50%{opacity:.4}}
+/* ─── LOADER ─── */
+#loader { position: fixed; inset: 0; background: #040805; z-index: 999999; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 28px; transition: opacity .6s ease, visibility .6s ease; }
+#loader.hide { opacity: 0; visibility: hidden; }
+.ld-logo { font-family: var(--head); font-size: clamp(30px,5vw,56px); font-weight: 700; letter-spacing: .12em; }
+.ld-logo span { color: var(--accent); }
+.ld-track { width: 180px; height: 1px; background: rgba(255,255,255,.08); overflow: hidden; }
+.ld-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--light)); width: 0; animation: lf 2.4s ease forwards; }
+@keyframes lf { 0%{width:0%} 60%{width:65%} 100%{width:100%} }
 
-/* ===================== NAVBAR ===================== */
-.nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:20px 5%;display:flex;align-items:center;justify-content:space-between;transition:var(--t)}
-.nav.scrolled{background:rgba(5,5,8,0.85);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:14px 5%}
-.nav-logo{font-family:var(--fd);font-size:24px;letter-spacing:.12em;color:var(--w);text-decoration:none}
-.nav-logo span{color:var(--accent)}
-.nav-ul{display:flex;align-items:center;gap:32px;list-style:none}
-.nav-ul a{color:var(--g2);text-decoration:none;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;transition:var(--t);position:relative}
-.nav-ul a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--accent);transition:width .3s ease}
-.nav-ul a:hover,.nav-ul a.active{color:var(--w)}
-.nav-ul a:hover::after,.nav-ul a.active::after{width:100%}
-.nav-btn{background:transparent;border:1px solid var(--accent);color:var(--accent);padding:10px 20px;font-family:var(--fb);font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;text-decoration:none;transition:var(--t)}
-.nav-btn:hover{background:var(--accent);color:#000;box-shadow:0 0 20px var(--aglow)}
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:transparent;border:none}
-.hamburger span{display:block;width:22px;height:2px;background:var(--w);transition:var(--t)}
-.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
-.hamburger.open span:nth-child(2){opacity:0}
-.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-.mobnav{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.97);backdrop-filter:blur(20px);z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:36px}
-.mobnav.open{display:flex}
-.mobnav a{font-family:var(--fd);font-size:clamp(32px,7vw,52px);color:var(--w);text-decoration:none;letter-spacing:.08em;transition:color .3s}
-.mobnav a:hover{color:var(--accent)}
+/* ─── NAVBAR ─── */
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 24px 6%; display: flex; align-items: center; justify-content: space-between; transition: all .35s var(--ease); }
+.nav.solid { background: rgba(7,11,9,.93); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(0,200,150,.1); padding: 16px 6%; }
+.nav-logo { font-family: var(--head); font-size: 20px; font-weight: 700; letter-spacing: .1em; color: var(--white); }
+.nav-logo span { color: var(--accent); }
+.nav-links { display: flex; align-items: center; gap: 34px; list-style: none; }
+.nav-links a { font-size: 12px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); transition: color .3s; }
+.nav-links a:hover, .nav-links a.on { color: var(--white); }
+.nav-cta { background: var(--accent); color: #000; font-family: var(--head); font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 11px 26px; transition: all .3s; }
+.nav-cta:hover { background: var(--light); box-shadow: 0 6px 24px var(--glow); }
+.hbg { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; }
+.hbg span { display: block; width: 22px; height: 1.5px; background: var(--white); transition: all .3s; }
+.hbg.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.hbg.open span:nth-child(2) { opacity: 0; }
+.hbg.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+.mob { display: none; position: fixed; inset: 0; background: rgba(4,8,6,.97); z-index: 999; flex-direction: column; align-items: center; justify-content: center; gap: 36px; }
+.mob.open { display: flex; }
+.mob a { font-family: var(--head); font-size: clamp(28px,6vw,48px); color: var(--white); letter-spacing: .06em; transition: color .3s; }
+.mob a:hover { color: var(--accent); }
 
-/* ===================== HERO ===================== */
-.hero{position:relative;height:100vh;min-height:680px;display:flex;align-items:center;justify-content:center;overflow:hidden}
-#hcanvas{position:absolute;inset:0;z-index:0}
-.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(0,212,255,0.07) 0%,transparent 60%),radial-gradient(ellipse 50% 40% at 80% 80%,rgba(57,255,20,0.04) 0%,transparent 50%);z-index:1}
-.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,212,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,0.03) 1px,transparent 1px);background-size:60px 60px;z-index:1;animation:gridmove 20s linear infinite}
-@keyframes gridmove{to{transform:translateY(60px)}}
-.hshape{position:absolute;z-index:1;opacity:.06}
-.hs1{width:400px;height:400px;border:1px solid var(--accent);border-radius:50%;top:-100px;right:-80px;animation:spin 30s linear infinite}
-.hs2{width:180px;height:180px;border:1px solid var(--green);transform:rotate(45deg);bottom:120px;left:60px;animation:flt 8s ease-in-out infinite}
-.hs3{width:80px;height:80px;border:1px solid var(--accent);border-radius:50%;top:200px;left:120px;animation:flt 6s ease-in-out infinite reverse}
-@keyframes spin{to{transform:rotate(360deg)}}
-@keyframes flt{0%,100%{transform:translateY(0) rotate(45deg)}50%{transform:translateY(-18px) rotate(45deg)}}
-.hero-content{position:relative;z-index:2;text-align:center;padding:0 20px;max-width:1200px}
-.hero-eye{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--accent);margin-bottom:20px;opacity:0;animation:fiu .8s ease .5s forwards}
-.hero-eye::before,.hero-eye::after{content:'';width:24px;height:1px;background:var(--accent)}
-.hero-h1{font-family:var(--fd);font-size:clamp(60px,12vw,150px);line-height:.9;letter-spacing:.02em;opacity:0;animation:fiu .8s ease .7s forwards}
-.hero-h1 .l2{display:block;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,0.25)}
-.hero-h1 .l3{display:block;background:linear-gradient(135deg,var(--accent),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero-sub{font-size:clamp(11px,1.8vw,14px);color:var(--g2);letter-spacing:.22em;text-transform:uppercase;margin:24px 0 44px;opacity:0;animation:fiu .8s ease .9s forwards}
-.hero-sub span{color:var(--g1)}
-.hero-btns{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;opacity:0;animation:fiu .8s ease 1.1s forwards}
-.btn-p{background:var(--accent);color:#000;border:none;padding:15px 34px;font-family:var(--fb);font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;text-decoration:none;display:inline-block;position:relative;overflow:hidden;transition:var(--t)}
-.btn-p::before{content:'';position:absolute;inset:0;background:var(--green);transform:translateX(-100%);transition:transform .4s ease}
-.btn-p:hover{box-shadow:0 0 28px var(--aglow);transform:translateY(-2px)}
-.btn-p:hover::before{transform:translateX(0)}
-.btn-p span{position:relative;z-index:1}
-.btn-o{background:transparent;color:var(--w);border:1px solid rgba(255,255,255,0.2);padding:15px 34px;font-family:var(--fb);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;text-decoration:none;display:inline-block;transition:var(--t)}
-.btn-o:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
-.hero-stats{display:flex;justify-content:center;gap:clamp(28px,5vw,72px);margin-top:64px;opacity:0;animation:fiu .8s ease 1.3s forwards}
-.hstat-n{font-family:var(--fd);font-size:clamp(32px,5vw,52px);background:linear-gradient(135deg,var(--w),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:block}
-.hstat-l{font-size:10px;color:var(--g3);letter-spacing:.2em;text-transform:uppercase;margin-top:4px}
-.hero-scroll{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;animation:fiu .8s ease 1.8s forwards}
-.hero-scroll span{font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--g3)}
-.sline{width:1px;height:46px;background:linear-gradient(to bottom,var(--accent),transparent);animation:sla 2s ease-in-out infinite}
-@keyframes sla{0%,100%{opacity:1;transform:scaleY(1)}50%{opacity:.2;transform:scaleY(.5)}}
-@keyframes fiu{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+/* ─── HERO ─── */
+.hero { position: relative; height: 100vh; min-height: 680px; display: flex; align-items: center; overflow: hidden; }
+.hero-img { position: absolute; inset: 0; }
+.hero-img img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; transform: scale(1.06); transition: transform 8s ease; }
+.hero-img img.loaded { transform: scale(1); }
+.hero-overlay { position: absolute; inset: 0; background: linear-gradient(110deg, rgba(4,10,7,.9) 0%, rgba(4,10,7,.6) 50%, rgba(4,10,7,.2) 100%); }
+.hero-body { position: relative; z-index: 2; padding: 0 6%; max-width: 760px; }
+.hero-tag { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 600; letter-spacing: .32em; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; opacity: 0; animation: rise .8s var(--ease) .6s forwards; }
+.hero-tag::before { content:''; width: 24px; height: 1.5px; background: var(--accent); }
+.hero-h1 { font-family: var(--head); font-size: clamp(50px, 9vw, 108px); font-weight: 700; line-height: .92; letter-spacing: .01em; opacity: 0; animation: rise .8s var(--ease) .8s forwards; }
+.hero-h1 em { font-style: normal; color: var(--accent); }
+.hero-h1 .outline { color: transparent; -webkit-text-stroke: 1.5px rgba(255,255,255,.25); }
+.hero-p { font-size: 15px; line-height: 1.78; color: rgba(245,251,248,.6); margin: 26px 0 40px; max-width: 460px; opacity: 0; animation: rise .8s var(--ease) 1s forwards; }
+.hero-btns { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; opacity: 0; animation: rise .8s var(--ease) 1.2s forwards; }
+.btn-main { background: var(--accent); color: #000; font-family: var(--head); font-size: 13px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 15px 34px; display: inline-block; transition: all .35s var(--ease); }
+.btn-main:hover { background: var(--light); transform: translateY(-2px); box-shadow: 0 12px 36px var(--glow); }
+.btn-ghost { background: transparent; color: rgba(245,251,248,.8); border: 1px solid rgba(245,251,248,.2); font-family: var(--head); font-size: 13px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; padding: 15px 34px; display: inline-block; transition: all .35s var(--ease); }
+.btn-ghost:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+.hero-scroll { position: absolute; bottom: 36px; right: 6%; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 10px; opacity: 0; animation: rise .8s var(--ease) 1.8s forwards; }
+.hero-scroll span { font-size: 9px; letter-spacing: .3em; text-transform: uppercase; color: var(--muted); writing-mode: vertical-rl; }
+.scroll-line { width: 1px; height: 52px; background: linear-gradient(to bottom, var(--accent), transparent); animation: pline 2s ease-in-out infinite; }
+@keyframes pline { 0%,100%{opacity:1;transform:scaleY(1)} 50%{opacity:.3;transform:scaleY(.5)} }
+@keyframes rise { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
 
-/* ===================== SECTION COMMONS ===================== */
-section{position:relative}
-.sp{padding:clamp(72px,11vw,140px) 5%}
-.slabel{display:inline-flex;align-items:center;gap:10px;font-size:10px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
-.slabel::before{content:'';width:18px;height:1px;background:var(--accent)}
-.stitle{font-family:var(--fd);font-size:clamp(44px,7vw,90px);letter-spacing:.02em;line-height:.95;color:var(--w)}
-.stitle .ac{color:var(--accent)}
-.stitle .sk{color:transparent;-webkit-text-stroke:1px rgba(255,255,255,0.2)}
-.reveal{opacity:0;transform:translateY(36px);transition:opacity .8s ease,transform .8s ease}
-.reveal.vis{opacity:1;transform:translateY(0)}
-.rl{opacity:0;transform:translateX(-36px);transition:opacity .8s ease,transform .8s ease}
-.rl.vis{opacity:1;transform:translateX(0)}
-.rr{opacity:0;transform:translateX(36px);transition:opacity .8s ease,transform .8s ease}
-.rr.vis{opacity:1;transform:translateX(0)}
-.d1{transition-delay:.1s!important}.d2{transition-delay:.2s!important}.d3{transition-delay:.3s!important}
-.d4{transition-delay:.4s!important}.d5{transition-delay:.5s!important}.d6{transition-delay:.6s!important}
+/* ─── STATS STRIP ─── */
+.stats-strip { background: var(--dark); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 0 6%; display: grid; grid-template-columns: repeat(4,1fr); }
+.stat-item { padding: 44px 20px; text-align: center; border-right: 1px solid var(--border); position: relative; }
+.stat-item:last-child { border-right: none; }
+.stat-item::after { content:''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 0; height: 2px; background: var(--accent); transition: width .8s var(--ease); }
+.stat-item.vis::after { width: 36px; }
+.stat-num { font-family: var(--head); font-size: clamp(34px,4vw,50px); font-weight: 700; color: var(--white); line-height: 1; }
+.stat-num sup { color: var(--accent); font-size: .7em; }
+.stat-lbl { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-top: 8px; }
 
-/* ===================== WAVE SEP ===================== */
-.wsep{position:relative;height:70px;overflow:hidden;line-height:0}
-.wsep svg{position:absolute;bottom:0;width:100%}
+/* ─── COMMONS ─── */
+.sec { padding: clamp(72px, 10vw, 130px) 6%; }
+.sec-label { display: flex; align-items: center; gap: 12px; font-size: 10px; font-weight: 600; letter-spacing: .35em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+.sec-label::before { content:''; width: 20px; height: 1.5px; background: var(--accent); flex-shrink: 0; }
+.sec-title { font-family: var(--head); font-size: clamp(38px,6vw,80px); font-weight: 700; line-height: .94; letter-spacing: .01em; }
+.sec-title .dim { color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,.18); }
+.sec-title .ac { color: var(--accent); }
+.fade   { opacity:0; transform:translateY(28px); transition:opacity .7s var(--ease),transform .7s var(--ease); }
+.fade-l { opacity:0; transform:translateX(-28px); transition:opacity .7s var(--ease),transform .7s var(--ease); }
+.fade-r { opacity:0; transform:translateX(28px);  transition:opacity .7s var(--ease),transform .7s var(--ease); }
+.fade.vis, .fade-l.vis, .fade-r.vis { opacity:1; transform:none; }
+.d1{transition-delay:.1s!important} .d2{transition-delay:.2s!important}
+.d3{transition-delay:.3s!important} .d4{transition-delay:.4s!important}
+.d5{transition-delay:.5s!important} .d6{transition-delay:.6s!important}
 
-/* ===================== ABOUT ===================== */
-.about{background:var(--bg2)}
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,7vw,96px);align-items:center}
-.about-vis{position:relative}
-.about-img{width:100%;aspect-ratio:3/4;background:linear-gradient(135deg,#0d1a2a 0%,#0a1520 50%,#050a10 100%);border:1px solid rgba(0,212,255,0.1);position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px}
-.about-img::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 20%,rgba(0,212,255,0.12) 0%,transparent 50%),radial-gradient(circle at 70% 80%,rgba(57,255,20,0.06) 0%,transparent 50%)}
-.aimg-avatar{width:88px;height:88px;border-radius:50%;background:linear-gradient(135deg,rgba(0,212,255,0.2),rgba(57,255,20,0.1));border:2px solid rgba(0,212,255,0.3);display:flex;align-items:center;justify-content:center;position:relative;z-index:1}
-.aimg-avatar i{font-size:38px;color:rgba(0,212,255,0.7)}
-.aimg-name{font-family:var(--fd);font-size:32px;color:rgba(255,255,255,0.5);letter-spacing:.12em;position:relative;z-index:1}
-.aimg-role{font-size:10px;color:rgba(0,212,255,0.5);letter-spacing:.22em;text-transform:uppercase;position:relative;z-index:1}
-.aimg-stats{display:grid;grid-template-columns:1fr 1fr;gap:2px;width:180px;margin-top:12px;position:relative;z-index:1}
-.aimg-stat{padding:10px;text-align:center;border:1px solid rgba(0,212,255,0.1);background:rgba(0,212,255,0.04)}
-.aimg-stat-n{font-family:var(--fd);font-size:22px;color:rgba(255,255,255,0.5)}
-.aimg-stat-l{font-size:9px;color:rgba(0,212,255,0.5);letter-spacing:.1em;text-transform:uppercase}
-.aimg-tag{position:absolute;bottom:20px;left:20px;background:rgba(0,212,255,0.1);border:1px solid rgba(0,212,255,0.2);backdrop-filter:blur(10px);padding:7px 14px;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent)}
-.afloat{position:absolute;right:-36px;top:50%;transform:translateY(-50%);background:rgba(5,5,8,0.9);border:1px solid rgba(0,212,255,0.2);backdrop-filter:blur(20px);padding:18px 22px;min-width:140px}
-.afloat-n{font-family:var(--fd);font-size:44px;color:var(--accent);line-height:1}
-.afloat-l{font-size:10px;color:var(--g2);letter-spacing:.1em;text-transform:uppercase;margin-top:4px}
-.about-text .stitle{margin-bottom:20px}
-.about-text p{font-size:15px;line-height:1.85;color:var(--g2);margin-bottom:16px}
-.about-text p strong{color:var(--w)}
-.about-quote{border-left:2px solid var(--accent);padding-left:18px;margin:28px 0;font-size:17px;font-style:italic;color:var(--g1);line-height:1.6}
-.about-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:36px}
-.acard{background:var(--card);border:1px solid var(--border);padding:18px;transition:var(--t)}
-.acard:hover{border-color:rgba(0,212,255,0.2);background:rgba(0,212,255,0.03)}
-.acard-icon{font-size:22px;color:var(--accent);margin-bottom:10px}
-.acard-title{font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--w);margin-bottom:5px}
-.acard-desc{font-size:12px;color:var(--g3);line-height:1.6}
+/* ─── ABOUT ─── */
+.about { background: var(--dark); }
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px,6vw,88px); align-items: center; }
+.about-img-wrap { position: relative; }
+.about-img-wrap img { height: 600px; object-fit: cover; object-position: top; }
+.about-badge { position: absolute; bottom: -18px; right: -18px; background: var(--accent); padding: 22px 24px; text-align: center; box-shadow: 0 16px 48px var(--glow); }
+.about-badge-n { font-family: var(--head); font-size: 42px; font-weight: 700; color: #000; line-height: 1; }
+.about-badge-l { font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: rgba(0,0,0,.65); margin-top: 2px; }
+.about-text .sec-title { margin-bottom: 20px; }
+.about-text blockquote { border-left: 3px solid var(--accent); padding: 14px 20px; background: rgba(0,200,150,.05); font-size: 16px; font-style: italic; color: var(--off); line-height: 1.65; margin: 28px 0; }
+.about-text p { font-size: 15px; line-height: 1.85; color: var(--muted); margin-bottom: 14px; }
+.about-text p strong { color: var(--white); font-weight: 600; }
+.attrs { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); margin-top: 36px; }
+.attr { background: var(--dark); padding: 20px; transition: background .3s; }
+.attr:hover { background: rgba(0,200,150,.06); }
+.attr-icon { font-size: 17px; color: var(--accent); margin-bottom: 8px; }
+.attr-title { font-family: var(--head); font-size: 14px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--white); margin-bottom: 4px; }
+.attr-desc { font-size: 12px; color: var(--faint); line-height: 1.6; }
 
-/* ===================== PROGRAMS ===================== */
-.programs{background:var(--bg)}
-.prog-hdr{text-align:center;max-width:560px;margin:0 auto 64px}
-.prog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border)}
-.pcard{background:var(--bg);padding:clamp(28px,3.5vw,44px);position:relative;overflow:hidden;transition:var(--t);cursor:pointer}
-.pcard::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,212,255,0.05),transparent 60%);opacity:0;transition:opacity .4s}
-.pcard::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:0;transition:opacity .4s}
-.pcard:hover{background:var(--bg2)}
-.pcard:hover::before,.pcard:hover::after{opacity:1}
-.pcard-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:28px}
-.picon{width:48px;height:48px;background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.15);display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--accent);transition:var(--t)}
-.pcard:hover .picon{background:rgba(0,212,255,0.14);box-shadow:0 0 18px rgba(0,212,255,0.18)}
-.pnum{font-family:var(--fd);font-size:13px;color:rgba(255,255,255,0.12);letter-spacing:.1em}
-.pcard h3{font-size:17px;font-weight:700;color:var(--w);margin-bottom:10px;letter-spacing:.02em}
-.pcard-desc{font-size:12px;color:var(--g3);line-height:1.7;margin-bottom:24px}
-.ptags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:24px}
-.ptag{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);border:1px solid rgba(0,212,255,0.2);padding:3px 9px}
-.pcta{display:flex;align-items:center;gap:7px;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--g2);text-decoration:none;transition:var(--t)}
-.pcta:hover{color:var(--accent)}
-.pcta i{transition:transform .3s ease}
-.pcard:hover .pcta i{transform:translateX(4px)}
+/* ─── PROGRAMS ─── */
+.programs { background: var(--black); }
+.prog-head { max-width: 540px; margin-bottom: 56px; }
+.prog-head p { font-size: 14px; color: var(--muted); line-height: 1.75; margin-top: 16px; }
+.prog-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); }
+.pcard { background: var(--dark); overflow: hidden; display: flex; flex-direction: column; }
+.pcard-img { height: 220px; overflow: hidden; position: relative; }
+.pcard-img img { height: 100%; transition: transform .6s var(--ease); filter: brightness(.72) saturate(.85); }
+.pcard:hover .pcard-img img { transform: scale(1.06); filter: brightness(.85) saturate(1); }
+.pcard-img-ov { position: absolute; inset: 0; background: linear-gradient(to top, rgba(14,20,16,.8) 0%, transparent 55%); }
+.pcard-num { position: absolute; top: 14px; right: 16px; font-family: var(--head); font-size: 12px; font-weight: 700; color: rgba(255,255,255,.25); letter-spacing: .06em; }
+.pcard-body { padding: 26px; flex: 1; display: flex; flex-direction: column; }
+.pcard-title { font-family: var(--head); font-size: 19px; font-weight: 600; letter-spacing: .03em; text-transform: uppercase; color: var(--white); margin-bottom: 10px; }
+.pcard-desc { font-size: 13px; color: var(--muted); line-height: 1.7; flex: 1; margin-bottom: 20px; }
+.pcard-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
+.ptag { font-size: 9px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; padding: 4px 10px; border: 1px solid rgba(0,200,150,.2); color: var(--accent); }
+.pcard-foot { display: flex; align-items: center; justify-content: space-between; padding-top: 16px; border-top: 1px solid var(--border); }
+.pcard-cta { display: flex; align-items: center; gap: 7px; font-family: var(--head); font-size: 12px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); transition: gap .3s; }
+.pcard:hover .pcard-cta { gap: 11px; }
+.pcard-level { font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--faint); }
 
-/* ===================== RESULTS ===================== */
-.results{background:var(--bg3);overflow:hidden}
-.res-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start}
-.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);margin-top:44px}
-.sblock{background:var(--bg3);padding:36px 28px;position:relative;overflow:hidden}
-.sblock::before{content:'';position:absolute;top:0;left:0;width:2px;height:0;background:var(--accent);transition:height 1.2s ease}
-.sblock.vis::before{height:100%}
-.snum{font-family:var(--fd);font-size:clamp(44px,5vw,64px);background:linear-gradient(135deg,var(--w),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
-.ssuf{font-family:var(--fd);font-size:36px;color:var(--accent)}
-.slbl{font-size:11px;color:var(--g3);letter-spacing:.15em;text-transform:uppercase;margin-top:6px}
-.tstack{display:flex;flex-direction:column;gap:14px}
-.tcard{background:rgba(255,255,255,0.025);border:1px solid var(--border);backdrop-filter:blur(10px);padding:24px;transition:var(--t)}
-.tcard:hover{border-color:rgba(0,212,255,0.2);background:rgba(0,212,255,0.03)}
-.tstars{color:var(--green);font-size:11px;letter-spacing:2px;margin-bottom:10px}
-.ttext{font-size:13px;line-height:1.7;color:var(--g1);margin-bottom:16px;font-style:italic}
-.tauthor{display:flex;align-items:center;gap:10px}
-.tavatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--purple));display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#000;flex-shrink:0}
-.tname{font-size:12px;font-weight:700;color:var(--w)}
-.ttitle{font-size:10px;color:var(--g3);letter-spacing:.08em}
+/* ─── GALLERY ─── */
+.gallery { background: var(--dark); }
+.gallery-head { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 40px; }
+.gallery-sub { font-size: 12px; color: var(--muted); letter-spacing: .1em; text-transform: uppercase; }
+.gallery-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 6px; }
+.gitem { position: relative; overflow: hidden; cursor: pointer; }
+.gitem:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+.gitem:nth-child(6) { grid-column: span 2; }
+.gitem img { width: 100%; height: 100%; min-height: 200px; object-fit: cover; transition: transform .5s var(--ease), filter .5s; filter: brightness(.75) saturate(.85); }
+.gitem:nth-child(1) img { min-height: 406px; }
+.gitem:hover img { transform: scale(1.05); filter: brightness(.6) saturate(1.1); }
+.g-over { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; background: rgba(0,200,150,.12); opacity: 0; transition: opacity .4s; }
+.gitem:hover .g-over { opacity: 1; }
+.g-over i { font-size: 20px; color: var(--white); }
+.g-over span { font-family: var(--head); font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--white); }
 
-/* ===================== PHILOSOPHY ===================== */
-.phil{background:var(--bg);overflow:hidden}
-.marquee-wrap{overflow:hidden;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:22px 0;margin-bottom:72px}
-.marquee-track{display:flex;gap:52px;white-space:nowrap;animation:marquee 22s linear infinite}
-.marquee-track span{font-family:var(--fd);font-size:clamp(16px,2.5vw,24px);letter-spacing:.1em;color:var(--g3);flex-shrink:0}
-.marquee-track span.ac{color:var(--accent)}
-@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-.pquotes{max-width:860px;margin:0 auto;text-align:center}
-.qblock{margin-bottom:72px;opacity:0;transform:translateY(24px);transition:opacity 1s ease,transform 1s ease}
-.qblock.vis{opacity:1;transform:translateY(0)}
-.qblock p{font-family:var(--fd);font-size:clamp(30px,6vw,68px);letter-spacing:.03em;line-height:1.05;color:var(--w)}
-.qblock p.sk{color:transparent;-webkit-text-stroke:1px rgba(255,255,255,0.14)}
-.qblock p.ac{background:linear-gradient(135deg,var(--accent),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.qblock .qsub{font-family:var(--fb);font-size:12px;color:var(--g3);letter-spacing:.22em;text-transform:uppercase;margin-top:14px}
+/* ─── TESTIMONIALS ─── */
+.testi { background: var(--black); }
+.testi-head { text-align: center; max-width: 500px; margin: 0 auto 56px; }
+.testi-head p { font-size: 14px; color: var(--muted); margin-top: 14px; line-height: 1.7; }
+.testi-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); }
+.tcard { background: var(--dark); padding: 36px; position: relative; transition: background .3s; }
+.tcard:hover { background: rgba(0,200,150,.04); }
+.tcard::before { content:'\201C'; font-family: Georgia,serif; font-size: 80px; line-height: .8; color: rgba(0,200,150,.15); position: absolute; top: 20px; left: 24px; }
+.t-stars { color: var(--accent); font-size: 12px; letter-spacing: 2px; margin-bottom: 18px; }
+.t-text { font-size: 14px; line-height: 1.8; color: #a0bab3; font-style: italic; margin-bottom: 24px; position: relative; z-index: 1; }
+.t-author { display: flex; align-items: center; gap: 14px; }
+.t-av { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--dim)); display: flex; align-items: center; justify-content: center; font-family: var(--head); font-size: 16px; font-weight: 700; color: #fff; flex-shrink: 0; }
+.t-name { font-family: var(--head); font-size: 15px; font-weight: 600; letter-spacing: .04em; color: var(--white); }
+.t-role { font-size: 11px; color: var(--muted); margin-top: 2px; }
 
-/* ===================== GALLERY ===================== */
-.gallery{background:var(--bg2)}
-.gallery-hdr{text-align:center;margin-bottom:52px}
-.ggrid{display:grid;grid-template-columns:repeat(4,1fr);gap:3px}
-.gitem{position:relative;overflow:hidden;cursor:pointer}
-.gitem:nth-child(1){grid-column:span 2;grid-row:span 2}
-.gitem:nth-child(4){grid-column:span 2}
-.gitem:nth-child(7){grid-column:span 2}
-.gph{width:100%;min-height:200px;display:flex;align-items:center;justify-content:center;transition:transform .5s ease;position:relative}
-.gitem:nth-child(1) .gph{min-height:400px}
-.gitem:nth-child(4) .gph,.gitem:nth-child(7) .gph{min-height:200px}
-.gitem:hover .gph{transform:scale(1.05)}
-.gp1{background:linear-gradient(135deg,#0d1b2a,#1a3a5c)}
-.gp2{background:linear-gradient(135deg,#0d2a0d,#1a4a1a)}
-.gp3{background:linear-gradient(135deg,#1a0d2a,#2a1a4a)}
-.gp4{background:linear-gradient(135deg,#2a1a0d,#4a2a0d)}
-.gp5{background:linear-gradient(135deg,#0d1a2a,#1a2a3a)}
-.gp6{background:linear-gradient(135deg,#2a0d1a,#3a1a2a)}
-.gp7{background:linear-gradient(135deg,#0d2a1a,#1a3a2a)}
-.gp8{background:linear-gradient(135deg,#1a1a0d,#2a2a1a)}
-.gph::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(0,212,255,0.04),transparent 60%)}
-.gph i{font-size:44px;color:var(--accent);opacity:.28;position:relative;z-index:1}
-.gov{position:absolute;inset:0;background:rgba(0,212,255,0.09);opacity:0;transition:opacity .3s;display:flex;align-items:center;justify-content:center}
-.gitem:hover .gov{opacity:1}
-.gov i{font-size:22px;color:var(--w)}
+/* ─── QUOTE SECTION ─── */
+.quote-sec { position: relative; min-height: 440px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.quote-bg { position: absolute; inset: 0; }
+.quote-bg img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.22) saturate(.7); }
+.quote-body { position: relative; z-index: 2; text-align: center; padding: 0 6%; max-width: 880px; }
+.q-text { font-family: var(--head); font-size: clamp(26px,5vw,60px); font-weight: 700; line-height: 1.1; letter-spacing: .02em; color: var(--white); }
+.q-text span { color: var(--accent); }
+.q-by { font-size: 11px; letter-spacing: .3em; text-transform: uppercase; color: rgba(245,251,248,.4); margin-top: 22px; }
 
-/* ===================== DISCIPLINE ===================== */
-.disc{background:var(--bg)}
-.disc-hdr{text-align:center;max-width:560px;margin:0 auto 64px}
-.disc-hdr p{color:var(--g2);margin-top:14px;font-size:14px}
-.timeline{position:relative;max-width:760px;margin:0 auto}
-.tl-line{position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--border);transform:translateX(-50%)}
-.tl-prog{position:absolute;left:50%;top:0;width:1px;height:0;background:linear-gradient(to bottom,var(--accent),var(--green));transform:translateX(-50%);transition:height 1.5s ease;box-shadow:0 0 8px var(--accent)}
-.tl-item{display:flex;align-items:center;gap:36px;margin-bottom:44px;position:relative}
-.tl-item:nth-child(even){flex-direction:row-reverse}
-.tl-item:nth-child(even) .tl-content{text-align:right}
-.tl-dot{position:absolute;left:50%;transform:translateX(-50%);width:11px;height:11px;background:var(--accent);border-radius:50%;border:2px solid var(--bg);box-shadow:0 0 10px var(--accent);z-index:1;flex-shrink:0}
-.tl-content{flex:1;padding:22px;background:var(--card);border:1px solid var(--border);transition:var(--t)}
-.tl-content:hover{border-color:rgba(0,212,255,0.2)}
-.tl-time{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:5px}
-.tl-title{font-size:15px;font-weight:700;color:var(--w);margin-bottom:7px}
-.tl-desc{font-size:12px;color:var(--g3);line-height:1.65}
-.tl-icon{font-size:18px;color:var(--accent);margin-bottom:8px}
-.tl-spacer{flex:1}
+/* ─── SCHEDULE ─── */
+.schedule { background: var(--dark); }
+.sched-head { text-align: center; max-width: 520px; margin: 0 auto 52px; }
+.sched-head p { font-size: 14px; color: var(--muted); margin-top: 14px; line-height: 1.7; }
+.week { display: grid; grid-template-columns: repeat(7,1fr); gap: 6px; }
+.day { background: var(--card); border: 1px solid var(--border); padding: 22px 14px 18px; text-align: center; transition: all .35s var(--ease); cursor: default; position: relative; overflow: hidden; }
+.day::after { content:''; position: absolute; bottom: 0; left: 0; right: 0; height: 0; background: var(--accent); transition: height .4s var(--ease); }
+.day:not(.rest):hover { border-color: rgba(0,200,150,.3); transform: translateY(-5px); box-shadow: 0 14px 40px rgba(0,0,0,.5); }
+.day:not(.rest):hover::after { height: 2px; }
+.day-name { font-family: var(--head); font-size: 20px; font-weight: 700; letter-spacing: .06em; }
+.day-type { font-size: 9px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); margin: 6px 0 12px; }
+.day.rest .day-type { color: var(--faint); }
+.day-icon { font-size: 22px; margin-bottom: 10px; }
+.day-detail { font-size: 11px; color: var(--faint); line-height: 1.5; }
+.day.rest { opacity: .45; }
 
-/* ===================== CONTACT ===================== */
-.contact{background:var(--bg2)}
-.contact-grid{display:grid;grid-template-columns:1fr 1.5fr;gap:72px;align-items:start}
-.contact-info .stitle{margin-bottom:16px}
-.contact-info > p{font-size:14px;color:var(--g2);line-height:1.8;margin-bottom:36px}
-.socials{display:flex;flex-direction:column;gap:12px}
-.slink{display:flex;align-items:center;gap:14px;text-decoration:none;padding:14px 18px;background:var(--card);border:1px solid var(--border);transition:var(--t);color:var(--g2)}
-.slink:hover{border-color:rgba(0,212,255,0.2);color:var(--w);transform:translateX(4px)}
-.sicon{width:34px;height:34px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
-.sicon.ig{color:#e1306c}.sicon.yt{color:#ff0000}.sicon.wa{color:#25d366}.sicon.em{color:var(--accent)}
-.stext{flex:1}
-.stext-l{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--g3);margin-bottom:2px}
-.stext-v{font-size:13px;font-weight:500}
-.cform{background:rgba(255,255,255,0.02);border:1px solid var(--border);backdrop-filter:blur(20px);padding:clamp(28px,3.5vw,44px)}
-.form-title{font-family:var(--fd);font-size:26px;color:var(--w);letter-spacing:.06em;margin-bottom:6px}
-.form-sub{font-size:12px;color:var(--g3);margin-bottom:28px}
-.fg{margin-bottom:18px}
-.fl{display:block;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--g2);margin-bottom:7px}
-.fi,.fsel,.fta{width:100%;background:rgba(255,255,255,0.04);border:1px solid var(--border);color:var(--w);font-family:var(--fb);font-size:13px;padding:13px 15px;outline:none;transition:var(--t);-webkit-appearance:none}
-.fi:focus,.fsel:focus,.fta:focus{border-color:var(--accent);background:rgba(0,212,255,0.03);box-shadow:0 0 0 1px rgba(0,212,255,0.08)}
-.fi::placeholder,.fta::placeholder{color:var(--g3)}
-.fta{resize:none;height:110px}
-.fsel option{background:#111;color:var(--w)}
-.frow{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.fsub{width:100%;background:var(--accent);border:none;color:#000;font-family:var(--fb);font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:16px;cursor:pointer;transition:var(--t);margin-top:6px;position:relative;overflow:hidden}
-.fsub::before{content:'';position:absolute;inset:0;background:var(--green);transform:translateX(-100%);transition:transform .4s ease}
-.fsub:hover::before{transform:translateX(0)}
-.fsub:hover{box-shadow:0 0 28px var(--aglow)}
-.fsub span{position:relative;z-index:1}
+/* ─── CONTACT ─── */
+.contact { background: var(--black); }
+.contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: clamp(40px,6vw,80px); align-items: start; }
+.contact-left .sec-title { margin-bottom: 18px; }
+.contact-left > p { font-size: 15px; line-height: 1.85; color: var(--muted); margin-bottom: 40px; }
+.contact-img { margin-bottom: 32px; height: 270px; overflow: hidden; }
+.contact-img img { height: 100%; object-fit: cover; filter: brightness(.8); transition: transform .5s var(--ease); }
+.contact-img:hover img { transform: scale(1.04); }
+.c-links { display: flex; flex-direction: column; gap: 8px; }
+.c-link { display: flex; align-items: center; gap: 14px; padding: 14px 16px; background: var(--dark); border: 1px solid var(--border); color: var(--muted); transition: all .3s; }
+.c-link:hover { border-color: rgba(0,200,150,.25); color: var(--white); background: rgba(0,200,150,.04); transform: translateX(4px); }
+.c-icon { font-size: 15px; width: 30px; text-align: center; flex-shrink: 0; }
+.c-icon.ig { color: #e1306c; } .c-icon.yt { color: #ff0000; }
+.c-icon.wa { color: #25d366; } .c-icon.em { color: var(--accent); }
+.c-label { font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: var(--faint); margin-bottom: 1px; }
+.c-val { font-size: 13px; color: inherit; }
+.c-form { background: var(--dark); border: 1px solid var(--border); padding: clamp(26px,4vw,42px); position: relative; }
+.c-form::before { content:''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--accent), var(--light)); }
+.form-h { font-family: var(--head); font-size: 26px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; margin-bottom: 6px; }
+.form-sub { font-size: 12px; color: var(--muted); margin-bottom: 26px; }
+.fg { margin-bottom: 16px; }
+.fl { display: block; font-size: 10px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+.fi, .fsel, .fta { width: 100%; background: rgba(255,255,255,.03); border: 1px solid var(--border); color: var(--white); font-family: var(--body); font-size: 13px; padding: 13px 14px; outline: none; transition: border-color .3s, background .3s; -webkit-appearance: none; appearance: none; }
+.fi:focus, .fsel:focus, .fta:focus { border-color: var(--accent); background: rgba(0,200,150,.04); }
+.fi::placeholder, .fta::placeholder { color: var(--faint); }
+.fta { resize: none; height: 110px; }
+.fsel option { background: #111; color: var(--white); }
+.frow { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.fsub { width: 100%; background: var(--accent); border: none; color: #000; font-family: var(--head); font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; padding: 16px; cursor: pointer; transition: all .35s var(--ease); margin-top: 4px; }
+.fsub:hover { background: var(--light); box-shadow: 0 8px 28px var(--glow); }
 
-/* ===================== FOOTER ===================== */
-footer{background:#000;padding:clamp(44px,5vw,72px) 5%;border-top:1px solid var(--border)}
-.ft-top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:44px;margin-bottom:52px}
-.ft-logo{font-family:var(--fd);font-size:24px;letter-spacing:.12em;color:var(--w);text-decoration:none;display:block;margin-bottom:14px}
-.ft-logo span{color:var(--accent)}
-.ft-tagline{font-size:12px;color:var(--g3);line-height:1.75;max-width:240px}
-.ft-tagline em{color:var(--g2);font-style:normal}
-.ft-si{display:flex;gap:10px;margin-top:18px}
-.ft-si a{width:34px;height:34px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--g3);text-decoration:none;font-size:13px;transition:var(--t)}
-.ft-si a:hover{border-color:var(--accent);color:var(--accent)}
-.ft-col-t{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--g2);margin-bottom:18px}
-.ft-links{list-style:none;display:flex;flex-direction:column;gap:9px}
-.ft-links a{font-size:12px;color:var(--g3);text-decoration:none;transition:color .3s}
-.ft-links a:hover{color:var(--accent)}
-.ft-bot{display:flex;justify-content:space-between;align-items:center;padding-top:22px;border-top:1px solid var(--border)}
-.ft-bot p{font-size:11px;color:var(--g3)}
-.ft-bot-links{display:flex;gap:20px}
-.ft-bot-links a{font-size:11px;color:var(--g3);text-decoration:none;transition:color .3s}
-.ft-bot-links a:hover{color:var(--accent)}
+/* ─── FOOTER ─── */
+footer { background: #040705; border-top: 1px solid var(--border); padding: clamp(44px,6vw,72px) 6%; }
+.ft-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 44px; margin-bottom: 52px; }
+.ft-brand a { font-family: var(--head); font-size: 22px; font-weight: 700; letter-spacing: .08em; color: var(--white); display: block; margin-bottom: 14px; }
+.ft-brand a span { color: var(--accent); }
+.ft-brand p { font-size: 13px; color: var(--faint); line-height: 1.8; max-width: 240px; }
+.ft-socials { display: flex; gap: 10px; margin-top: 20px; }
+.ft-socials a { width: 36px; height: 36px; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--faint); font-size: 14px; transition: all .3s; }
+.ft-socials a:hover { border-color: var(--accent); color: var(--accent); }
+.ft-col-h { font-size: 10px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--muted); margin-bottom: 18px; }
+.ft-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.ft-col ul a { font-size: 13px; color: var(--faint); transition: color .3s; }
+.ft-col ul a:hover { color: var(--white); }
+.ft-bot { display: flex; align-items: center; justify-content: space-between; padding-top: 28px; border-top: 1px solid var(--border); }
+.ft-bot p { font-size: 12px; color: var(--faint); }
+.ft-bot-links { display: flex; gap: 20px; }
+.ft-bot-links a { font-size: 12px; color: var(--faint); transition: color .3s; }
+.ft-bot-links a:hover { color: var(--accent); }
 
-/* ===================== RESPONSIVE ===================== */
-@media(max-width:1024px){
-  .prog-grid{grid-template-columns:repeat(2,1fr)}
-  .ft-top{grid-template-columns:1fr 1fr}
-  .afloat{display:none}
+/* ─── RESPONSIVE ─── */
+@media (max-width:1024px) {
+  .prog-grid { grid-template-columns: repeat(2,1fr); }
+  .ft-grid { grid-template-columns: 1fr 1fr; }
+  .gallery-grid { grid-template-columns: repeat(3,1fr); }
+  .gitem:nth-child(1) { grid-column: span 2; }
+  .gitem:nth-child(6) { grid-column: span 1; }
 }
-@media(max-width:768px){
-  .nav-ul,.nav-btn{display:none}
-  .hamburger{display:flex}
-  .about-grid{grid-template-columns:1fr}
-  .about-vis{order:-1}
-  .res-grid{grid-template-columns:1fr;gap:44px}
-  .prog-grid{grid-template-columns:1fr}
-  .contact-grid{grid-template-columns:1fr;gap:44px}
-  .ft-top{grid-template-columns:1fr;gap:28px}
-  .ft-bot{flex-direction:column;gap:14px;text-align:center}
-  .ggrid{grid-template-columns:repeat(2,1fr)}
-  .gitem:nth-child(1){grid-column:span 2}
-  .gitem:nth-child(4),.gitem:nth-child(7){grid-column:span 1}
-  .tl-item,.tl-item:nth-child(even){flex-direction:column;gap:12px;margin-left:28px}
-  .tl-item:nth-child(even) .tl-content{text-align:left}
-  .tl-line,.tl-prog,.tl-dot{left:0}
-  .about-cards{grid-template-columns:1fr}
-  .frow{grid-template-columns:1fr}
-  .stats-grid{grid-template-columns:1fr 1fr}
-  .hero-stats{gap:20px}
+@media (max-width:768px) {
+  .nav-links, .nav-cta { display: none; }
+  .hbg { display: flex; }
+  .about-grid, .contact-grid { grid-template-columns: 1fr; }
+  .about-img-wrap { order: -1; }
+  .about-img-wrap img { height: 400px; }
+  .about-badge { bottom: 12px; right: 12px; }
+  .testi-grid, .prog-grid { grid-template-columns: 1fr; }
+  .stats-strip { grid-template-columns: 1fr 1fr; }
+  .stat-item:nth-child(2) { border-right: none; }
+  .week { grid-template-columns: repeat(4,1fr); }
+  .gallery-grid { grid-template-columns: repeat(2,1fr); }
+  .gitem:nth-child(1) { grid-column: span 2; }
+  .gitem:nth-child(6) { grid-column: span 2; }
+  .ft-grid { grid-template-columns: 1fr; gap: 28px; }
+  .ft-bot { flex-direction: column; gap: 12px; text-align: center; }
+  .frow { grid-template-columns: 1fr; }
+  .gallery-head { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .attrs { grid-template-columns: 1fr; }
 }
-@media(max-width:480px){
-  .hero-btns{flex-direction:column;align-items:stretch;max-width:260px;margin:0 auto}
-  .ggrid{grid-template-columns:1fr}
-  .gitem:nth-child(1){grid-column:span 1}
+@media (max-width:500px) {
+  .week { grid-template-columns: repeat(2,1fr); }
+  .hero-btns { flex-direction: column; align-items: stretch; max-width: 260px; }
+  .gallery-grid { grid-template-columns: 1fr 1fr; }
 }
 </style>
 </head>
 <body class="loading">
 
 <!-- LOADER -->
-<div class="loader" id="loader">
-  <div class="loader-logo">Train<span>With</span>Krish</div>
-  <div class="loader-bar"><div class="loader-fill"></div></div>
+<div id="loader">
+  <div class="ld-logo">Train<span>With</span>Krish</div>
+  <div class="ld-track"><div class="ld-fill"></div></div>
 </div>
 
 <!-- CURSOR -->
-<div class="cur-dot" id="cDot"></div>
-<div class="cur-ring" id="cRing"></div>
-<div class="mglow" id="mglow"></div>
-
-<!-- SCROLL PROGRESS -->
-<div class="sprog" id="sprog"></div>
+<div id="cur"></div>
+<div id="cur-ring"></div>
+<div id="prog"></div>
 
 <!-- NAVBAR -->
 <nav class="nav" id="nav">
   <a href="#home" class="nav-logo">Train<span>With</span>Krish</a>
-  <ul class="nav-ul">
+  <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#programs">Programs</a></li>
-    <li><a href="#results">Results</a></li>
     <li><a href="#gallery">Gallery</a></li>
-    <li><a href="#discipline">Discipline</a></li>
+    <li><a href="#schedule">Schedule</a></li>
+    <li><a href="#contact">Contact</a></li>
   </ul>
-  <a href="#contact" class="nav-btn">Start Training</a>
-  <button class="hamburger" id="hbg" aria-label="Menu" aria-expanded="false">
-    <span></span><span></span><span></span>
-  </button>
+  <a href="#contact" class="nav-cta">Get Coached</a>
+  <button class="hbg" id="hbg" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
 
 <!-- MOBILE NAV -->
-<div class="mobnav" id="mobnav">
+<div class="mob" id="mob">
   <a href="#about">About</a>
   <a href="#programs">Programs</a>
-  <a href="#results">Results</a>
   <a href="#gallery">Gallery</a>
-  <a href="#discipline">Discipline</a>
+  <a href="#schedule">Schedule</a>
   <a href="#contact">Contact</a>
 </div>
 
-<!-- HERO -->
+<!-- HERO — outdoor running/calisthenics -->
 <section class="hero" id="home">
-  <canvas id="hcanvas"></canvas>
-  <div class="hero-bg"></div>
-  <div class="hero-grid"></div>
-  <div class="hshape hs1"></div>
-  <div class="hshape hs2"></div>
-  <div class="hshape hs3"></div>
-  <div class="hero-content">
-    <div class="hero-eye">Bodyweight &bull; Calisthenics &bull; Discipline</div>
+  <div class="hero-img">
+    <img id="hero-img"
+      src="https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?auto=format&fit=crop&w=1920&q=85"
+      alt="Outdoor running — bodyweight training">
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-body">
+    <div class="hero-tag">Calisthenics &bull; Bodyweight &bull; Outdoor Training</div>
     <h1 class="hero-h1">
-      Master
-      <span class="l2">Your</span>
-      <span class="l3">Body.</span>
+      No Gym.<br>
+      <span class="outline">No Limits.</span><br>
+      <em>Just You.</em>
     </h1>
-    <p class="hero-sub">
-      <span>Train Anywhere</span> &nbsp;&bull;&nbsp;
-      <span>Become Unstoppable</span> &nbsp;&bull;&nbsp;
-      <span>No Gym Required</span>
-    </p>
+    <p class="hero-p">Pure bodyweight training — running, push-ups, pull-ups, handstands. Build an elite physique anywhere, with nothing but discipline and the ground beneath your feet.</p>
     <div class="hero-btns">
-      <a href="#programs" class="btn-p"><span>Start Training</span></a>
-      <a href="#about" class="btn-o">View Programs</a>
-    </div>
-    <div class="hero-stats">
-      <div>
-        <span class="hstat-n" data-count="7" data-suf="+">0+</span>
-        <p class="hstat-l">Years Experience</p>
-      </div>
-      <div>
-        <span class="hstat-n" data-count="500" data-suf="+">0+</span>
-        <p class="hstat-l">Clients Trained</p>
-      </div>
-      <div>
-        <span class="hstat-n" data-count="365" data-suf="">0</span>
-        <p class="hstat-l">Days Discipline</p>
-      </div>
+      <a href="#programs" class="btn-main">Explore Programs</a>
+      <a href="#about" class="btn-ghost">Meet Krish</a>
     </div>
   </div>
   <div class="hero-scroll">
+    <div class="scroll-line"></div>
     <span>Scroll</span>
-    <div class="sline"></div>
   </div>
 </section>
 
-<!-- WAVE -->
-<div class="wsep"><svg viewBox="0 0 1440 70" fill="none" preserveAspectRatio="none"><path d="M0 35 C360 70 1080 0 1440 35 L1440 70 L0 70 Z" fill="#0a0a0f"/></svg></div>
+<!-- STATS STRIP -->
+<div class="stats-strip">
+  <div class="stat-item fade d1">
+    <div class="stat-num"><span class="cu" data-t="500">0</span><sup>+</sup></div>
+    <div class="stat-lbl">Clients Transformed</div>
+  </div>
+  <div class="stat-item fade d2">
+    <div class="stat-num"><span class="cu" data-t="7">0</span><sup>+</sup></div>
+    <div class="stat-lbl">Years Experience</div>
+  </div>
+  <div class="stat-item fade d3">
+    <div class="stat-num"><span class="cu" data-t="98">0</span><sup>%</sup></div>
+    <div class="stat-lbl">Success Rate</div>
+  </div>
+  <div class="stat-item fade d4">
+    <div class="stat-num"><span class="cu" data-t="365">0</span><sup></sup></div>
+    <div class="stat-lbl">Days of Discipline</div>
+  </div>
+</div>
 
 <!-- ABOUT -->
-<section class="about sp" id="about">
+<section class="about sec" id="about">
   <div class="about-grid">
-    <div class="about-vis rl">
-      <div class="about-img">
-        <div class="aimg-avatar"><i class="fas fa-person-running"></i></div>
-        <div class="aimg-name">KRISH</div>
-        <div class="aimg-role">Elite Calisthenics Coach</div>
-        <div class="aimg-stats">
-          <div class="aimg-stat"><div class="aimg-stat-n">25+</div><div class="aimg-stat-l">Pull Ups</div></div>
-          <div class="aimg-stat"><div class="aimg-stat-n" style="color:rgba(57,255,20,0.6)">40+</div><div class="aimg-stat-l">Dips</div></div>
-        </div>
-        <div class="aimg-tag">Coach &amp; Athlete</div>
-      </div>
-      <div class="afloat">
-        <div class="afloat-n">7+</div>
-        <div class="afloat-l">Years Training</div>
+    <!-- outdoor calisthenics / pull-ups image -->
+    <div class="about-img-wrap fade-l">
+      <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=800&q=80"
+           alt="Krish — Elite Calisthenics Coach">
+      <div class="about-badge">
+        <div class="about-badge-n">3+</div>
+        <div class="about-badge-l">Yrs Elite</div>
       </div>
     </div>
     <div class="about-text">
-      <div class="slabel reveal">About Krish</div>
-      <h2 class="stitle reveal d1">
-        No Gym.<br>
-        <span class="sk">No Excuses.</span><br>
-        <span class="ac">Just Discipline.</span>
+      <div class="sec-label fade">About Krish</div>
+      <h2 class="sec-title fade d1">
+        Built Outside.<br>
+        <span class="dim">Proven Daily.</span><br>
+        <span class="ac">Zero Equipment.</span>
       </h2>
-      <blockquote class="about-quote reveal d2">"Your body is the most powerful machine ever built. Master it."</blockquote>
-      <p class="reveal d2">I'm Krish — a calisthenics athlete and movement coach who built an elite physique using nothing but <strong>bodyweight, discipline, and relentless consistency.</strong></p>
-      <p class="reveal d3">No gym membership. No fancy equipment. Just the ground beneath your feet and the will to push further than you thought possible.</p>
-      <div class="about-cards">
-        <div class="acard reveal d1"><div class="acard-icon"><i class="fas fa-dumbbell"></i></div><div class="acard-title">Strength</div><div class="acard-desc">Raw, functional strength that translates to real-world performance.</div></div>
-        <div class="acard reveal d2"><div class="acard-icon"><i class="fas fa-arrows-alt"></i></div><div class="acard-title">Mobility</div><div class="acard-desc">Move freely, pain-free. Full range of motion in every joint.</div></div>
-        <div class="acard reveal d3"><div class="acard-icon"><i class="fas fa-bolt"></i></div><div class="acard-title">Endurance</div><div class="acard-desc">Train your body and mind to go further when others quit.</div></div>
-        <div class="acard reveal d4"><div class="acard-icon"><i class="fas fa-brain"></i></div><div class="acard-title">Mindset</div><div class="acard-desc">The body achieves what the mind believes. Forge iron discipline.</div></div>
+      <blockquote class="fade d2">"Your body is the most powerful machine ever built. No membership required."</blockquote>
+      <p class="fade d2">I'm Kishore — a calisthenics athlete and movement coach who built an elite physique using nothing but <strong>bodyweight, open air, and relentless consistency.</strong> No machines, no dumbbells, no excuses.</p>
+      <p class="fade d3">Push-ups, pull-ups, handstands, running — the oldest forms of human movement are still the most effective. My coaching system proves it, one rep at a time.</p>
+      <div class="attrs">
+        <div class="attr fade d1"><div class="attr-icon"><i class="fas fa-person-running"></i></div><div class="attr-title">Conditioning</div><div class="attr-desc">Run further, breathe easier, move faster.</div></div>
+        <div class="attr fade d2"><div class="attr-icon"><i class="fas fa-hand-fist"></i></div><div class="attr-title">Strength</div><div class="attr-desc">Push, pull, squat — pure functional force.</div></div>
+        <div class="attr fade d3"><div class="attr-icon"><i class="fas fa-arrows-alt"></i></div><div class="attr-title">Mobility</div><div class="attr-desc">Move freely and pain-free every single day.</div></div>
+        <div class="attr fade d4"><div class="attr-icon"><i class="fas fa-brain"></i></div><div class="attr-title">Mindset</div><div class="attr-desc">Discipline that shows up before motivation does.</div></div>
       </div>
     </div>
   </div>
 </section>
-
-<!-- WAVE -->
-<div class="wsep" style="transform:rotate(180deg)"><svg viewBox="0 0 1440 70" fill="none" preserveAspectRatio="none"><path d="M0 35 C360 70 1080 0 1440 35 L1440 70 L0 70 Z" fill="#050508"/></svg></div>
 
 <!-- PROGRAMS -->
-<section class="programs sp" id="programs">
-  <div class="prog-hdr">
-    <div class="slabel reveal">Training Programs</div>
-    <h2 class="stitle reveal d1">Choose Your<br><span class="ac">Path.</span></h2>
+<section class="programs sec" id="programs">
+  <div class="prog-head">
+    <div class="sec-label fade">Training Programs</div>
+    <h2 class="sec-title fade d1">Choose Your<br><span class="ac">Path.</span></h2>
+    <p class="fade d2">Six bodyweight programs — each built around real movement, real effort, and real results. No gym ever required.</p>
   </div>
   <div class="prog-grid">
-    <div class="pcard reveal d1">
-      <div class="pcard-top"><div class="picon"><i class="fas fa-seedling"></i></div><span class="pnum">01</span></div>
-      <h3>Beginner Calisthenics</h3>
-      <p class="pcard-desc">Start from zero. Build your foundation with push-ups, pull-ups, dips, and squat variations. The start of your transformation.</p>
-      <div class="ptags"><span class="ptag">8 Weeks</span><span class="ptag">Beginner</span><span class="ptag">No Equipment</span></div>
-      <a href="#contact" class="pcta">Get Started <i class="fas fa-arrow-right"></i></a>
+
+    <div class="pcard fade d1">
+      <div class="pcard-img">
+        <!-- push-ups / beginner bodyweight outdoor -->
+        <img src="https://imgs.search.brave.com/5Wc9_bze-cvmc99QFG9eaafDZmml_FUi4GPMFVGEc-4/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMjE5/ODUyNzU4OS9waG90/by9tYW4tZG9pbmct/YS1oYW5kc3RhbmQt/b24taGlnaC12aWV3/cG9pbnQtb24tbW91/bnRhaW4tcmFpbGlu/Zy1lZGdlLXNpbGhv/dWV0dGUuanBnP3M9/NjEyeDYxMiZ3PTAm/az0yMCZjPUJJM2RN/ZE4zcUdCNjhYM2la/Z29DekptR19hcFJT/RUVWcV9tVWJIVnJk/Y1E9?auto=format&fit=crop&w=600&q=80"
+             alt="Beginner bodyweight training">
+        <div class="pcard-img-ov"></div><span class="pcard-num">01</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">Beginner Calisthenics</div>
+        <p class="pcard-desc">Start from zero. Push-ups, bodyweight squats, hanging holds, and basic pull-up progressions — all outdoors, all free.</p>
+        <div class="pcard-tags"><span class="ptag">8 Weeks</span><span class="ptag">Beginner</span><span class="ptag">No Equipment</span></div>
+        <div class="pcard-foot">
+          <a href="#contact" class="pcard-cta">Get Started <i class="fas fa-arrow-right"></i></a>
+          <span class="pcard-level">Foundation</span>
+        </div>
+      </div>
     </div>
-    <div class="pcard reveal d2">
-      <div class="pcard-top"><div class="picon"><i class="fas fa-fire"></i></div><span class="pnum">02</span></div>
-      <h3>Fat Loss Training</h3>
-      <p class="pcard-desc">Torch fat without cardio machines. High-intensity circuits designed to shred body fat while preserving hard-earned muscle.</p>
-      <div class="ptags"><span class="ptag">12 Weeks</span><span class="ptag">HIIT</span><span class="ptag">Nutrition Guide</span></div>
-      <a href="#contact" class="pcta">Get Started <i class="fas fa-arrow-right"></i></a>
+
+    <div class="pcard fade d2">
+      <div class="pcard-img">
+        <!-- outdoor running -->
+        <img src="https://images.unsplash.com/photo-1571008887538-b36bb32f4571?auto=format&fit=crop&w=600&q=80"
+             alt="Outdoor running and cardio">
+        <div class="pcard-img-ov"></div><span class="pcard-num">02</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">Run &amp; Condition</div>
+        <p class="pcard-desc">Sprint intervals, long runs, and bodyweight circuits. Torch fat, build endurance, and develop an engine that never quits.</p>
+        <div class="pcard-tags"><span class="ptag">12 Weeks</span><span class="ptag">Cardio</span><span class="ptag">Outdoor</span></div>
+        <div class="pcard-foot">
+          <a href="#contact" class="pcard-cta">Get Started <i class="fas fa-arrow-right"></i></a>
+          <span class="pcard-level">All Levels</span>
+        </div>
+      </div>
     </div>
-    <div class="pcard reveal d3">
-      <div class="pcard-top"><div class="picon"><i class="fas fa-layer-group"></i></div><span class="pnum">03</span></div>
-      <h3>Muscle Building</h3>
-      <p class="pcard-desc">Build an aesthetic, powerful physique using progressive overload principles — pure bodyweight, no excuses.</p>
-      <div class="ptags"><span class="ptag">16 Weeks</span><span class="ptag">Progressive</span><span class="ptag">Advanced</span></div>
-      <a href="#contact" class="pcta">Get Started <i class="fas fa-arrow-right"></i></a>
+
+    <div class="pcard fade d3">
+      <div class="pcard-img">
+        <!-- push-ups outdoor -->
+        <img src="https://images.unsplash.com/photo-1549060279-7e168fcee0c2?auto=format&fit=crop&w=600&q=80"
+             alt="Outdoor push-ups and muscle building">
+        <div class="pcard-img-ov"></div><span class="pcard-num">03</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">Muscle Building</div>
+        <p class="pcard-desc">Build an aesthetic, powerful physique using progressive push-ups, pull-ups, and dips. Pure bodyweight, maximum gains.</p>
+        <div class="pcard-tags"><span class="ptag">16 Weeks</span><span class="ptag">Progressive</span><span class="ptag">Advanced</span></div>
+        <div class="pcard-foot">
+          <a href="#contact" class="pcard-cta">Get Started <i class="fas fa-arrow-right"></i></a>
+          <span class="pcard-level">Advanced</span>
+        </div>
+      </div>
     </div>
-    <div class="pcard reveal d1">
-      <div class="pcard-top"><div class="picon"><i class="fas fa-spa"></i></div><span class="pnum">04</span></div>
-      <h3>Mobility &amp; Flexibility</h3>
-      <p class="pcard-desc">Move like an athlete. Deepen range of motion, fix imbalances, eliminate chronic pain and prevent injury.</p>
-      <div class="ptags"><span class="ptag">6 Weeks</span><span class="ptag">Daily Practice</span><span class="ptag">All Levels</span></div>
-      <a href="#contact" class="pcta">Get Started <i class="fas fa-arrow-right"></i></a>
+
+    <div class="pcard fade d1">
+      <div class="pcard-img">
+        <!-- stretching / mobility outdoor -->
+        <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=600&q=80"
+             alt="Mobility and flexibility training">
+        <div class="pcard-img-ov"></div><span class="pcard-num">04</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">Mobility &amp; Flexibility</div>
+        <p class="pcard-desc">Move like an athlete. Deepen your range of motion, fix imbalances, eliminate chronic pain, and stay injury-free for life.</p>
+        <div class="pcard-tags"><span class="ptag">6 Weeks</span><span class="ptag">Daily Practice</span><span class="ptag">All Levels</span></div>
+        <div class="pcard-foot">
+          <a href="#contact" class="pcard-cta">Get Started <i class="fas fa-arrow-right"></i></a>
+          <span class="pcard-level">All Levels</span>
+        </div>
+      </div>
     </div>
-    <div class="pcard reveal d2">
-      <div class="pcard-top"><div class="picon"><i class="fas fa-street-view"></i></div><span class="pnum">05</span></div>
-      <h3>Street Workout Skills</h3>
-      <p class="pcard-desc">Master advanced movements: muscle-ups, handstands, front levers, planche progressions. Elite calisthenics unlocked.</p>
-      <div class="ptags"><span class="ptag">Ongoing</span><span class="ptag">Skills</span><span class="ptag">Intermediate+</span></div>
-      <a href="#contact" class="pcta">Get Started <i class="fas fa-arrow-right"></i></a>
+
+    <div class="pcard fade d2">
+      <div class="pcard-img">
+        <!-- street workout / pull-ups bars outdoor -->
+        <img src="https://imgs.search.brave.com/Uv7fLBrdfDwazLN419ocJXaDwOYE3UkghFxkWsMZDl0/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93YWxs/cGFwZXJhY2Nlc3Mu/Y29tL2Z1bGwvMzUx/MjYzNi5qcGc?auto=format&fit=crop&w=600&q=80"
+             alt="Street workout pull-ups and skills">
+        <div class="pcard-img-ov"></div><span class="pcard-num">05</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">Street Workout Skills</div>
+        <p class="pcard-desc">Master muscle-ups, handstands, front levers, and planche progressions. Elite calisthenics on the outdoor bars — unlocked.</p>
+        <div class="pcard-tags"><span class="ptag">Ongoing</span><span class="ptag">Skills</span><span class="ptag">Intermediate+</span></div>
+        <div class="pcard-foot">
+          <a href="#contact" class="pcard-cta">Get Started <i class="fas fa-arrow-right"></i></a>
+          <span class="pcard-level">Intermediate+</span>
+        </div>
+      </div>
     </div>
-    <div class="pcard reveal d3">
-      <div class="pcard-top"><div class="picon"><i class="fas fa-home"></i></div><span class="pnum">06</span></div>
-      <h3>Home Workout Plans</h3>
-      <p class="pcard-desc">Zero equipment. Maximum results. Built for your living room, rooftop, or anywhere you call home.</p>
-      <div class="ptags"><span class="ptag">Flexible</span><span class="ptag">Zero Equipment</span><span class="ptag">All Levels</span></div>
-      <a href="#contact" class="pcta">Get Started <i class="fas fa-arrow-right"></i></a>
+
+    <div class="pcard fade d3">
+      <div class="pcard-img">
+        <!-- home/outdoor minimal space workout -->
+        <img src="https://images.unsplash.com/photo-1605296867304-46d5465a13f1?auto=format&fit=crop&w=600&q=80"
+             alt="Home and outdoor bodyweight workout">
+        <div class="pcard-img-ov"></div><span class="pcard-num">06</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">Home Workout Plans</div>
+        <p class="pcard-desc">Zero equipment, zero excuses. Built for your living room, balcony, rooftop — anywhere with 2 metres of space.</p>
+        <div class="pcard-tags"><span class="ptag">Flexible</span><span class="ptag">Zero Equipment</span><span class="ptag">All Levels</span></div>
+        <div class="pcard-foot">
+          <a href="#contact" class="pcard-cta">Get Started <i class="fas fa-arrow-right"></i></a>
+          <span class="pcard-level">All Levels</span>
+        </div>
+      </div>
     </div>
+
   </div>
 </section>
 
-<!-- RESULTS -->
-<section class="results sp" id="results">
-  <div class="res-grid">
+<!-- GALLERY — all outdoor/calisthenics/running images -->
+<section class="gallery sec" id="gallery">
+  <div class="gallery-head">
     <div>
-      <div class="slabel reveal">The Numbers</div>
-      <h2 class="stitle reveal d1">Results<br><span class="sk">Speak</span><br><span class="ac">Loudly.</span></h2>
-      <div class="stats-grid">
-        <div class="sblock reveal d1"><div class="snum"><span class="cu" data-t="500">0</span><span class="ssuf">+</span></div><div class="slbl">Clients Transformed</div></div>
-        <div class="sblock reveal d2"><div class="snum"><span class="cu" data-t="7">0</span><span class="ssuf">+</span></div><div class="slbl">Years Experience</div></div>
-        <div class="sblock reveal d3"><div class="snum"><span class="cu" data-t="98">0</span><span class="ssuf">%</span></div><div class="slbl">Success Rate</div></div>
-        <div class="sblock reveal d4"><div class="snum"><span class="cu" data-t="2500">0</span><span class="ssuf">+</span></div><div class="slbl">Workouts Delivered</div></div>
+      <div class="sec-label fade">In Motion</div>
+      <h2 class="sec-title fade d1">The <span class="ac">Work.</span></h2>
+    </div>
+    <div class="gallery-sub fade d2">Every frame, a rep earned outdoors.</div>
+  </div>
+  <div class="gallery-grid">
+    <!-- large hero cell — outdoor running -->
+    <div class="gitem fade d1">
+      <img src="https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?auto=format&fit=crop&w=900&q=80" alt="Running outdoors">
+      <div class="g-over"><i class="fas fa-expand-alt"></i><span>Running</span></div>
+    </div>
+    <!-- pull-ups -->
+    <div class="gitem fade d2">
+      <img src="https://as1.ftcdn.net/v2/jpg/05/01/16/86/1000_F_501168695_04ESdzVg7HaAfixfV0ugsRxJKdbFdoVe.jpg?auto=format&fit=crop&w=450&q=80" alt="Pull-ups calisthenics">
+      <div class="g-over"><i class="fas fa-expand-alt"></i><span>Pull-Ups</span></div>
+    </div>
+    <!-- push-ups -->
+    <div class="gitem fade d3">
+      <img src="https://imgs.search.brave.com/NP6u1lVhNAFvgFXdmFBx-dcOgP6urCUhNxlNtfWP5nk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMjIw/NTk4Mzg4Ni9waG90/by9tdXNjdWxhci1i/dWlsZC1tZW4tZXhl/cmNpc2luZy1wdXNo/LXVwcy1pbi1hLWd5/bS5qcGc_cz02MTJ4/NjEyJnc9MCZrPTIw/JmM9NUF1TXZhcFBu/NmtIdVlkQThFYjZW/UVRsVVU4blUzZWQ1/U1UyY3hkaWo3ST0?auto=format&fit=crop&w=450&q=80" alt="Push-ups">
+      <div class="g-over"><i class="fas fa-expand-alt"></i><span>Push-Ups</span></div>
+    </div>
+    <!-- outdoor athlete -->
+    <div class="gitem fade d2">
+      <img src="https://images.unsplash.com/photo-1571008887538-b36bb32f4571?auto=format&fit=crop&w=450&q=80" alt="Outdoor athlete">
+      <div class="g-over"><i class="fas fa-expand-alt"></i><span>Endurance</span></div>
+    </div>
+    <!-- handstand / skills -->
+    <div class="gitem fade d3">
+      <img src="https://imgs.search.brave.com/29zlciX24z0gfKqV7LCHsphw7Sy5TNCa1tL4ViOILBI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/YmV0dGVybWUud29y/bGQvYXJ0aWNsZXMv/d3AtY29udGVudC91/cGxvYWRzLzIwMjYv/MDQvbWlsaXRhcnkt/Y2FsaXN0aGVuaWNz/LXdvcmtvdXQtZm9y/LW1lbi5qcGc?auto=format&fit=crop&w=450&q=80" alt="Calisthenics skills">
+      <div class="g-over"><i class="fas fa-expand-alt"></i><span>Skills</span></div>
+    </div>
+    <!-- outdoor park workout — wide -->
+    <div class="gitem fade d4">
+      <img src="https://imgs.search.brave.com/nKbWO8weehWpDBBs_wZmiRlMFWr2-BUPuV-Lv0NEoKo/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90aHVt/YnMuZHJlYW1zdGlt/ZS5jb20vYi9ncm91/cC13b3Jrb3V0LXNl/c3Npb24tb3V0ZG9v/ci1maXRuZXNzLXBh/cmstY2FsaXN0aGVu/aWNzLWVxdWlwbWVu/dC1zdW5ueS1kYXkt/dGhyZWUtcGVvcGxl/LWVuZ2FnZWQtZW5l/cmdldGljLTM4NzM4/NTU5Mi5qcGc?auto=format&fit=crop&w=900&q=80" alt="Park workout">
+      <div class="g-over"><i class="fas fa-expand-alt"></i><span>Park Workout</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testi sec" id="results">
+  <div class="testi-head">
+    <div class="sec-label fade">Client Stories</div>
+    <h2 class="sec-title fade d1">Results <span class="ac">Speak.</span></h2>
+    <p class="fade d2">Real people. Real bodyweight transformations. No gym, ever.</p>
+  </div>
+  <div class="testi-grid">
+    <div class="tcard fade d1">
+      <div class="t-stars">★★★★★</div>
+      <p class="t-text">"Krish changed everything for me. No gym, no equipment — just his program and the open road. I'm in the best shape of my life and I've never touched a dumbbell."</p>
+      <div class="t-author">
+        <div class="t-av">A</div>
+        <div><div class="t-name">Arjun Mehta</div><div class="t-role">Software Engineer, Mumbai</div></div>
       </div>
     </div>
-    <div class="tstack">
-      <div class="slabel reveal">Client Stories</div>
-      <div class="tcard reveal d1">
-        <div class="tstars">★★★★★</div>
-        <p class="ttext">"Krish completely changed how I see fitness. No gym, no problem. I'm in the best shape of my life at 28 using only his bodyweight protocols."</p>
-        <div class="tauthor">
-          <div class="tavatar">A</div>
-          <div><div class="tname">Arjun Mehta</div><div class="ttitle">Software Engineer, Mumbai</div></div>
-        </div>
+    <div class="tcard fade d2">
+      <div class="t-stars">★★★★★</div>
+      <p class="t-text">"Lost 18 kg in 4 months. Just running, push-ups, and Krish's nutrition guide. No expensive gym, no equipment, zero compromise on results."</p>
+      <div class="t-author">
+        <div class="t-av" style="background:linear-gradient(135deg,#00A876,#00C896)">R</div>
+        <div><div class="t-name">Rahul Sharma</div><div class="t-role">Entrepreneur, Delhi</div></div>
       </div>
-      <div class="tcard reveal d2">
-        <div class="tstars">★★★★★</div>
-        <p class="ttext">"Lost 18kg in 4 months. No expensive gym. Just the program, the discipline, and Krish's constant guidance. This is the real deal."</p>
-        <div class="tauthor">
-          <div class="tavatar" style="background:linear-gradient(135deg,var(--green),var(--accent))">R</div>
-          <div><div class="tname">Rahul Sharma</div><div class="ttitle">Entrepreneur, Delhi</div></div>
-        </div>
-      </div>
-      <div class="tcard reveal d3">
-        <div class="tstars">★★★★★</div>
-        <p class="ttext">"3 months ago I couldn't do a single pull-up. Now I'm hitting muscle-ups. Krish's progression system is unmatched."</p>
-        <div class="tauthor">
-          <div class="tavatar" style="background:linear-gradient(135deg,var(--purple),var(--accent))">V</div>
-          <div><div class="tname">Vikram Nair</div><div class="ttitle">Student, Bangalore</div></div>
-        </div>
+    </div>
+    <div class="tcard fade d3">
+      <div class="t-stars">★★★★★</div>
+      <p class="t-text">"3 months ago I couldn't do a single pull-up. Now I'm hitting muscle-ups on the park bars every morning. Krish's progression is unmatched."</p>
+      <div class="t-author">
+        <div class="t-av" style="background:linear-gradient(135deg,#007A5C,#00C896)">V</div>
+        <div><div class="t-name">Vikram Nair</div><div class="t-role">Student, Bangalore</div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- PHILOSOPHY -->
-<section class="phil sp" id="philosophy">
-  <div class="marquee-wrap">
-    <div class="marquee-track">
-      <span>DISCIPLINE</span><span class="ac">✦</span><span>MOVEMENT IS POWER</span><span class="ac">✦</span>
-      <span>TRAIN WITH INTENT</span><span class="ac">✦</span><span>NO LIMITS</span><span class="ac">✦</span>
-      <span>YOUR BODY IS YOUR GYM</span><span class="ac">✦</span><span>MASTER YOUR BODY</span><span class="ac">✦</span>
-      <span>DISCIPLINE</span><span class="ac">✦</span><span>MOVEMENT IS POWER</span><span class="ac">✦</span>
-      <span>TRAIN WITH INTENT</span><span class="ac">✦</span><span>NO LIMITS</span><span class="ac">✦</span>
-      <span>YOUR BODY IS YOUR GYM</span><span class="ac">✦</span><span>MASTER YOUR BODY</span><span class="ac">✦</span>
-    </div>
+<!-- QUOTE -->
+<div class="quote-sec fade">
+  <div class="quote-bg">
+    <!-- outdoor running / nature -->
+    <img src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?auto=format&fit=crop&w=1920&q=80" alt="Outdoor athlete">
   </div>
-  <div class="pquotes">
-    <div class="qblock reveal">
-      <p>Your Body</p><p class="sk">Is Your</p><p class="ac">Gym.</p>
-      <p class="qsub">— The TrainWithKrish Philosophy</p>
+  <div class="quote-body">
+    <p class="q-text">The <span>streets, parks, and rooftops</span><br>are your gym. They always were.</p>
+    <p class="q-by">— The TrainWithKrish Philosophy</p>
+  </div>
+</div>
+
+<!-- WEEKLY SCHEDULE -->
+<section class="schedule sec" id="schedule">
+  <div class="sched-head">
+    <div class="sec-label fade">The Blueprint</div>
+    <h2 class="sec-title fade d1">A Champion's <span class="ac">Week.</span></h2>
+    <p class="fade d2">Consistency builds champions. This is the weekly bodyweight structure that turns ordinary people into athletes.</p>
+  </div>
+  <div class="week">
+    <div class="day fade d1">
+      <div class="day-name">MON</div>
+      <div class="day-type">Push</div>
+      <div class="day-icon">💪</div>
+      <div class="day-detail">Push-ups, dips, pike press — upper push strength</div>
     </div>
-    <div class="qblock reveal d2">
-      <p>Discipline</p><p class="sk">Beats</p><p class="ac">Motivation.</p>
-      <p class="qsub">— Show Up Every Single Day</p>
+    <div class="day fade d2">
+      <div class="day-name">TUE</div>
+      <div class="day-type">Run</div>
+      <div class="day-icon">🏃</div>
+      <div class="day-detail">5 km outdoor run + sprint finishers</div>
     </div>
-    <div class="qblock reveal d3">
-      <p>Train</p><p class="sk">With</p><p class="ac">Intent.</p>
-      <p class="qsub">— Every Rep Has Purpose</p>
+    <div class="day fade d3">
+      <div class="day-name">WED</div>
+      <div class="day-type">Pull</div>
+      <div class="day-icon">🏋️</div>
+      <div class="day-detail">Pull-ups, chin-ups, rows on bars</div>
+    </div>
+    <div class="day fade d4">
+      <div class="day-name">THU</div>
+      <div class="day-type">Legs</div>
+      <div class="day-icon">🔥</div>
+      <div class="day-detail">Squats, lunges, jump squats, pistols</div>
+    </div>
+    <div class="day fade d1">
+      <div class="day-name">FRI</div>
+      <div class="day-type">Skills</div>
+      <div class="day-icon">🤸</div>
+      <div class="day-detail">Handstands, L-sits, muscle-up progressions</div>
+    </div>
+    <div class="day fade d2">
+      <div class="day-name">SAT</div>
+      <div class="day-type">Long Run</div>
+      <div class="day-icon">🌿</div>
+      <div class="day-detail">8–10 km easy outdoor run or hike</div>
+    </div>
+    <div class="day rest fade d3">
+      <div class="day-name">SUN</div>
+      <div class="day-type">Rest</div>
+      <div class="day-icon">😴</div>
+      <div class="day-detail">Stretching, breathwork, full recovery</div>
     </div>
   </div>
 </section>
-
-<!-- GALLERY -->
-<section class="gallery sp" id="gallery">
-  <div class="gallery-hdr">
-    <div class="slabel reveal">Gallery</div>
-    <h2 class="stitle reveal d1">In <span class="ac">Motion.</span></h2>
-  </div>
-  <div class="ggrid">
-    <div class="gitem reveal"><div class="gph gp1"><i class="fas fa-person-running"></i></div><div class="gov"><i class="fas fa-expand"></i></div></div>
-    <div class="gitem reveal d1"><div class="gph gp2"><i class="fas fa-hand-fist"></i></div><div class="gov"><i class="fas fa-expand"></i></div></div>
-    <div class="gitem reveal d2"><div class="gph gp3"><i class="fas fa-dumbbell"></i></div><div class="gov"><i class="fas fa-expand"></i></div></div>
-    <div class="gitem reveal d3"><div class="gph gp4"><i class="fas fa-fire"></i></div><div class="gov"><i class="fas fa-expand"></i></div></div>
-    <div class="gitem reveal d1"><div class="gph gp5"><i class="fas fa-circle-nodes"></i></div><div class="gov"><i class="fas fa-expand"></i></div></div>
-    <div class="gitem reveal d2"><div class="gph gp6"><i class="fas fa-trophy"></i></div><div class="gov"><i class="fas fa-expand"></i></div></div>
-    <div class="gitem reveal d3"><div class="gph gp7"><i class="fas fa-bolt"></i></div><div class="gov"><i class="fas fa-expand"></i></div></div>
-    <div class="gitem reveal d4"><div class="gph gp8"><i class="fas fa-infinity"></i></div><div class="gov"><i class="fas fa-expand"></i></div></div>
-  </div>
-</section>
-
-<!-- DISCIPLINE -->
-<section class="disc sp" id="discipline">
-  <div class="disc-hdr">
-    <div class="slabel reveal">The System</div>
-    <h2 class="stitle reveal d1">Daily <span class="ac">Discipline</span></h2>
-    <p class="reveal d2">Consistency over intensity. This is how champions are built — one day at a time.</p>
-  </div>
-  <div class="timeline" id="tl">
-    <div class="tl-line"></div>
-    <div class="tl-prog" id="tlp"></div>
-    <div class="tl-item reveal">
-      <div class="tl-content">
-        <div class="tl-icon"><i class="fas fa-sun"></i></div>
-        <div class="tl-time">05:30 AM</div>
-        <div class="tl-title">Morning Activation</div>
-        <div class="tl-desc">Cold exposure, breathwork, mobility flows. Wake the nervous system and prime your body for peak performance.</div>
-      </div>
-      <div class="tl-dot"></div>
-      <div class="tl-spacer"></div>
-    </div>
-    <div class="tl-item reveal d1">
-      <div class="tl-spacer"></div>
-      <div class="tl-dot"></div>
-      <div class="tl-content">
-        <div class="tl-icon"><i class="fas fa-dumbbell"></i></div>
-        <div class="tl-time">06:30 AM</div>
-        <div class="tl-title">Training Block</div>
-        <div class="tl-desc">60–90 minutes of focused bodyweight training. Strength, skills, or conditioning — always with purpose and intent.</div>
-      </div>
-    </div>
-    <div class="tl-item reveal d2">
-      <div class="tl-content">
-        <div class="tl-icon"><i class="fas fa-apple-whole"></i></div>
-        <div class="tl-time">08:00 AM</div>
-        <div class="tl-title">Nutrition &amp; Fuel</div>
-        <div class="tl-desc">Whole foods, adequate protein, strategic hydration. No supplements needed — just clean, intentional eating.</div>
-      </div>
-      <div class="tl-dot"></div>
-      <div class="tl-spacer"></div>
-    </div>
-    <div class="tl-item reveal d3">
-      <div class="tl-spacer"></div>
-      <div class="tl-dot"></div>
-      <div class="tl-content">
-        <div class="tl-icon"><i class="fas fa-moon"></i></div>
-        <div class="tl-time">09:00 PM</div>
-        <div class="tl-title">Recovery &amp; Rest</div>
-        <div class="tl-desc">Stretching, decompression, 8 hours of sleep. Growth happens in recovery — treat it as seriously as training.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- WAVE -->
-<div class="wsep"><svg viewBox="0 0 1440 70" fill="none" preserveAspectRatio="none"><path d="M0 35 C360 0 1080 70 1440 35 L1440 70 L0 70 Z" fill="#0a0a0f"/></svg></div>
 
 <!-- CONTACT -->
-<section class="contact sp" id="contact">
+<section class="contact sec" id="contact">
   <div class="contact-grid">
-    <div class="contact-info">
-      <div class="slabel reveal">Get In Touch</div>
-      <h2 class="stitle reveal d1">Ready to<br><span class="ac">Transform?</span></h2>
-      <p class="reveal d2">Take the first step. Reach out and let's build a program tailored to your body, your goals, your life. No gym needed.</p>
-      <div class="socials reveal d3">
-        <a href="#" class="slink"><div class="sicon ig"><i class="fab fa-instagram"></i></div><div class="stext"><div class="stext-l">Instagram</div><div class="stext-v">@trainwithkrish</div></div><i class="fas fa-arrow-right" style="color:var(--g3);font-size:11px"></i></a>
-        <a href="#" class="slink"><div class="sicon yt"><i class="fab fa-youtube"></i></div><div class="stext"><div class="stext-l">YouTube</div><div class="stext-v">TrainWithKrish</div></div><i class="fas fa-arrow-right" style="color:var(--g3);font-size:11px"></i></a>
-        <a href="#" class="slink"><div class="sicon wa"><i class="fab fa-whatsapp"></i></div><div class="stext"><div class="stext-l">WhatsApp</div><div class="stext-v">+91 98765 43210</div></div><i class="fas fa-arrow-right" style="color:var(--g3);font-size:11px"></i></a>
-        <a href="mailto:krish@trainwithkrish.com" class="slink"><div class="sicon em"><i class="fas fa-envelope"></i></div><div class="stext"><div class="stext-l">Email</div><div class="stext-v">krish@trainwithkrish.com</div></div><i class="fas fa-arrow-right" style="color:var(--g3);font-size:11px"></i></a>
+    <div class="contact-left">
+      <div class="sec-label fade">Get In Touch</div>
+      <h2 class="sec-title fade d1">Ready to<br><span class="ac">Start?</span></h2>
+      <p class="fade d2">No gym needed. Just fill out the form and let's build a bodyweight program tailored to your goals, your schedule, and your space.</p>
+      <div class="contact-img fade d3">
+        <!-- outdoor training -->
+        <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=700&q=80" alt="Training outdoors">
+      </div>
+      <div class="c-links fade d4">
+        <a href="#" class="c-link"><span class="c-icon ig"><i class="fab fa-instagram"></i></span><div><div class="c-label">Instagram</div><div class="c-val">@trainwithkrish</div></div><i class="fas fa-arrow-right" style="margin-left:auto;font-size:11px;color:#3a5248"></i></a>
+        <a href="#" class="c-link"><span class="c-icon yt"><i class="fab fa-youtube"></i></span><div><div class="c-label">YouTube</div><div class="c-val">TrainWithKrish</div></div><i class="fas fa-arrow-right" style="margin-left:auto;font-size:11px;color:#3a5248"></i></a>
+        <a href="#" class="c-link"><span class="c-icon wa"><i class="fab fa-whatsapp"></i></span><div><div class="c-label">WhatsApp</div><div class="c-val">+91 12345</div></div><i class="fas fa-arrow-right" style="margin-left:auto;font-size:11px;color:#3a5248"></i></a>
+        <a href="mailto:kishore@gmail.com" class="c-link"><span class="c-icon em"><i class="fas fa-envelope"></i></span><div><div class="c-label">Email</div><div class="c-val">kishore@gmail.com</div></div><i class="fas fa-arrow-right" style="margin-left:auto;font-size:11px;color:#3a5248"></i></a>
       </div>
     </div>
-    <div class="cform rr">
-      <div class="form-title">START YOUR JOURNEY</div>
-      <div class="form-sub">Fill out the form and I'll get back to you within 24 hours.</div>
+    <div class="c-form fade-r">
+      <div class="form-h">Start Your Journey</div>
+      <div class="form-sub">Fill out the form — I'll get back to you within 24 hours.</div>
       <form id="cform" novalidate>
         <div class="frow">
           <div class="fg"><label class="fl" for="fn">First Name</label><input type="text" id="fn" class="fi" placeholder="Arjun" required></div>
           <div class="fg"><label class="fl" for="ln">Last Name</label><input type="text" id="ln" class="fi" placeholder="Mehta"></div>
         </div>
-        <div class="fg"><label class="fl" for="em">Email Address</label><input type="email" id="em" class="fi" placeholder="arjun@email.com" required></div>
+        <div class="fg"><label class="fl" for="em">Email</label><input type="email" id="em" class="fi" placeholder="arjun@email.com" required></div>
         <div class="fg">
           <label class="fl" for="gl">Your Goal</label>
           <select id="gl" class="fsel">
@@ -700,12 +713,13 @@ footer{background:#000;padding:clamp(44px,5vw,72px) 5%;border-top:1px solid var(
             <option>Fat Loss &amp; Body Recomposition</option>
             <option>Muscle Building &amp; Strength</option>
             <option>Calisthenics Skills</option>
+            <option>Running &amp; Endurance</option>
             <option>Mobility &amp; Flexibility</option>
             <option>General Fitness</option>
           </select>
         </div>
-        <div class="fg"><label class="fl" for="msg">Message</label><textarea id="msg" class="fta" placeholder="Tell me about your current fitness level and what you want to achieve..."></textarea></div>
-        <button type="submit" class="fsub"><span>Send Message — Let's Build</span></button>
+        <div class="fg"><label class="fl" for="msg">Message</label><textarea id="msg" class="fta" placeholder="Tell me about your current fitness level and what you want to achieve…"></textarea></div>
+        <button type="submit" class="fsub">Send Message — Let's Build</button>
       </form>
     </div>
   </div>
@@ -713,211 +727,144 @@ footer{background:#000;padding:clamp(44px,5vw,72px) 5%;border-top:1px solid var(
 
 <!-- FOOTER -->
 <footer>
-  <div class="ft-top">
-    <div>
-      <a href="#home" class="ft-logo">Train<span>With</span>Krish</a>
-      <p class="ft-tagline"><em>"Movement is the medicine for creating change in a person's physical, emotional, and mental state."</em><br><br>Train anywhere. Become unstoppable.</p>
-      <div class="ft-si">
+  <div class="ft-grid">
+    <div class="ft-brand">
+      <a href="#home">Train<span>With</span>Krish</a>
+      <p>"Movement is the medicine for change in a person's physical, emotional, and mental state."<br><br>Train anywhere. Become unstoppable.</p>
+      <div class="ft-socials">
         <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
         <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
         <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
         <a href="#" aria-label="X"><i class="fab fa-x-twitter"></i></a>
       </div>
     </div>
-    <div>
-      <div class="ft-col-t">Programs</div>
-      <ul class="ft-links">
+    <div class="ft-col">
+      <div class="ft-col-h">Programs</div>
+      <ul>
         <li><a href="#programs">Beginner Calisthenics</a></li>
-        <li><a href="#programs">Fat Loss Training</a></li>
+        <li><a href="#programs">Run &amp; Condition</a></li>
         <li><a href="#programs">Muscle Building</a></li>
         <li><a href="#programs">Mobility &amp; Flexibility</a></li>
         <li><a href="#programs">Street Workout Skills</a></li>
       </ul>
     </div>
-    <div>
-      <div class="ft-col-t">Navigate</div>
-      <ul class="ft-links">
+    <div class="ft-col">
+      <div class="ft-col-h">Navigate</div>
+      <ul>
         <li><a href="#about">About Krish</a></li>
-        <li><a href="#results">Results</a></li>
         <li><a href="#gallery">Gallery</a></li>
-        <li><a href="#discipline">Daily Discipline</a></li>
+        <li><a href="#results">Results</a></li>
+        <li><a href="#schedule">Weekly Schedule</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
     </div>
-    <div>
-      <div class="ft-col-t">Philosophy</div>
-      <ul class="ft-links">
-        <li><a href="#philosophy">Train With Intent</a></li>
-        <li><a href="#philosophy">Discipline First</a></li>
-        <li><a href="#philosophy">Movement Mastery</a></li>
+    <div class="ft-col">
+      <div class="ft-col-h">Coaching</div>
+      <ul>
         <li><a href="#contact">1-on-1 Coaching</a></li>
         <li><a href="#contact">Online Programs</a></li>
+        <li><a href="#contact">Custom Plans</a></li>
+        <li><a href="#contact">Nutrition Guide</a></li>
       </ul>
     </div>
   </div>
   <div class="ft-bot">
     <p>&copy; 2026 TrainWithKrish. All rights reserved.</p>
-    <div class="ft-bot-links"><a href="#">Privacy Policy</a><a href="#">Terms</a></div>
+    <div class="ft-bot-links"><a href="#">Privacy</a><a href="#">Terms</a></div>
   </div>
 </footer>
 
 <script>
-/* ===== LOADER ===== */
-window.addEventListener('load',()=>{
-  setTimeout(()=>{
+/* LOADER */
+window.addEventListener('load', () => {
+  setTimeout(() => {
     document.getElementById('loader').classList.add('hide');
     document.body.classList.remove('loading');
-    animateHeroCounters();
-  },2500);
+    document.getElementById('hero-img').classList.add('loaded');
+  }, 2500);
 });
 
-/* ===== CURSOR ===== */
-const cDot=document.getElementById('cDot'),cRing=document.getElementById('cRing'),mg=document.getElementById('mglow');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{
-  mx=e.clientX;my=e.clientY;
-  cDot.style.left=mx+'px';cDot.style.top=my+'px';
-  mg.style.left=mx+'px';mg.style.top=my+'px';
+/* CURSOR */
+const cur = document.getElementById('cur'), ring = document.getElementById('cur-ring');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cur.style.left = mx + 'px'; cur.style.top = my + 'px';
 });
-(function animRing(){
-  rx+=(mx-rx)*.1;ry+=(my-ry)*.1;
-  cRing.style.left=rx+'px';cRing.style.top=ry+'px';
-  requestAnimationFrame(animRing);
+(function loop() {
+  rx += (mx - rx) * .1; ry += (my - ry) * .1;
+  ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+  requestAnimationFrame(loop);
 })();
-document.querySelectorAll('a,button,.pcard,.tcard,.gitem').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{
-    cDot.style.transform='translate(-50%,-50%) scale(2.5)';
-    cRing.style.transform='translate(-50%,-50%) scale(1.6)';
-    cRing.style.borderColor='rgba(57,255,20,0.7)';
-  });
-  el.addEventListener('mouseleave',()=>{
-    cDot.style.transform='translate(-50%,-50%) scale(1)';
-    cRing.style.transform='translate(-50%,-50%) scale(1)';
-    cRing.style.borderColor='rgba(0,212,255,0.5)';
-  });
+document.querySelectorAll('a, button, .pcard, .tcard, .day, .gitem').forEach(el => {
+  el.addEventListener('mouseenter', () => { cur.style.width = '18px'; cur.style.height = '18px'; ring.style.transform = 'translate(-50%,-50%) scale(1.5)'; ring.style.borderColor = 'rgba(52,211,153,.6)'; });
+  el.addEventListener('mouseleave', () => { cur.style.width = '10px'; cur.style.height = '10px'; ring.style.transform = 'translate(-50%,-50%) scale(1)'; ring.style.borderColor = 'rgba(0,200,150,.4)'; });
 });
-if('ontouchstart' in window){
-  cDot.style.display='none';cRing.style.display='none';mg.style.display='none';
-  document.body.style.cursor='auto';
-}
+if ('ontouchstart' in window) { cur.style.display = 'none'; ring.style.display = 'none'; document.body.style.cursor = 'auto'; }
 
-/* ===== SCROLL PROGRESS ===== */
-const sp=document.getElementById('sprog');
-window.addEventListener('scroll',()=>{
-  const pct=window.scrollY/(document.documentElement.scrollHeight-window.innerHeight)*100;
-  sp.style.width=pct+'%';
+/* PROGRESS BAR */
+const prog = document.getElementById('prog');
+window.addEventListener('scroll', () => {
+  prog.style.width = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100) + '%';
 });
 
-/* ===== NAVBAR ===== */
-const nav=document.getElementById('nav'),hbg=document.getElementById('hbg'),mobnav=document.getElementById('mobnav');
-window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>50));
-hbg.addEventListener('click',()=>{
-  hbg.classList.toggle('open');
-  mobnav.classList.toggle('open');
-  document.body.style.overflow=mobnav.classList.contains('open')?'hidden':'';
-  hbg.setAttribute('aria-expanded',mobnav.classList.contains('open'));
+/* NAVBAR */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('solid', window.scrollY > 60));
+const hbg = document.getElementById('hbg'), mob = document.getElementById('mob');
+hbg.addEventListener('click', () => {
+  hbg.classList.toggle('open'); mob.classList.toggle('open');
+  document.body.style.overflow = mob.classList.contains('open') ? 'hidden' : '';
 });
-mobnav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
-  hbg.classList.remove('open');mobnav.classList.remove('open');document.body.style.overflow='';
+mob.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  hbg.classList.remove('open'); mob.classList.remove('open'); document.body.style.overflow = '';
 }));
 
-/* Active nav link */
-const navAs=document.querySelectorAll('.nav-ul a');
-new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting) navAs.forEach(a=>{
-      a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id);
-    });
-  });
-},{threshold:.4}).observe&&document.querySelectorAll('section[id]').forEach(s=>{
-  new IntersectionObserver(entries=>{
-    entries.forEach(e=>{if(e.isIntersecting)navAs.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id));});
-  },{threshold:.4}).observe(s);
+/* ACTIVE NAV */
+document.querySelectorAll('section[id]').forEach(s => {
+  new IntersectionObserver(e => {
+    e.forEach(i => { if (i.isIntersecting) document.querySelectorAll('.nav-links a').forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + i.target.id)); });
+  }, { threshold: .4 }).observe(s);
 });
 
-/* ===== HERO CANVAS PARTICLES ===== */
-const cv=document.getElementById('hcanvas'),cx=cv.getContext('2d');
-function rsz(){cv.width=window.innerWidth;cv.height=window.innerHeight;}
-rsz();window.addEventListener('resize',rsz);
-class P{
-  constructor(){this.reset(true);}
-  reset(init){
-    this.x=Math.random()*cv.width;
-    this.y=init?Math.random()*cv.height:cv.height+5;
-    this.r=Math.random()*1.4+.3;
-    this.vx=(Math.random()-.5)*.25;
-    this.vy=-(Math.random()*.35+.08);
-    this.op=Math.random()*.45+.1;
-    this.col=Math.random()>.5?'0,212,255':'57,255,20';
-  }
-  update(){this.x+=this.vx;this.y+=this.vy;this.op-=.0008;if(this.y<0||this.op<=0)this.reset();}
-  draw(){cx.beginPath();cx.arc(this.x,this.y,this.r,0,Math.PI*2);cx.fillStyle=`rgba(${this.col},${this.op})`;cx.fill();}
-}
-const pts=Array.from({length:110},()=>new P());
-(function animP(){
-  cx.clearRect(0,0,cv.width,cv.height);
-  pts.forEach(p=>{p.update();p.draw();});
-  for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){
-    const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);
-    if(d<75){cx.beginPath();cx.strokeStyle=`rgba(0,212,255,${.04*(1-d/75)})`;cx.lineWidth=.5;cx.moveTo(pts[i].x,pts[i].y);cx.lineTo(pts[j].x,pts[j].y);cx.stroke();}
-  }
-  requestAnimationFrame(animP);
-})();
+/* SCROLL REVEAL */
+const ro = new IntersectionObserver(e => e.forEach(i => { if (i.isIntersecting) i.target.classList.add('vis'); }), { threshold: .08, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.fade, .fade-l, .fade-r, .stat-item').forEach(el => ro.observe(el));
 
-/* ===== HERO COUNTER ===== */
-function animateHeroCounters(){
-  document.querySelectorAll('.hstat-n').forEach(el=>{
-    const tgt=+el.dataset.count,suf=el.dataset.suf||'';
-    let cur=0;const step=tgt/(2000/16);
-    const t=setInterval(()=>{cur+=step;if(cur>=tgt){cur=tgt;clearInterval(t);}el.textContent=Math.floor(cur)+suf;},16);
+/* COUNTERS */
+const co = new IntersectionObserver(e => e.forEach(i => {
+  if (!i.isIntersecting) return;
+  i.target.querySelectorAll('.cu').forEach(el => {
+    const tgt = +el.dataset.t; let cur = 0;
+    const step = tgt / (1800 / 16);
+    const t = setInterval(() => { cur += step; if (cur >= tgt) { cur = tgt; clearInterval(t); } el.textContent = Math.floor(cur).toLocaleString(); }, 16);
   });
-}
+  co.unobserve(i.target);
+}), { threshold: .5 });
+const strip = document.querySelector('.stats-strip');
+if (strip) co.observe(strip);
 
-/* ===== SCROLL REVEAL ===== */
-const ro=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');});
-},{threshold:.08,rootMargin:'0px 0px -40px 0px'});
-document.querySelectorAll('.reveal,.rl,.rr,.qblock,.sblock').forEach(el=>ro.observe(el));
-
-/* ===== COUNT-UP ===== */
-const co=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(!e.isIntersecting)return;
-    const el=e.target,tgt=+el.dataset.t;
-    let cur=0;const step=tgt/(1800/16);
-    const t=setInterval(()=>{cur+=step;if(cur>=tgt){cur=tgt;clearInterval(t);}el.textContent=Math.floor(cur).toLocaleString();},16);
-    co.unobserve(el);
-  });
-},{threshold:.5});
-document.querySelectorAll('.cu').forEach(el=>co.observe(el));
-
-/* ===== TIMELINE ===== */
-new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting)document.getElementById('tlp').style.height='100%';});
-},{threshold:.25}).observe(document.getElementById('tl'));
-
-/* ===== PARALLAX ===== */
-window.addEventListener('scroll',()=>{
-  const y=window.scrollY;
-  const hg=document.querySelector('.hero-grid');
-  const hb=document.querySelector('.hero-bg');
-  if(hg)hg.style.transform=`translateY(${y*.25}px)`;
-  if(hb)hb.style.transform=`translateY(${y*.15}px)`;
+/* HERO PARALLAX */
+window.addEventListener('scroll', () => {
+  const img = document.querySelector('.hero-img img');
+  if (img) img.style.transform = `translateY(${window.scrollY * .22}px)`;
 });
 
-/* ===== CONTACT FORM ===== */
-document.getElementById('cform').addEventListener('submit',e=>{
+/* CONTACT FORM */
+document.getElementById('cform').addEventListener('submit', e => {
   e.preventDefault();
-  const s=e.target.querySelector('.fsub span');
-  s.textContent='Message Sent! ✓';
-  setTimeout(()=>{s.textContent="Send Message — Let's Build";e.target.reset();},3000);
+  const btn = e.target.querySelector('.fsub');
+  btn.textContent = 'Message Sent ✓';
+  btn.style.background = '#007A5C';
+  btn.style.color = '#fff';
+  setTimeout(() => { btn.textContent = "Send Message — Let's Build"; btn.style.background = ''; btn.style.color = ''; e.target.reset(); }, 3500);
 });
 
-/* ===== SMOOTH ANCHORS ===== */
-document.querySelectorAll('a[href^="#"]').forEach(a=>{
-  a.addEventListener('click',e=>{
-    const t=document.querySelector(a.getAttribute('href'));
-    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'});}
+/* SMOOTH ANCHORS */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
   });
 });
 </script>
