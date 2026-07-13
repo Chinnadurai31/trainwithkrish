@@ -7,7 +7,7 @@
   <title>TrainWithKrish — Personal Fitness Coaching</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800;900&family=Barlow:wght@500;600;700;800&display=swap" rel="stylesheet"/>
   <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
@@ -28,7 +28,7 @@
   --r:10px;--r2:16px;--r3:22px;
 }
 html{scroll-behavior:smooth}
-body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 a{text-decoration:none;color:inherit;transition:var(--t)}
 ul{list-style:none}
 button,input,select,textarea{font-family:inherit;border:none;outline:none;background:none;font-size:inherit}
@@ -46,8 +46,8 @@ button,input,select,textarea{font-family:inherit;border:none;outline:none;backgr
 #nav.sc{background:rgba(248,249,252,.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);padding:11px 0;border-bottom:1px solid var(--border);box-shadow:0 1px 12px rgba(0,0,0,.06)}
 .nav-row{display:flex;align-items:center;justify-content:space-between}
 .nav-logo{display:flex;align-items:center;gap:10px}
-.logo-sq{width:38px;height:38px;background:var(--grad);border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:17px;color:#fff;box-shadow:0 4px 14px var(--glow);flex-shrink:0}
-.logo-name{font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:16px;color:var(--ink)}
+.logo-sq{width:38px;height:38px;background:var(--grad);border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:'Oswald',sans-serif;font-size:17px;color:#fff;box-shadow:0 4px 14px var(--glow);flex-shrink:0}
+.logo-name{font-family:'Barlow',sans-serif;font-weight:800;font-size:16px;color:var(--ink)}
 .nav-links{display:none}
 .nav-link{font-size:14px;font-weight:500;color:var(--muted)}
 .nav-link:hover{color:var(--ink)}
@@ -57,7 +57,7 @@ button,input,select,textarea{font-family:inherit;border:none;outline:none;backgr
 /* TICKER */
 #ticker{background:var(--grad);padding:10px 0;overflow:hidden;margin-top:60px}
 .ticker-track{display:flex;white-space:nowrap;animation:tick 22s linear infinite}
-.ticker-track span{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:3px;color:#fff;padding:0 22px;opacity:.9}
+.ticker-track span{font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:3px;color:#fff;padding:0 22px;opacity:.9}
 .ticker-track .dot{opacity:.45}
 @keyframes tick{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 
@@ -67,7 +67,7 @@ button,input,select,textarea{font-family:inherit;border:none;outline:none;backgr
 .hero-pill{display:inline-flex;align-items:center;gap:8px;background:rgba(14,165,233,.09);border:1px solid rgba(14,165,233,.25);border-radius:100px;padding:6px 16px;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--blue2);margin-bottom:20px}
 .hero-dot{width:7px;height:7px;background:var(--blue);border-radius:50%;animation:ppulse 2s ease-in-out infinite}
 @keyframes ppulse{0%,100%{box-shadow:0 0 0 0 rgba(14,165,233,.6)}50%{box-shadow:0 0 0 7px rgba(14,165,233,0)}}
-.hero-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(56px,15vw,96px);line-height:.92;letter-spacing:2px;margin-bottom:18px;color:var(--ink)}
+.hero-h{font-family:'Oswald',sans-serif;font-size:clamp(56px,15vw,96px);line-height:.92;letter-spacing:2px;margin-bottom:18px;color:var(--ink)}
 .hero-h .grd{background:var(--grad2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .hero-h .out{-webkit-text-stroke:2px rgba(15,21,35,.18);color:transparent}
 .hero-p{font-size:16px;color:var(--muted);line-height:1.78;max-width:360px;margin:0 auto 32px}
@@ -87,7 +87,7 @@ button,input,select,textarea{font-family:inherit;border:none;outline:none;backgr
 /* SECTION LABELS */
 .stag{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:3.5px;text-transform:uppercase;color:var(--blue2);margin-bottom:12px}
 .stag::before{content:'';width:20px;height:2px;background:var(--grad)}
-.sh{font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,8.5vw,64px);line-height:.95;letter-spacing:2px;margin-bottom:14px;color:var(--ink)}
+.sh{font-family:'Oswald',sans-serif;font-size:clamp(36px,8.5vw,64px);line-height:.95;letter-spacing:2px;margin-bottom:14px;color:var(--ink)}
 .sh .grd{background:var(--grad2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .ssub{font-size:15px;color:var(--muted);line-height:1.8;max-width:480px}
 .sec-hdr{margin-bottom:40px}
@@ -104,7 +104,7 @@ button,input,select,textarea{font-family:inherit;border:none;outline:none;backgr
 .coach-avatar svg{width:52px;height:52px;opacity:.7}
 .avatar-ring{position:absolute;inset:-6px;border-radius:50%;border:1px dashed rgba(14,165,233,.35);animation:spin-slow 10s linear infinite}
 @keyframes spin-slow{to{transform:rotate(360deg)}}
-.coach-name{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:3px;background:var(--grad2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.coach-name{font-family:'Oswald',sans-serif;font-size:26px;letter-spacing:3px;background:var(--grad2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .coach-role{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--muted2);margin-top:3px}
 .about-body{padding:24px}
 .about-p{font-size:15px;color:var(--muted);line-height:1.8;margin-bottom:13px}
@@ -125,7 +125,7 @@ button,input,select,textarea{font-family:inherit;border:none;outline:none;backgr
 .pbadge{font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:4px 12px;border-radius:100px;background:var(--grad);color:#fff;white-space:nowrap}
 .pbadge.outline{background:var(--bg2);border:1px solid var(--border2);color:var(--muted)}
 .pbadge.green{background:var(--grad3)}
-.pname{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:800;margin-bottom:8px;color:var(--ink)}
+.pname{font-family:'Barlow',sans-serif;font-size:20px;font-weight:800;margin-bottom:8px;color:var(--ink)}
 .pdesc{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:18px}
 .plist{display:flex;flex-direction:column;gap:0;margin-bottom:22px}
 .plist li{display:flex;align-items:center;gap:9px;font-size:14px;color:var(--ink3);padding:8px 0;border-bottom:1px solid var(--border)}
@@ -138,11 +138,11 @@ button,input,select,textarea{font-family:inherit;border:none;outline:none;backgr
 .step{display:flex;gap:18px;position:relative;padding-bottom:28px}
 .step:last-child{padding-bottom:0}
 .step-left{display:flex;flex-direction:column;align-items:center;flex-shrink:0}
-.step-num{width:48px;height:48px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:20px;color:#fff;box-shadow:0 4px 16px var(--glow);flex-shrink:0}
+.step-num{width:48px;height:48px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;font-family:'Oswald',sans-serif;font-size:20px;color:#fff;box-shadow:0 4px 16px var(--glow);flex-shrink:0}
 .step-line{flex:1;width:2px;background:linear-gradient(to bottom,var(--blue),transparent);margin-top:6px}
 .step:last-child .step-line{display:none}
 .step-content{padding-top:8px}
-.step-h{font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:800;margin-bottom:6px;color:var(--ink)}
+.step-h{font-family:'Barlow',sans-serif;font-size:17px;font-weight:800;margin-bottom:6px;color:var(--ink)}
 .step-p{font-size:14px;color:var(--muted);line-height:1.7}
 
 /* GALLERY */
@@ -181,7 +181,7 @@ button,input,select,textarea{font-family:inherit;border:none;outline:none;backgr
 .cta-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r3);overflow:hidden;box-shadow:var(--shadow2)}
 .cta-card::before{content:'';display:block;height:3px;background:var(--grad)}
 .cta-inner{padding:32px 22px}
-.cta-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(42px,11vw,66px);line-height:.92;letter-spacing:2px;margin-bottom:12px;color:var(--ink)}
+.cta-h{font-family:'Oswald',sans-serif;font-size:clamp(42px,11vw,66px);line-height:.92;letter-spacing:2px;margin-bottom:12px;color:var(--ink)}
 .cta-h .grd{background:var(--grad2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .cta-p{font-size:15px;color:var(--muted);line-height:1.75;margin-bottom:26px}
 
@@ -196,14 +196,14 @@ button,input,select,textarea{font-family:inherit;border:none;outline:none;backgr
 .ok{display:none;text-align:center;padding:28px 16px}
 .ok.show{display:block}
 .ok-ic{font-size:48px;margin-bottom:12px}
-.ok h3{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;margin-bottom:7px;color:var(--ink)}
+.ok h3{font-family:'Barlow',sans-serif;font-size:20px;font-weight:700;margin-bottom:7px;color:var(--ink)}
 .ok p{font-size:14px;color:var(--muted)}
 
 /* FOOTER */
 #footer{background:var(--ink);color:#e2e8f0;padding:52px 0 24px}
 .ft-brand{margin-bottom:20px}
-.ft-logo-sq{width:38px;height:38px;background:var(--grad);border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:17px;color:#fff;box-shadow:0 4px 14px var(--glow);flex-shrink:0}
-.ft-logo-name{font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:16px;color:#e2e8f0}
+.ft-logo-sq{width:38px;height:38px;background:var(--grad);border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:'Oswald',sans-serif;font-size:17px;color:#fff;box-shadow:0 4px 14px var(--glow);flex-shrink:0}
+.ft-logo-name{font-family:'Barlow',sans-serif;font-weight:800;font-size:16px;color:#e2e8f0}
 .ft-logo{display:flex;align-items:center;gap:10px;margin-bottom:12px}
 .ft-desc{font-size:14px;color:#94a3b8;line-height:1.75;margin-bottom:18px}
 .ft-soc{display:flex;gap:10px;margin-bottom:36px}
@@ -297,7 +297,7 @@ body{padding-bottom:58px}
 <!-- TICKER -->
 <div id="ticker">
   <div class="ticker-track">
-    <span>NO GYM NEEDED</span><span class="dot">·</span><span>BUILD MUSCLE</span><span class="dot">·</span><span>BURN FAT</span><span class="dot">·</span><span>1-ON-1 COACHING</span><span class="dot">·</span><span>CUSTOM PLAN</span><span class="dot">·</span><span>TRANSFORM YOUR BODY</span><span class="dot">·</span><span>SPEAK WITH COACH</span><span class="dot">·</span><span>NO GYM NEEDED</span><span class="dot">·</span><span>BUILD MUSCLE</span><span class="dot">·</span><span>BURN FAT</span><span class="dot">·</span><span>1-ON-1 COACHING</span><span class="dot">·</span><span>CUSTOM PLAN</span><span class="dot">·</span><span>TRANSFORM YOUR BODY</span><span class="dot">·</span><span>SPEAK WITH COACH</span><span class="dot">·</span>
+    <span>TRAIN SMARTER</span><span class="dot">·</span><span>BUILD REAL STRENGTH</span><span class="dot">·</span><span>BURN FAT FAST</span><span class="dot">·</span><span>1-ON-1 COACHING</span><span class="dot">·</span><span>CUSTOM MEAL PLAN</span><span class="dot">·</span><span>NO GYM REQUIRED</span><span class="dot">·</span><span>START TODAY</span><span class="dot">·</span><span>TRAIN SMARTER</span><span class="dot">·</span><span>BUILD REAL STRENGTH</span><span class="dot">·</span><span>BURN FAT FAST</span><span class="dot">·</span><span>1-ON-1 COACHING</span><span class="dot">·</span><span>CUSTOM MEAL PLAN</span><span class="dot">·</span><span>NO GYM REQUIRED</span><span class="dot">·</span><span>START TODAY</span><span class="dot">·</span>
   </div>
 </div>
 
@@ -305,9 +305,9 @@ body{padding-bottom:58px}
 <section id="hero">
   <div class="hero-bg"></div>
   <div class="container">
-    <div class="hero-pill fi"><span class="hero-dot"></span>Personal Fitness Coaching</div>
-    <h1 class="hero-h fi d1">NO GYM.<br/>NO <span class="grd">EXCUSES.</span><br/><span class="out">JUST RESULTS.</span></h1>
-    <p class="hero-p fi d2">You don't need a gym to get strong. You need the right plan and someone who keeps you accountable. That's exactly what I do.</p>
+    <div class="hero-pill fi"><span class="hero-dot"></span>1-on-1 Personal Fitness Coaching</div>
+    <h1 class="hero-h fi d1">TRAIN HARD.<br/>EAT <span class="grd">RIGHT.</span><br/><span class="out">LIVE FIT.</span></h1>
+    <p class="hero-p fi d2">Your body is capable of more than you think. All it takes is the right training, the right nutrition, and a coach who shows up for you every single day.</p>
     <div class="hero-btns fi d3">
       <a href="https://wa.me/916374133309?text=Hi%20Krish%2C%20I%20wanted%20to%20know%20more%20about%20your%20coaching%2C%20can%20we%20connect%20on%20this%3F" target="_blank" rel="noopener" class="btn-wa">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
@@ -316,9 +316,9 @@ body{padding-bottom:58px}
       <a href="#programs" class="btn-outline">See Programs ↓</a>
     </div>
     <div class="hero-feats fi d3">
-      <div class="feat-pill"><span class="feat-pip"></span>Home training</div>
-      <div class="feat-pill"><span class="feat-pip"></span>Gym training</div>
-      <div class="feat-pill"><span class="feat-pip"></span>Custom nutrition</div>
+      <div class="feat-pill"><span class="feat-pip"></span>Train anywhere</div>
+      <div class="feat-pill"><span class="feat-pip"></span>Custom meal plan</div>
+      <div class="feat-pill"><span class="feat-pip"></span>Daily accountability</div>
       <div class="feat-pill"><span class="feat-pip"></span>WhatsApp support</div>
     </div>
   </div>
@@ -329,7 +329,7 @@ body{padding-bottom:58px}
   <div class="container">
     <div class="sec-hdr ao">
       <span class="stag">Meet Your Coach</span>
-      <h2 class="sh">PASSION.<br/><span class="grd">PURPOSE.</span></h2>
+      <h2 class="sh">BUILT ON<br/><span class="grd">REAL RESULTS.</span></h2>
     </div>
     <div class="about-card ao">
       <div class="about-top">
@@ -341,8 +341,8 @@ body{padding-bottom:58px}
         <div class="coach-role">Fitness Coach</div>
       </div>
       <div class="about-body">
-        <p class="about-p">Hey, I'm Krish. I started my own fitness journey and got completely obsessed — with training, nutrition, and what it actually takes to transform your body.</p>
-        <p class="about-p">I don't sell promises. I build real plans that fit around your life — no templates, no guesswork. Whether you train at home, at the gym, or with me in person.</p>
+        <p class="about-p">Hey, I'm Krish — a certified fitness coach driven by one thing: helping people build stronger, healthier bodies without the fluff. I've been through the journey myself and I know exactly what works.</p>
+        <p class="about-p">Every client gets a plan built from scratch — specific to their body, their schedule, and their goals. No copy-paste templates. No generic advice. Just focused, effective coaching that delivers.</p>
         <div class="cred-grid">
           <div class="cred-item"><div class="cred-ic">🏅</div><div class="cred-lbl">Certified Personal Trainer</div></div>
           <div class="cred-item"><div class="cred-ic">🥗</div><div class="cred-lbl">Nutrition Specialist</div></div>
@@ -359,8 +359,8 @@ body{padding-bottom:58px}
   <div class="container">
     <div class="sec-hdr-c ao">
       <span class="stag">Programs</span>
-      <h2 class="sh">PICK YOUR <span class="grd">PROGRAM</span></h2>
-      <p class="ssub">Three focused programs. All fully customized for your body and goals.</p>
+      <h2 class="sh">CHOOSE YOUR <span class="grd">PATH</span></h2>
+      <p class="ssub">Three programs, one mission — get you the body you've been working towards. Every plan is 100% personalised.</p>
     </div>
     <div class="prog-list">
 
@@ -369,7 +369,7 @@ body{padding-bottom:58px}
         <div class="pcard-body">
           <div class="pcard-head"><div class="pico">🎯</div><span class="pbadge outline">ONLINE</span></div>
           <h3 class="pname">Online Personal Coaching</h3>
-          <p class="pdesc">Full coaching that adapts every week — training, nutrition, and real accountability wherever you are.</p>
+          <p class="pdesc">Train from anywhere in the world. Get a plan built for your body, regular check-ins, and a coach who's always a message away.</p>
           <ul class="plist">
             <li><svg class="chk" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Personalised training plan</li>
             <li><svg class="chk" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Custom nutrition &amp; macros</li>
@@ -389,7 +389,7 @@ body{padding-bottom:58px}
         <div class="pcard-body">
           <div class="pcard-head"><div class="pico">🤝</div><span class="pbadge outline">OFFLINE</span></div>
           <h3 class="pname">Personal Training — In Person</h3>
-          <p class="pdesc">Train face-to-face with Krish. Real-time coaching, live form correction, and a fully personalised plan built just for you.</p>
+          <p class="pdesc">Train side-by-side with Krish. Every rep coached live, every session structured, and every workout building toward your goal.</p>
           <ul class="plist">
             <li><svg class="chk" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Attend sessions in person</li>
             <li><svg class="chk" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Live form correction &amp; coaching</li>
@@ -409,7 +409,7 @@ body{padding-bottom:58px}
         <div class="pcard-body">
           <div class="pcard-head"><div class="pico">⚡</div><span class="pbadge">🔥 POPULAR</span></div>
           <h3 class="pname">Fat Loss Transformation</h3>
-          <p class="pdesc">12-week program to shred fat and build visible muscle — completely personalised from day one.</p>
+          <p class="pdesc">A focused 12-week system to drop body fat, build lean muscle, and completely change how you look and feel.</p>
           <ul class="plist">
             <li><svg class="chk" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>12-week structured program</li>
             <li><svg class="chk" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Calorie targets &amp; macro split</li>
@@ -433,24 +433,24 @@ body{padding-bottom:58px}
   <div class="container">
     <div class="sec-hdr-c ao">
       <span class="stag">How It Works</span>
-      <h2 class="sh">4 STEPS TO <span class="grd">TRANSFORM</span></h2>
+      <h2 class="sh">HOW IT <span class="grd">WORKS</span></h2>
     </div>
     <div class="steps">
       <div class="step ao d1">
         <div class="step-left"><div class="step-num">01</div><div class="step-line"></div></div>
-        <div class="step-content"><h3 class="step-h">Message Krish</h3><p class="step-p">Tap "Speak with Coach" — opens WhatsApp. Tell me your goal in one line.</p></div>
+        <div class="step-content"><h3 class="step-h">Reach Out</h3><p class="step-p">Message Krish on WhatsApp. Tell me your goal — just one line is enough to get started.</p></div>
       </div>
       <div class="step ao d2">
         <div class="step-left"><div class="step-num">02</div><div class="step-line"></div></div>
-        <div class="step-content"><h3 class="step-h">Free Call</h3><p class="step-p">Quick 15-min call. I learn your body, schedule, and what you want to achieve.</p></div>
+        <div class="step-content"><h3 class="step-h">Free Consultation</h3><p class="step-p">A quick 15-minute call to understand your body, lifestyle, and exactly what you want to achieve.</p></div>
       </div>
       <div class="step ao d3">
         <div class="step-left"><div class="step-num">03</div><div class="step-line"></div></div>
-        <div class="step-content"><h3 class="step-h">Get Your Plan</h3><p class="step-p">Receive a fully custom training + nutrition plan built for your body.</p></div>
+        <div class="step-content"><h3 class="step-h">Your Plan is Ready</h3><p class="step-p">Receive a fully custom workout and nutrition plan — designed specifically for your body and schedule.</p></div>
       </div>
       <div class="step ao d4">
         <div class="step-left"><div class="step-num">04</div><div class="step-line"></div></div>
-        <div class="step-content"><h3 class="step-h">Train &amp; Transform</h3><p class="step-p">Execute with weekly check-ins. I adjust everything as you progress.</p></div>
+        <div class="step-content"><h3 class="step-h">Execute &amp; Evolve</h3><p class="step-p">Train with purpose. Weekly check-ins keep you on track and I adjust your plan as your body changes.</p></div>
       </div>
     </div>
   </div>
@@ -461,7 +461,7 @@ body{padding-bottom:58px}
   <div class="container">
     <div class="sec-hdr-c ao">
       <span class="stag">Gallery</span>
-      <h2 class="sh">MOVEMENT <span class="grd">IN MOTION</span></h2>
+      <h2 class="sh">EVERY REP <span class="grd">COUNTS</span></h2>
     </div>
     <div class="gal">
       <div class="gi tall ao"><div class="gp gp-1"><span class="ge">🤸</span><span class="glbl">Balance</span></div><div class="gov"><span>Handstand</span></div></div>
@@ -479,14 +479,14 @@ body{padding-bottom:58px}
   <div class="container">
     <div class="sec-hdr-c ao">
       <span class="stag">FAQ</span>
-      <h2 class="sh">GOT <span class="grd">QUESTIONS?</span></h2>
+      <h2 class="sh">COMMON <span class="grd">QUESTIONS</span></h2>
     </div>
     <div class="faq-list">
-      <div class="faq-item ao"><button class="fq">Do I need a gym?<div class="fq-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div></button><div class="fa"><p>Not at all. I design programs for gym, home, or outdoors. Consistency beats location every time.</p></div></div>
-      <div class="faq-item ao"><button class="fq">I'm a complete beginner. Is this for me?<div class="fq-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div></button><div class="fa"><p>Zero experience needed. Every program starts from where you are. Just show up — I handle everything else.</p></div></div>
-      <div class="faq-item ao"><button class="fq">How quickly will I see results?<div class="fq-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div></button><div class="fa"><p>Visible changes in 4–6 weeks with consistency. Major transformations at 12–16 weeks. I'm honest from day one.</p></div></div>
-      <div class="faq-item ao"><button class="fq">Is nutrition guidance included?<div class="fq-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div></button><div class="fa"><p>Yes — always. Personalised calorie targets, macros, and practical food guidance based on what you actually eat.</p></div></div>
-      <div class="faq-item ao"><button class="fq">How do I get started?<div class="fq-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div></button><div class="fa"><p>Tap "Speak with Coach" — opens WhatsApp directly. Tell me your goal and we'll set up a free 15-min call. No pressure.</p></div></div>
+      <div class="faq-item ao"><button class="fq">Do I need a gym to train with you?<div class="fq-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div></button><div class="fa"><p>Not at all. I build programs for home, gym, or outdoor training. What matters is consistency — not equipment.</p></div></div>
+      <div class="faq-item ao"><button class="fq">I've never trained before. Can I still join?<div class="fq-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div></button><div class="fa"><p>Absolutely. Beginners are welcome. Your plan is built around your current fitness level and scaled up as you improve.</p></div></div>
+      <div class="faq-item ao"><button class="fq">How soon will I start seeing results?<div class="fq-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div></button><div class="fa"><p>Most clients see noticeable changes within 4–6 weeks. Significant transformations typically happen between 10–16 weeks with consistent effort.</p></div></div>
+      <div class="faq-item ao"><button class="fq">Does the plan include diet and nutrition?<div class="fq-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div></button><div class="fa"><p>Yes, every program includes nutrition guidance — calorie targets, macros, and practical meal advice based on your food preferences.</p></div></div>
+      <div class="faq-item ao"><button class="fq">How do I get started?<div class="fq-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div></button><div class="fa"><p>Just tap "Speak with Coach" — it opens WhatsApp. Send a quick message about your goal and we'll jump on a free 15-min call to figure out the best plan for you.</p></div></div>
     </div>
   </div>
 </section>
@@ -497,8 +497,8 @@ body{padding-bottom:58px}
     <div class="cta-card ao">
       <div class="cta-inner">
         <span class="stag">Start Today</span>
-        <h2 class="cta-h">STOP<br/>WAITING.<br/><span class="grd">START NOW.</span></h2>
-        <p class="cta-p">One message changes everything. Tell me your goal and let's build a plan that actually works for you.</p>
+        <h2 class="cta-h">YOUR<br/>BEST BODY<br/><span class="grd">STARTS HERE.</span></h2>
+        <p class="cta-p">Fill in the form and I'll reach out personally. No sales scripts — just a real conversation about your goals and how we can achieve them together.</p>
       </div>
       <div class="cta-form" style="padding:0 22px 28px">
         <form id="applyForm">
@@ -519,7 +519,7 @@ body{padding-bottom:58px}
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
             Send via WhatsApp — Free Consultation
           </button>
-          <p class="fnote">No commitment. No charge. Just a conversation.</p>
+          <p class="fnote">Free consultation. No commitment required.</p>
         </form>
         <div class="ok" id="applyOk"><div class="ok-ic">✅</div><h3>Message Sent!</h3><p>WhatsApp opened with your details. Krish will reply shortly.</p></div>
       </div>
