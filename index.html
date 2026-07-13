@@ -1,872 +1,569 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TrainWithKrish — Master Your Body</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<style>
-
-/* ─── RESET & VARS ─── */
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-:root {
-  --black:  #070b09;
-  --dark:   #0e1410;
-  --card:   #141c16;
-  --border: rgba(255,255,255,0.07);
-  --accent: #00C896;
-  --light:  #34D399;
-  --dim:    #007A5C;
-  --glow:   rgba(0,200,150,0.22);
-  --white:  #f5fbf8;
-  --off:    #d4ede6;
-  --muted:  #7a9b90;
-  --faint:  #3a5248;
-  --head: 'Oswald', sans-serif;
-  --body: 'Inter', sans-serif;
-  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="TrainWithKrish — 1-on-1 personal fitness coaching. Build muscle, burn fat, transform your body." />
+  <title>TrainWithKrish — Personal Fitness Coaching</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --ink:#050507;--ink2:#0a0a0f;--ink3:#111118;--card:#12121a;--card2:#16161f;
+  --amber:#7c6fff;--amber2:#a89eff;--orange:#6456e8;--red:#4f3fcc;
+  --white:#fff;--off:#e8e8f4;--muted:#b0b0cc;--muted2:#606080;
+  --border:rgba(124,111,255,.15);--border2:rgba(124,111,255,.35);
+  --glow:rgba(124,111,255,.22);
+  --grad:linear-gradient(135deg,#7c6fff 0%,#6456e8 100%);
+  --grad2:linear-gradient(135deg,#a89eff 0%,#7c6fff 50%,#5a4bdb 100%);
+  --t:.3s cubic-bezier(.4,0,.2,1);--r:8px;--r2:14px;--r3:22px;
 }
-html { scroll-behavior: smooth; overflow-x: hidden; }
-body { background: var(--black); color: var(--white); font-family: var(--body); overflow-x: hidden; cursor: none; }
-body.loading { overflow: hidden; }
-img { display: block; width: 100%; object-fit: cover; }
-a { text-decoration: none; }
-
-/* ─── CURSOR ─── */
-#cur { width: 10px; height: 10px; background: var(--accent); border-radius: 50%; position: fixed; pointer-events: none; z-index: 99999; transform: translate(-50%,-50%); transition: width .15s, height .15s; top: 0; left: 0; box-shadow: 0 0 10px var(--glow); }
-#cur-ring { width: 36px; height: 36px; border: 1.5px solid rgba(0,200,150,.4); border-radius: 50%; position: fixed; pointer-events: none; z-index: 99998; transform: translate(-50%,-50%); top: 0; left: 0; }
-
-/* ─── PROGRESS ─── */
-#prog { position: fixed; top: 0; left: 0; height: 2px; background: linear-gradient(90deg, var(--accent), var(--light)); z-index: 9999; width: 0; transition: width .1s linear; }
-
-/* ─── LOADER ─── */
-#loader { position: fixed; inset: 0; background: #040805; z-index: 999999; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 28px; transition: opacity .6s ease, visibility .6s ease; }
-#loader.hide { opacity: 0; visibility: hidden; }
-.ld-logo { font-family: var(--head); font-size: clamp(30px,5vw,56px); font-weight: 700; letter-spacing: .12em; }
-.ld-logo span { color: var(--accent); }
-.ld-track { width: 180px; height: 1px; background: rgba(255,255,255,.08); overflow: hidden; }
-.ld-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--light)); width: 0; animation: lf 2.4s ease forwards; }
-@keyframes lf { 0%{width:0%} 60%{width:65%} 100%{width:100%} }
-
-/* ─── NAVBAR ─── */
-.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 24px 6%; display: flex; align-items: center; justify-content: space-between; transition: all .35s var(--ease); }
-.nav.solid { background: rgba(7,11,9,.93); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(0,200,150,.1); padding: 16px 6%; }
-.nav-logo { font-family: var(--head); font-size: 20px; font-weight: 700; letter-spacing: .1em; color: var(--white); }
-.nav-logo span { color: var(--accent); }
-.nav-links { display: flex; align-items: center; gap: 34px; list-style: none; }
-.nav-links a { font-size: 12px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); transition: color .3s; }
-.nav-links a:hover, .nav-links a.on { color: var(--white); }
-.nav-cta { background: var(--accent); color: #000; font-family: var(--head); font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 11px 26px; transition: all .3s; }
-.nav-cta:hover { background: var(--light); box-shadow: 0 6px 24px var(--glow); }
-.hbg { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; }
-.hbg span { display: block; width: 22px; height: 1.5px; background: var(--white); transition: all .3s; }
-.hbg.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
-.hbg.open span:nth-child(2) { opacity: 0; }
-.hbg.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-.mob { display: none; position: fixed; inset: 0; background: rgba(4,8,6,.97); z-index: 999; flex-direction: column; align-items: center; justify-content: center; gap: 36px; }
-.mob.open { display: flex; }
-.mob a { font-family: var(--head); font-size: clamp(28px,6vw,48px); color: var(--white); letter-spacing: .06em; transition: color .3s; }
-.mob a:hover { color: var(--accent); }
-
-/* ─── HERO ─── */
-.hero { position: relative; height: 100vh; min-height: 680px; display: flex; align-items: center; overflow: hidden; }
-.hero-img { position: absolute; inset: 0; }
-.hero-img img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; transform: scale(1.06); transition: transform 8s ease; }
-.hero-img img.loaded { transform: scale(1); }
-.hero-overlay { position: absolute; inset: 0; background: linear-gradient(110deg, rgba(4,10,7,.9) 0%, rgba(4,10,7,.6) 50%, rgba(4,10,7,.2) 100%); }
-.hero-body { position: relative; z-index: 2; padding: 0 6%; max-width: 760px; }
-.hero-tag { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 600; letter-spacing: .32em; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; opacity: 0; animation: rise .8s var(--ease) .6s forwards; }
-.hero-tag::before { content:''; width: 24px; height: 1.5px; background: var(--accent); }
-.hero-h1 { font-family: var(--head); font-size: clamp(50px, 9vw, 108px); font-weight: 700; line-height: .92; letter-spacing: .01em; opacity: 0; animation: rise .8s var(--ease) .8s forwards; }
-.hero-h1 em { font-style: normal; color: var(--accent); }
-.hero-h1 .outline { color: transparent; -webkit-text-stroke: 1.5px rgba(255,255,255,.25); }
-.hero-p { font-size: 15px; line-height: 1.78; color: rgba(245,251,248,.6); margin: 26px 0 40px; max-width: 460px; opacity: 0; animation: rise .8s var(--ease) 1s forwards; }
-.hero-btns { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; opacity: 0; animation: rise .8s var(--ease) 1.2s forwards; }
-.btn-main { background: var(--accent); color: #000; font-family: var(--head); font-size: 13px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 15px 34px; display: inline-block; transition: all .35s var(--ease); }
-.btn-main:hover { background: var(--light); transform: translateY(-2px); box-shadow: 0 12px 36px var(--glow); }
-.btn-ghost { background: transparent; color: rgba(245,251,248,.8); border: 1px solid rgba(245,251,248,.2); font-family: var(--head); font-size: 13px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; padding: 15px 34px; display: inline-block; transition: all .35s var(--ease); }
-.btn-ghost:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
-.hero-scroll { position: absolute; bottom: 36px; right: 6%; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 10px; opacity: 0; animation: rise .8s var(--ease) 1.8s forwards; }
-.hero-scroll span { font-size: 9px; letter-spacing: .3em; text-transform: uppercase; color: var(--muted); writing-mode: vertical-rl; }
-.scroll-line { width: 1px; height: 52px; background: linear-gradient(to bottom, var(--accent), transparent); animation: pline 2s ease-in-out infinite; }
-@keyframes pline { 0%,100%{opacity:1;transform:scaleY(1)} 50%{opacity:.3;transform:scaleY(.5)} }
-@keyframes rise { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
-
-/* ─── STATS STRIP ─── */
-.stats-strip { background: var(--dark); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 0 6%; display: grid; grid-template-columns: repeat(4,1fr); }
-.stat-item { padding: 44px 20px; text-align: center; border-right: 1px solid var(--border); position: relative; }
-.stat-item:last-child { border-right: none; }
-.stat-item::after { content:''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 0; height: 2px; background: var(--accent); transition: width .8s var(--ease); }
-.stat-item.vis::after { width: 36px; }
-.stat-num { font-family: var(--head); font-size: clamp(34px,4vw,50px); font-weight: 700; color: var(--white); line-height: 1; }
-.stat-num sup { color: var(--accent); font-size: .7em; }
-.stat-lbl { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-top: 8px; }
-
-/* ─── COMMONS ─── */
-.sec { padding: clamp(72px, 10vw, 130px) 6%; }
-.sec-label { display: flex; align-items: center; gap: 12px; font-size: 10px; font-weight: 600; letter-spacing: .35em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
-.sec-label::before { content:''; width: 20px; height: 1.5px; background: var(--accent); flex-shrink: 0; }
-.sec-title { font-family: var(--head); font-size: clamp(38px,6vw,80px); font-weight: 700; line-height: .94; letter-spacing: .01em; }
-.sec-title .dim { color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,.18); }
-.sec-title .ac { color: var(--accent); }
-.fade   { opacity:0; transform:translateY(28px); transition:opacity .7s var(--ease),transform .7s var(--ease); }
-.fade-l { opacity:0; transform:translateX(-28px); transition:opacity .7s var(--ease),transform .7s var(--ease); }
-.fade-r { opacity:0; transform:translateX(28px);  transition:opacity .7s var(--ease),transform .7s var(--ease); }
-.fade.vis, .fade-l.vis, .fade-r.vis { opacity:1; transform:none; }
-.d1{transition-delay:.1s!important} .d2{transition-delay:.2s!important}
-.d3{transition-delay:.3s!important} .d4{transition-delay:.4s!important}
-.d5{transition-delay:.5s!important} .d6{transition-delay:.6s!important}
-
-/* ─── ABOUT ─── */
-.about { background: var(--dark); }
-.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px,6vw,88px); align-items: center; }
-.about-img-wrap { position: relative; }
-.about-img-wrap img { height: 600px; object-fit: cover; object-position: top; }
-.about-badge { position: absolute; bottom: -18px; right: -18px; background: var(--accent); padding: 22px 24px; text-align: center; box-shadow: 0 16px 48px var(--glow); }
-.about-badge-n { font-family: var(--head); font-size: 42px; font-weight: 700; color: #000; line-height: 1; }
-.about-badge-l { font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: rgba(0,0,0,.65); margin-top: 2px; }
-.about-text .sec-title { margin-bottom: 20px; }
-.about-text blockquote { border-left: 3px solid var(--accent); padding: 14px 20px; background: rgba(0,200,150,.05); font-size: 16px; font-style: italic; color: var(--off); line-height: 1.65; margin: 28px 0; }
-.about-text p { font-size: 15px; line-height: 1.85; color: var(--muted); margin-bottom: 14px; }
-.about-text p strong { color: var(--white); font-weight: 600; }
-.attrs { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); margin-top: 36px; }
-.attr { background: var(--dark); padding: 20px; transition: background .3s; }
-.attr:hover { background: rgba(0,200,150,.06); }
-.attr-icon { font-size: 17px; color: var(--accent); margin-bottom: 8px; }
-.attr-title { font-family: var(--head); font-size: 14px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--white); margin-bottom: 4px; }
-.attr-desc { font-size: 12px; color: var(--faint); line-height: 1.6; }
-
-/* ─── PROGRAMS ─── */
-.programs { background: var(--black); }
-.prog-head { max-width: 540px; margin-bottom: 56px; }
-.prog-head p { font-size: 14px; color: var(--muted); line-height: 1.75; margin-top: 16px; }
-.prog-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); }
-.pcard { background: var(--dark); overflow: hidden; display: flex; flex-direction: column; }
-.pcard-img { height: 220px; overflow: hidden; position: relative; }
-.pcard-img img { height: 100%; transition: transform .6s var(--ease); filter: brightness(.72) saturate(.85); }
-.pcard:hover .pcard-img img { transform: scale(1.06); filter: brightness(.85) saturate(1); }
-.pcard-img-ov { position: absolute; inset: 0; background: linear-gradient(to top, rgba(14,20,16,.8) 0%, transparent 55%); }
-.pcard-num { position: absolute; top: 14px; right: 16px; font-family: var(--head); font-size: 12px; font-weight: 700; color: rgba(255,255,255,.25); letter-spacing: .06em; }
-.pcard-body { padding: 26px; flex: 1; display: flex; flex-direction: column; }
-.pcard-title { font-family: var(--head); font-size: 19px; font-weight: 600; letter-spacing: .03em; text-transform: uppercase; color: var(--white); margin-bottom: 10px; }
-.pcard-desc { font-size: 13px; color: var(--muted); line-height: 1.7; flex: 1; margin-bottom: 20px; }
-.pcard-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
-.ptag { font-size: 9px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; padding: 4px 10px; border: 1px solid rgba(0,200,150,.2); color: var(--accent); }
-.pcard-foot { display: flex; align-items: center; justify-content: space-between; padding-top: 16px; border-top: 1px solid var(--border); }
-.pcard-cta { display: flex; align-items: center; gap: 7px; font-family: var(--head); font-size: 12px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); transition: gap .3s; }
-.pcard:hover .pcard-cta { gap: 11px; }
-.pcard-level { font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--faint); }
-
-/* ─── GALLERY ─── */
-.gallery { background: var(--dark); }
-.gallery-head { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 40px; }
-.gallery-sub { font-size: 12px; color: var(--muted); letter-spacing: .1em; text-transform: uppercase; }
-.gallery-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 6px; }
-.gitem { position: relative; overflow: hidden; cursor: pointer; }
-.gitem:nth-child(1) { grid-column: span 2; grid-row: span 2; }
-.gitem:nth-child(6) { grid-column: span 2; }
-.gitem img { width: 100%; height: 100%; min-height: 200px; object-fit: cover; transition: transform .5s var(--ease), filter .5s; filter: brightness(.75) saturate(.85); }
-.gitem:nth-child(1) img { min-height: 406px; }
-.gitem:hover img { transform: scale(1.05); filter: brightness(.6) saturate(1.1); }
-.g-over { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; background: rgba(0,200,150,.12); opacity: 0; transition: opacity .4s; }
-.gitem:hover .g-over { opacity: 1; }
-.g-over i { font-size: 20px; color: var(--white); }
-.g-over span { font-family: var(--head); font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--white); }
-
-/* ─── TESTIMONIALS ─── */
-.testi { background: var(--black); }
-.testi-head { text-align: center; max-width: 500px; margin: 0 auto 56px; }
-.testi-head p { font-size: 14px; color: var(--muted); margin-top: 14px; line-height: 1.7; }
-.testi-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); }
-.tcard { background: var(--dark); padding: 36px; position: relative; transition: background .3s; }
-.tcard:hover { background: rgba(0,200,150,.04); }
-.tcard::before { content:'\201C'; font-family: Georgia,serif; font-size: 80px; line-height: .8; color: rgba(0,200,150,.15); position: absolute; top: 20px; left: 24px; }
-.t-stars { color: var(--accent); font-size: 12px; letter-spacing: 2px; margin-bottom: 18px; }
-.t-text { font-size: 14px; line-height: 1.8; color: #a0bab3; font-style: italic; margin-bottom: 24px; position: relative; z-index: 1; }
-.t-author { display: flex; align-items: center; gap: 14px; }
-.t-av { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--dim)); display: flex; align-items: center; justify-content: center; font-family: var(--head); font-size: 16px; font-weight: 700; color: #fff; flex-shrink: 0; }
-.t-name { font-family: var(--head); font-size: 15px; font-weight: 600; letter-spacing: .04em; color: var(--white); }
-.t-role { font-size: 11px; color: var(--muted); margin-top: 2px; }
-
-/* ─── QUOTE SECTION ─── */
-.quote-sec { position: relative; min-height: 440px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-.quote-bg { position: absolute; inset: 0; }
-.quote-bg img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.22) saturate(.7); }
-.quote-body { position: relative; z-index: 2; text-align: center; padding: 0 6%; max-width: 880px; }
-.q-text { font-family: var(--head); font-size: clamp(26px,5vw,60px); font-weight: 700; line-height: 1.1; letter-spacing: .02em; color: var(--white); }
-.q-text span { color: var(--accent); }
-.q-by { font-size: 11px; letter-spacing: .3em; text-transform: uppercase; color: rgba(245,251,248,.4); margin-top: 22px; }
-
-/* ─── SCHEDULE ─── */
-.schedule { background: var(--dark); }
-.sched-head { text-align: center; max-width: 520px; margin: 0 auto 52px; }
-.sched-head p { font-size: 14px; color: var(--muted); margin-top: 14px; line-height: 1.7; }
-.week { display: grid; grid-template-columns: repeat(7,1fr); gap: 6px; }
-.day { background: var(--card); border: 1px solid var(--border); padding: 22px 14px 18px; text-align: center; transition: all .35s var(--ease); cursor: default; position: relative; overflow: hidden; }
-.day::after { content:''; position: absolute; bottom: 0; left: 0; right: 0; height: 0; background: var(--accent); transition: height .4s var(--ease); }
-.day:not(.rest):hover { border-color: rgba(0,200,150,.3); transform: translateY(-5px); box-shadow: 0 14px 40px rgba(0,0,0,.5); }
-.day:not(.rest):hover::after { height: 2px; }
-.day-name { font-family: var(--head); font-size: 20px; font-weight: 700; letter-spacing: .06em; }
-.day-type { font-size: 9px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); margin: 6px 0 12px; }
-.day.rest .day-type { color: var(--faint); }
-.day-icon { font-size: 22px; margin-bottom: 10px; }
-.day-detail { font-size: 11px; color: var(--faint); line-height: 1.5; }
-.day.rest { opacity: .45; }
-
-/* ─── CONTACT ─── */
-.contact { background: var(--black); }
-.contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: clamp(40px,6vw,80px); align-items: start; }
-.contact-left .sec-title { margin-bottom: 18px; }
-.contact-left > p { font-size: 15px; line-height: 1.85; color: var(--muted); margin-bottom: 40px; }
-.contact-img { margin-bottom: 32px; height: 270px; overflow: hidden; }
-.contact-img img { height: 100%; object-fit: cover; filter: brightness(.8); transition: transform .5s var(--ease); }
-.contact-img:hover img { transform: scale(1.04); }
-.c-links { display: flex; flex-direction: column; gap: 8px; }
-.c-link { display: flex; align-items: center; gap: 14px; padding: 14px 16px; background: var(--dark); border: 1px solid var(--border); color: var(--muted); transition: all .3s; }
-.c-link:hover { border-color: rgba(0,200,150,.25); color: var(--white); background: rgba(0,200,150,.04); transform: translateX(4px); }
-.c-icon { font-size: 15px; width: 30px; text-align: center; flex-shrink: 0; }
-.c-icon.ig { color: #e1306c; } .c-icon.yt { color: #ff0000; }
-.c-icon.wa { color: #25d366; } .c-icon.em { color: var(--accent); }
-.c-label { font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: var(--faint); margin-bottom: 1px; }
-.c-val { font-size: 13px; color: inherit; }
-.c-form { background: var(--dark); border: 1px solid var(--border); padding: clamp(26px,4vw,42px); position: relative; }
-.c-form::before { content:''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--accent), var(--light)); }
-.form-h { font-family: var(--head); font-size: 26px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; margin-bottom: 6px; }
-.form-sub { font-size: 12px; color: var(--muted); margin-bottom: 26px; }
-.fg { margin-bottom: 16px; }
-.fl { display: block; font-size: 10px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
-.fi, .fsel, .fta { width: 100%; background: rgba(255,255,255,.03); border: 1px solid var(--border); color: var(--white); font-family: var(--body); font-size: 13px; padding: 13px 14px; outline: none; transition: border-color .3s, background .3s; -webkit-appearance: none; appearance: none; }
-.fi:focus, .fsel:focus, .fta:focus { border-color: var(--accent); background: rgba(0,200,150,.04); }
-.fi::placeholder, .fta::placeholder { color: var(--faint); }
-.fta { resize: none; height: 110px; }
-.fsel option { background: #111; color: var(--white); }
-.frow { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-.fsub { width: 100%; background: var(--accent); border: none; color: #000; font-family: var(--head); font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; padding: 16px; cursor: pointer; transition: all .35s var(--ease); margin-top: 4px; }
-.fsub:hover { background: var(--light); box-shadow: 0 8px 28px var(--glow); }
-
-/* ─── FOOTER ─── */
-footer { background: #040705; border-top: 1px solid var(--border); padding: clamp(44px,6vw,72px) 6%; }
-.ft-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 44px; margin-bottom: 52px; }
-.ft-brand a { font-family: var(--head); font-size: 22px; font-weight: 700; letter-spacing: .08em; color: var(--white); display: block; margin-bottom: 14px; }
-.ft-brand a span { color: var(--accent); }
-.ft-brand p { font-size: 13px; color: var(--faint); line-height: 1.8; max-width: 240px; }
-.ft-socials { display: flex; gap: 10px; margin-top: 20px; }
-.ft-socials a { width: 36px; height: 36px; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--faint); font-size: 14px; transition: all .3s; }
-.ft-socials a:hover { border-color: var(--accent); color: var(--accent); }
-.ft-col-h { font-size: 10px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--muted); margin-bottom: 18px; }
-.ft-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-.ft-col ul a { font-size: 13px; color: var(--faint); transition: color .3s; }
-.ft-col ul a:hover { color: var(--white); }
-.ft-bot { display: flex; align-items: center; justify-content: space-between; padding-top: 28px; border-top: 1px solid var(--border); }
-.ft-bot p { font-size: 12px; color: var(--faint); }
-.ft-bot-links { display: flex; gap: 20px; }
-.ft-bot-links a { font-size: 12px; color: var(--faint); transition: color .3s; }
-.ft-bot-links a:hover { color: var(--accent); }
-
-/* ─── RESPONSIVE ─── */
-@media (max-width:1024px) {
-  .prog-grid { grid-template-columns: repeat(2,1fr); }
-  .ft-grid { grid-template-columns: 1fr 1fr; }
-  .gallery-grid { grid-template-columns: repeat(3,1fr); }
-  .gitem:nth-child(1) { grid-column: span 2; }
-  .gitem:nth-child(6) { grid-column: span 1; }
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--ink);color:var(--white);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit;transition:var(--t)}
+ul{list-style:none}
+button,input,select,textarea{font-family:inherit;border:none;outline:none;background:none;font-size:inherit}
+.container{max-width:1160px;margin:0 auto;padding:0 28px}
+#sp{position:fixed;top:0;left:0;height:3px;width:0%;background:var(--grad);z-index:9999;box-shadow:0 0 12px var(--amber)}
+#nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:24px 0;transition:var(--t)}
+#nav.sc{background:rgba(5,5,7,.94);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);padding:14px 0;border-bottom:1px solid var(--border)}
+.nav-row{display:flex;align-items:center;justify-content:space-between}
+.nav-logo{display:flex;align-items:center;gap:11px}
+.logo-mark{width:40px;height:40px;background:var(--grad);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:18px;color:#000;box-shadow:0 4px 18px var(--glow)}
+.logo-text{font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:17px}
+.nav-menu{display:flex;align-items:center;gap:32px}
+.nav-a{font-size:14px;font-weight:500;color:var(--muted)}
+.nav-a:hover{color:var(--white)}
+.btn-nav{display:inline-flex;align-items:center;gap:8px;background:#25d366;color:#fff;padding:10px 22px;border-radius:var(--r);font-size:13px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;box-shadow:0 4px 16px rgba(37,211,102,.3)}
+.btn-nav:hover{background:#1eb85a;transform:translateY(-1px)}
+.hbg{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px}
+.hbg span{width:24px;height:2px;background:var(--white);border-radius:2px;transition:var(--t)}
+.hbg.o span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hbg.o span:nth-child(2){opacity:0}
+.hbg.o span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+#ticker{background:var(--grad);padding:11px 0;overflow:hidden}
+.ticker-track{display:flex;white-space:nowrap;animation:tick 22s linear infinite}
+.ticker-track span{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:3px;color:#000;padding:0 28px}
+.ticker-track .dot{opacity:.5}
+@keyframes tick{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+#hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;padding:160px 0 100px}
+.hero-glow{position:absolute;width:800px;height:800px;top:-200px;right:-200px;background:radial-gradient(ellipse,rgba(245,158,11,.11),transparent 65%);border-radius:50%;pointer-events:none}
+.hero-glow2{position:absolute;width:600px;height:600px;bottom:-100px;left:-150px;background:radial-gradient(ellipse,rgba(249,115,22,.07),transparent 65%);border-radius:50%;pointer-events:none}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;position:relative;z-index:2}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--amber);margin-bottom:22px}
+.ep{width:8px;height:8px;background:var(--amber);border-radius:50%;animation:ppulse 2s ease-in-out infinite}
+@keyframes ppulse{0%,100%{box-shadow:0 0 0 0 rgba(245,158,11,.7)}50%{box-shadow:0 0 0 8px rgba(245,158,11,0)}}
+.hero-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(72px,10vw,138px);line-height:.9;letter-spacing:3px;margin-bottom:6px}
+.grd{background:var(--grad2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.out{-webkit-text-stroke:2px rgba(255,255,255,.18);color:transparent}
+.hero-sub{font-size:clamp(15px,1.8vw,18px);color:var(--muted);line-height:1.8;max-width:480px;margin:22px 0 38px}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap}
+.btn-fire{display:inline-flex;align-items:center;gap:10px;background:var(--grad);color:#000;padding:17px 34px;border-radius:var(--r2);font-size:15px;font-weight:900;letter-spacing:.6px;text-transform:uppercase;transition:var(--t);cursor:pointer;box-shadow:0 6px 28px var(--glow)}
+.btn-fire:hover{transform:translateY(-3px);box-shadow:0 14px 40px var(--glow)}
+.btn-ghost{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--border2);color:var(--white);padding:17px 34px;border-radius:var(--r2);font-size:15px;font-weight:600;transition:var(--t)}
+.btn-ghost:hover{border-color:var(--amber);color:var(--amber2);background:rgba(245,158,11,.06)}
+.btn-full{width:100%;justify-content:center}
+.hero-vis{position:relative;display:flex;align-items:center;justify-content:center}
+.hv-ring{width:420px;height:420px;border-radius:50%;border:1px solid var(--border2);position:relative;display:flex;align-items:center;justify-content:center;animation:spin-slow 20s linear infinite}
+.hv-ring2{width:310px;height:310px;border-radius:50%;border:1px dashed rgba(245,158,11,.12);position:absolute;animation:spin-slow 14s linear infinite reverse}
+@keyframes spin-slow{to{transform:rotate(360deg)}}
+.hv-core{position:absolute;width:250px;height:250px;background:var(--card2);border-radius:50%;border:2px solid var(--border2);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;box-shadow:0 0 60px var(--glow),inset 0 0 40px rgba(0,0,0,.4);animation:none}
+.hv-fig{width:80px;height:80px;opacity:.75}
+.hv-name{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:4px;background:var(--grad2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hv-tag{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted2)}
+.hv-dot{position:absolute;width:12px;height:12px;background:var(--amber);border-radius:50%;box-shadow:0 0 12px var(--amber);top:20px;left:50%}
+.hv-dot2{position:absolute;width:8px;height:8px;background:var(--orange);border-radius:50%;box-shadow:0 0 10px var(--orange);bottom:24px;right:44px}
+.hv-label{position:absolute;background:var(--card2);border:1px solid var(--border2);border-radius:100px;padding:8px 18px;font-size:12px;font-weight:700;white-space:nowrap}
+.hv-l1{top:30px;left:-50px;color:var(--amber2)}
+.hv-l2{bottom:40px;right:-60px;color:var(--off)}
+.s{padding:120px 0;position:relative}
+.s-alt{background:var(--ink2)}
+.stag{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--amber);margin-bottom:14px}
+.stag::before{content:'';width:24px;height:2px;background:var(--amber)}
+.sh{font-family:'Bebas Neue',sans-serif;font-size:clamp(44px,6vw,78px);line-height:.95;letter-spacing:2px;margin-bottom:16px}
+.ssub{font-size:16px;color:var(--muted);max-width:560px;line-height:1.85}
+.hdr-c{text-align:center;margin-bottom:68px}
+.hdr-c .stag{justify-content:center}
+.hdr-c .stag::before{display:none}
+.hdr-c .ssub{margin:0 auto}
+.about-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:80px;align-items:center}
+.a-frame{aspect-ratio:4/5;background:var(--card2);border-radius:var(--r3);position:relative;overflow:hidden;border:1px solid var(--border2);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px}
+.a-frame::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 60%,rgba(245,158,11,.07),transparent 65%)}
+.a-frame::after{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--grad)}
+.a-fig{width:90px;height:90px;opacity:.7;position:relative;z-index:1}
+.a-fig circle,.a-fig line{stroke:var(--amber)}
+.a-lbl{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:4px;background:var(--grad2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;position:relative;z-index:1}
+.a-sub{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted2);position:relative;z-index:1}
+.cbr{position:absolute;width:22px;height:22px}
+.cbr-tl{top:14px;left:14px;border-top:2px solid var(--amber);border-left:2px solid var(--amber)}
+.cbr-br{bottom:14px;right:14px;border-bottom:2px solid var(--amber);border-right:2px solid var(--amber)}
+.a-badge{position:absolute;background:var(--card);border:1px solid var(--border2);border-radius:12px;padding:10px 16px;font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px}
+.a-b1{top:28px;right:-28px}
+.a-b2{bottom:40px;left:-28px}
+.bdot{width:8px;height:8px;border-radius:50%;background:var(--amber);box-shadow:0 0 8px var(--amber);flex-shrink:0}
+.a-text p{font-size:16px;color:var(--muted);line-height:1.85;margin-bottom:15px}
+.a-creds{margin-top:26px;display:flex;flex-direction:column;gap:11px}
+.acr{display:flex;align-items:center;gap:12px;font-size:15px;color:var(--off)}
+.acr-ic{width:32px;height:32px;background:rgba(245,158,11,.1);border:1px solid var(--border2);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.prog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;max-width:1100px;margin:0 auto}
+.pcard{background:var(--card);border:1px solid var(--border);border-radius:var(--r3);padding:38px 32px;display:flex;flex-direction:column;position:relative;overflow:hidden;transition:transform .3s,box-shadow .3s,border-color .3s}
+.pcard::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad);transform:scaleX(0);transform-origin:left;transition:transform .5s}
+.pcard:hover{transform:translateY(-8px);border-color:var(--border2);box-shadow:0 24px 64px rgba(0,0,0,.5),0 0 40px var(--glow)}
+.pcard:hover::after,.pcard.feat::after{transform:scaleX(1)}
+.pcard.feat{border-color:var(--border2);box-shadow:0 0 40px var(--glow)}
+.pbadge{display:inline-block;font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:4px 14px;border-radius:100px;margin-bottom:22px;align-self:flex-start}
+.pbadge.gold{background:var(--grad);color:#000}
+.pbadge.out{border:1px solid var(--border2);color:var(--muted)}
+.pico{font-size:44px;margin-bottom:16px}
+.pname{font-family:'Space Grotesk',sans-serif;font-size:23px;font-weight:800;margin-bottom:10px}
+.pdesc{font-size:14px;color:var(--muted);line-height:1.75;margin-bottom:24px}
+.plist{flex-grow:1;margin-bottom:28px}
+.plist li{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--muted);padding:9px 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.plist li:last-child{border-bottom:none}
+.chk{width:16px;height:16px;flex-shrink:0}
+.chk polyline{stroke:var(--amber)}
+.glow-border{position:relative}
+.glow-border::before{content:'';position:absolute;inset:-1px;border-radius:calc(var(--r3) + 1px);background:conic-gradient(from 0deg,var(--amber),var(--orange),var(--red),var(--orange),var(--amber));filter:blur(0px);z-index:-1;animation:bspin 4s linear infinite;opacity:.5}
+@keyframes bspin{to{transform:rotate(360deg)}}
+.proc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative}
+.proc-grid::before{content:'';position:absolute;top:38px;left:12.5%;right:12.5%;height:1px;background:linear-gradient(90deg,transparent,var(--border2),var(--amber2),var(--border2),transparent)}
+.pstep{text-align:center;padding:0 20px}
+.pnum{width:76px;height:76px;border-radius:50%;margin:0 auto 20px;background:var(--card2);border:2px solid var(--border2);display:flex;align-items:center;justify-content:center;position:relative;z-index:1;transition:var(--t)}
+.pnum-in{font-family:'Bebas Neue',sans-serif;font-size:26px;background:var(--grad2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.pstep:hover .pnum{background:rgba(245,158,11,.12);border-color:var(--amber);box-shadow:0 0 24px var(--glow)}
+.pstep-h{font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:800;margin-bottom:10px}
+.pstep-p{font-size:14px;color:var(--muted);line-height:1.75}
+.gal{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:200px;gap:14px}
+.gi{position:relative;border-radius:var(--r2);overflow:hidden;cursor:pointer}
+.gi.tall{grid-row:span 2}
+.gi.wide{grid-column:span 2}
+.gp{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;transition:transform .4s;border:1px solid rgba(255,255,255,.04)}
+.ge{font-size:40px;line-height:1}
+.glbl{font-size:12px;font-weight:600;color:var(--muted2);letter-spacing:1px;text-transform:uppercase}
+.gp-1{background:linear-gradient(160deg,#0d0d0d,#1a1400)}
+.gp-2{background:linear-gradient(160deg,#0d0d0d,#1a0e00)}
+.gp-3{background:linear-gradient(160deg,#0d0d0d,#180d00)}
+.gp-4{background:linear-gradient(160deg,#0d0d0d,#1a1200)}
+.gp-5{background:linear-gradient(160deg,#0d0d0d,#1a1500)}
+.gp-6{background:linear-gradient(160deg,#0d0d0d,#160d00)}
+.ov{position:absolute;inset:0;background:linear-gradient(135deg,rgba(245,158,11,.88),rgba(249,115,22,.88));display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .35s}
+.ov span{color:#000;font-weight:900;font-size:13px;letter-spacing:2px;text-transform:uppercase}
+.gi:hover .ov{opacity:1}
+.gi:hover .gp{transform:scale(1.06)}
+.faq-wrap{max-width:680px;margin:0 auto}
+.faq-item{border-bottom:1px solid var(--border)}
+.faq-item:first-child{border-top:1px solid var(--border)}
+.fq{width:100%;display:flex;align-items:center;justify-content:space-between;padding:22px 0;cursor:pointer;font-size:16px;font-weight:600;color:var(--white);transition:var(--t);text-align:left;gap:16px}
+.fq:hover{color:var(--amber2)}
+.fq-ic{width:32px;height:32px;background:var(--card2);border:1px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:var(--t)}
+.fq-ic svg{transition:var(--t)}
+.faq-item.o .fq{color:var(--amber2)}
+.faq-item.o .fq-ic{background:rgba(245,158,11,.12);border-color:var(--amber)}
+.faq-item.o .fq-ic svg{transform:rotate(180deg)}
+.fa{max-height:0;overflow:hidden;transition:max-height .42s ease}
+.faq-item.o .fa{max-height:220px}
+.fa p{padding-bottom:24px;font-size:15px;color:var(--muted);line-height:1.85}
+.lm-card{background:var(--card2);border:1px solid var(--border2);border-radius:28px;padding:64px;display:grid;grid-template-columns:1.1fr 1fr;gap:56px;align-items:center;position:relative;overflow:hidden}
+.lm-card::before{content:'';position:absolute;width:500px;height:500px;top:-150px;right:-150px;background:radial-gradient(ellipse,rgba(245,158,11,.07),transparent 65%);border-radius:50%;pointer-events:none}
+.lm-bg{position:absolute;right:-20px;bottom:-30px;font-family:'Bebas Neue',sans-serif;font-size:180px;letter-spacing:6px;color:transparent;-webkit-text-stroke:1px rgba(245,158,11,.06);pointer-events:none;line-height:1;user-select:none}
+.lm-tag{display:inline-flex;align-items:center;gap:8px;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--amber);margin-bottom:16px}
+.lm-h{font-family:'Bebas Neue',sans-serif;font-size:42px;letter-spacing:1px;line-height:1.05;margin-bottom:14px}
+.lm-p{font-size:15px;color:var(--muted);line-height:1.75;margin-bottom:22px}
+.lm-list{display:flex;flex-direction:column;gap:9px}
+.lm-list li{font-size:14px;color:var(--muted);display:flex;align-items:center;gap:10px}
+.lm-list li::before{content:'';width:18px;height:2px;background:var(--amber);flex-shrink:0}
+.lm-form{background:rgba(5,5,7,.6);border:1px solid var(--border);border-radius:var(--r2);padding:38px;position:relative;z-index:1}
+.lm-form-h{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:800;margin-bottom:22px}
+.fg{margin-bottom:14px}
+.fg input,.fg select,.fg textarea{width:100%;padding:14px 18px;background:var(--ink3);border:1px solid rgba(255,255,255,.08);border-radius:var(--r);color:var(--white);font-size:15px;transition:var(--t)}
+.fg input::placeholder,.fg textarea::placeholder{color:var(--muted2)}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--amber);box-shadow:0 0 0 3px rgba(245,158,11,.14)}
+.fg select{appearance:none;cursor:pointer;color:var(--muted2)}
+.fg textarea{resize:vertical;min-height:88px}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.fnote{font-size:12px;color:var(--muted2);text-align:center;margin-top:10px}
+.ok{display:none;text-align:center;padding:32px 16px}
+.ok.show{display:block}
+.ok-ic{font-size:52px;margin-bottom:14px}
+.ok h3{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;margin-bottom:8px}
+.ok p{font-size:15px;color:var(--muted)}
+.cta-wrap{text-align:center;max-width:680px;margin:0 auto}
+.cta-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(48px,8vw,96px);line-height:.9;letter-spacing:3px;margin-bottom:16px}
+.cta-p{font-size:18px;color:var(--muted);margin-bottom:48px;line-height:1.75}
+.apply-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:38px;text-align:left}
+#wa-bar{position:fixed;bottom:0;left:0;right:0;z-index:800;background:linear-gradient(90deg,#075e54,#128c7e,#25d366);padding:15px 0;text-align:center}
+#wa-bar a{display:inline-flex;align-items:center;gap:12px;color:#fff;font-size:16px;font-weight:900;letter-spacing:.5px;text-transform:uppercase;transition:var(--t)}
+#wa-bar a:hover{opacity:.9;transform:scale(1.01)}
+#footer{background:var(--ink2);border-top:1px solid var(--border);padding:70px 0 28px}
+.ft-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:44px;margin-bottom:52px}
+.ft-desc{font-size:14px;color:var(--muted);line-height:1.75;margin:14px 0 20px}
+.ft-soc{display:flex;gap:10px}
+.ft-soc a{width:38px;height:38px;border-radius:50%;background:var(--ink3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;transition:var(--t)}
+.ft-soc a:hover{border-color:var(--amber);background:rgba(245,158,11,.08)}
+.ft-soc svg{width:16px;height:16px;fill:var(--muted);transition:var(--t)}
+.ft-soc a:hover svg{fill:var(--amber)}
+.ft-col h4{font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--amber);margin-bottom:18px}
+.ft-col li{margin-bottom:10px}
+.ft-col a{font-size:14px;color:var(--muted)}
+.ft-col a:hover{color:var(--amber2)}
+.ft-bottom{border-top:1px solid var(--border);padding-top:22px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.ft-bottom p{font-size:12px;color:var(--muted2)}
+.ao{opacity:0;transform:translateY(36px);transition:opacity .7s ease,transform .7s ease}
+.ao.in{opacity:1;transform:translateY(0)}
+.ao.fl{transform:translateX(-40px)}
+.ao.fl.in{transform:translateX(0)}
+.ao.fr{transform:translateX(40px)}
+.ao.fr.in{transform:translateX(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+.fi{opacity:0;transform:translateY(28px);animation:fup .9s ease forwards}
+@keyframes fup{to{opacity:1;transform:translateY(0)}}
+.fi.d1{animation-delay:.1s}.fi.d2{animation-delay:.25s}.fi.d3{animation-delay:.4s}.fi.d4{animation-delay:.55s}
+@media(max-width:1024px){
+  .hero-grid{grid-template-columns:1fr;text-align:center}
+  .hero-sub{margin:22px auto 38px}
+  .hero-btns{justify-content:center}
+  .hero-vis{display:none}
+  .about-grid{grid-template-columns:1fr;gap:48px}
+  .a-text{text-align:center}
+  .a-creds{align-items:center}
+  .a-frame{max-width:340px;margin:0 auto}
+  .a-b1,.a-b2{display:none}
+  .sh{text-align:center}
+  .stag{justify-content:center}
+  .stag::before{display:none}
+  .prog-grid{grid-template-columns:1fr;max-width:460px;margin:0 auto}
+  .lm-card{grid-template-columns:1fr;padding:40px 28px;gap:30px}
+  .ft-grid{grid-template-columns:1fr 1fr;gap:28px}
 }
-@media (max-width:768px) {
-  .nav-links, .nav-cta { display: none; }
-  .hbg { display: flex; }
-  .about-grid, .contact-grid { grid-template-columns: 1fr; }
-  .about-img-wrap { order: -1; }
-  .about-img-wrap img { height: 400px; }
-  .about-badge { bottom: 12px; right: 12px; }
-  .testi-grid, .prog-grid { grid-template-columns: 1fr; }
-  .stats-strip { grid-template-columns: 1fr 1fr; }
-  .stat-item:nth-child(2) { border-right: none; }
-  .week { grid-template-columns: repeat(4,1fr); }
-  .gallery-grid { grid-template-columns: repeat(2,1fr); }
-  .gitem:nth-child(1) { grid-column: span 2; }
-  .gitem:nth-child(6) { grid-column: span 2; }
-  .ft-grid { grid-template-columns: 1fr; gap: 28px; }
-  .ft-bot { flex-direction: column; gap: 12px; text-align: center; }
-  .frow { grid-template-columns: 1fr; }
-  .gallery-head { flex-direction: column; align-items: flex-start; gap: 10px; }
-  .attrs { grid-template-columns: 1fr; }
+@media(max-width:768px){
+  .s{padding:80px 0}
+  body{padding-bottom:66px}
+  .nav-menu{position:fixed;top:0;right:-100%;width:76%;max-width:290px;height:100vh;background:var(--ink2);flex-direction:column;align-items:flex-start;padding:90px 24px 24px;gap:0;transition:right .3s;border-left:1px solid var(--border)}
+  .nav-menu.o{right:0}
+  .nav-menu li{width:100%;padding:14px 0;border-bottom:1px solid var(--border)}
+  .nav-a{font-size:16px;color:var(--white)}
+  .btn-nav{margin-top:14px;width:100%;justify-content:center}
+  .hbg{display:flex}
+  .proc-grid{grid-template-columns:1fr 1fr;gap:32px}
+  .proc-grid::before{display:none}
+  .gal{grid-template-columns:repeat(2,1fr);grid-auto-rows:160px}
+  .gi.wide{grid-column:span 1}
+  .frow{grid-template-columns:1fr}
+  .apply-card{padding:22px}
+  .lm-form{padding:22px}
+  .ft-grid{grid-template-columns:1fr;gap:22px}
+  #wa-bar a{font-size:13px}
 }
-@media (max-width:500px) {
-  .week { grid-template-columns: repeat(2,1fr); }
-  .hero-btns { flex-direction: column; align-items: stretch; max-width: 260px; }
-  .gallery-grid { grid-template-columns: 1fr 1fr; }
+@media(max-width:480px){
+  .container{padding:0 18px}
+  .sh{font-size:40px}
+  .proc-grid{grid-template-columns:1fr}
+  .hero-btns a{width:100%;justify-content:center}
+  .cta-h{font-size:48px}
 }
-</style>
+  </style>
 </head>
-<body class="loading">
-
-<!-- LOADER -->
-<div id="loader">
-  <div class="ld-logo">Train<span>With</span>Krish</div>
-  <div class="ld-track"><div class="ld-fill"></div></div>
-</div>
-
-<!-- CURSOR -->
-<div id="cur"></div>
-<div id="cur-ring"></div>
-<div id="prog"></div>
-
-<!-- NAVBAR -->
-<nav class="nav" id="nav">
-  <a href="#home" class="nav-logo">Train<span>With</span>Krish</a>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#programs">Programs</a></li>
-    <li><a href="#gallery">Gallery</a></li>
-    <li><a href="#schedule">Schedule</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-  <a href="#contact" class="nav-cta">Get Coached</a>
-  <button class="hbg" id="hbg" aria-label="Menu"><span></span><span></span><span></span></button>
+<body>
+<div id="sp"></div>
+<nav id="nav">
+  <div class="container">
+    <div class="nav-row">
+      <a href="#" class="nav-logo"><div class="logo-mark">TK</div><span class="logo-text">TrainWithKrish</span></a>
+      <ul class="nav-menu" id="nm">
+        <li><a href="#about" class="nav-a">About</a></li>
+        <li><a href="#programs" class="nav-a">Programs</a></li>
+        <li><a href="#gallery" class="nav-a">Gallery</a></li>
+        <li><a href="#faq" class="nav-a">FAQ</a></li>
+        <li><a href="https://wa.me/916374133309?text=Hi%20Krish%2C%20I%27d%20love%20to%20know%20more!" target="_blank" rel="noopener" class="btn-nav"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>Speak with Coach</a></li>
+      </ul>
+      <button class="hbg" id="hbg"><span></span><span></span><span></span></button>
+    </div>
+  </div>
 </nav>
-
-<!-- MOBILE NAV -->
-<div class="mob" id="mob">
-  <a href="#about">About</a>
-  <a href="#programs">Programs</a>
-  <a href="#gallery">Gallery</a>
-  <a href="#schedule">Schedule</a>
-  <a href="#contact">Contact</a>
-</div>
-
-<!-- HERO — outdoor running/calisthenics -->
-<section class="hero" id="home">
-  <div class="hero-img">
-    <img id="hero-img"
-      src="https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?auto=format&fit=crop&w=1920&q=85"
-      alt="Outdoor running — bodyweight training">
-  </div>
-  <div class="hero-overlay"></div>
-  <div class="hero-body">
-    <div class="hero-tag">Calisthenics &bull; Bodyweight &bull; Outdoor Training</div>
-    <h1 class="hero-h1">
-      No Gym.<br>
-      <span class="outline">No Limits.</span><br>
-      <em>Just You.</em>
-    </h1>
-    <p class="hero-p">Pure bodyweight training — running, push-ups, pull-ups, handstands. Build an elite physique anywhere, with nothing but discipline and the ground beneath your feet.</p>
-    <div class="hero-btns">
-      <a href="#programs" class="btn-main">Explore Programs</a>
-      <a href="#about" class="btn-ghost">Meet Krish</a>
-    </div>
-  </div>
-  <div class="hero-scroll">
-    <div class="scroll-line"></div>
-    <span>Scroll</span>
-  </div>
-</section>
-
-<!-- STATS STRIP -->
-<div class="stats-strip">
-  <div class="stat-item fade d1">
-    <div class="stat-num"><span class="cu" data-t="50">0</span><sup>+</sup></div>
-    <div class="stat-lbl">Clients Transformed</div>
-  </div>
-  <div class="stat-item fade d2">
-    <div class="stat-num"><span class="cu" data-t="3">0</span><sup>+</sup></div>
-    <div class="stat-lbl">Years Experience</div>
-  </div>
-  <div class="stat-item fade d3">
-    <div class="stat-num"><span class="cu" data-t="99">0</span><sup>%</sup></div>
-    <div class="stat-lbl">Success Rate</div>
-  </div>
-  <div class="stat-item fade d4">
-    <div class="stat-num"><span class="cu" data-t="365">0</span><sup></sup></div>
-    <div class="stat-lbl">Days of Discipline</div>
+<div id="ticker">
+  <div class="ticker-track">
+    <span>BUILD MUSCLE</span><span class="dot">✦</span><span>BURN FAT</span><span class="dot">✦</span><span>1-ON-1 COACHING</span><span class="dot">✦</span><span>CUSTOM TRAINING PLAN</span><span class="dot">✦</span><span>NUTRITION GUIDANCE</span><span class="dot">✦</span><span>TRANSFORM YOUR BODY</span><span class="dot">✦</span><span>SPEAK WITH COACH</span><span class="dot">✦</span><span>BUILD MUSCLE</span><span class="dot">✦</span><span>BURN FAT</span><span class="dot">✦</span><span>1-ON-1 COACHING</span><span class="dot">✦</span><span>CUSTOM TRAINING PLAN</span><span class="dot">✦</span><span>NUTRITION GUIDANCE</span><span class="dot">✦</span><span>TRANSFORM YOUR BODY</span><span class="dot">✦</span><span>SPEAK WITH COACH</span><span class="dot">✦</span>
   </div>
 </div>
-
-<!-- ABOUT -->
-<section class="about sec" id="about">
-  <div class="about-grid">
-    <!-- outdoor calisthenics / pull-ups image -->
-    <div class="about-img-wrap fade-l">
-      <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=800&q=80"
-           alt="Krish — Elite Calisthenics Coach">
-      <div class="about-badge">
-        <div class="about-badge-n">3+</div>
-        <div class="about-badge-l">Yrs Elite</div>
+<section id="hero">
+  <div class="hero-glow"></div><div class="hero-glow2"></div>
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow fi"><span class="ep"></span>Personal Fitness Coaching</div>
+        <h1 class="hero-h fi d1">NO GYM.<br/>NO <span class="grd">EXCUSES.</span><br/><span class="out">JUST RESULTS.</span></h1>
+        <p class="hero-sub fi d2">You don't need a gym to get strong. You need the right plan and someone who keeps you accountable. That's exactly what I do — 1-on-1 coaching built around your body, your schedule, and your real goals.</p>
+        <div class="hero-btns fi d3">
+          <a href="https://wa.me/916374133309?text=Hi%20Krish%2C%20I%20want%20to%20start%20coaching!" target="_blank" rel="noopener" class="btn-fire"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>Speak with Coach</a>
+          <a href="#programs" class="btn-ghost fi d4">View Programs ↓</a>
+        </div>
       </div>
-    </div>
-    <div class="about-text">
-      <div class="sec-label fade">About Krish</div>
-      <h2 class="sec-title fade d1">
-        Built Outside.<br>
-        <span class="dim">Proven Daily.</span><br>
-        <span class="ac">Zero Equipment.</span>
-      </h2>
-      <blockquote class="fade d2">"Your body is the most powerful machine ever built. No membership required."</blockquote>
-      <p class="fade d2">I'm Kishore — a calisthenics athlete and movement coach who built an elite physique using nothing but <strong>bodyweight, open air, and relentless consistency.</strong> No machines, no dumbbells, no excuses.</p>
-      <p class="fade d3">Push-ups, pull-ups, handstands, running — the oldest forms of human movement are still the most effective. My coaching system proves it, one rep at a time.</p>
-      <div class="attrs">
-        <div class="attr fade d1"><div class="attr-icon"><i class="fas fa-person-running"></i></div><div class="attr-title">Conditioning</div><div class="attr-desc">Run further, breathe easier, move faster.</div></div>
-        <div class="attr fade d2"><div class="attr-icon"><i class="fas fa-hand-fist"></i></div><div class="attr-title">Strength</div><div class="attr-desc">Push, pull, squat — pure functional force.</div></div>
-        <div class="attr fade d3"><div class="attr-icon"><i class="fas fa-arrows-alt"></i></div><div class="attr-title">Mobility</div><div class="attr-desc">Move freely and pain-free every single day.</div></div>
-        <div class="attr fade d4"><div class="attr-icon"><i class="fas fa-brain"></i></div><div class="attr-title">Mindset</div><div class="attr-desc">Discipline that shows up before motivation does.</div></div>
+      <div class="hero-vis fi d2">
+        <div class="hv-ring">
+          <div class="hv-ring2"></div>
+          <div class="hv-core">
+            <svg class="hv-fig" viewBox="0 0 100 100" fill="none"><circle cx="50" cy="18" r="9" stroke="#7c6fff" stroke-width="2"/><line x1="50" y1="27" x2="50" y2="58" stroke="#7c6fff" stroke-width="2.5"/><line x1="50" y1="35" x2="28" y2="50" stroke="#7c6fff" stroke-width="2.5"/><line x1="50" y1="35" x2="72" y2="50" stroke="#7c6fff" stroke-width="2.5"/><line x1="50" y1="58" x2="37" y2="80" stroke="#7c6fff" stroke-width="2.5"/><line x1="50" y1="58" x2="63" y2="80" stroke="#7c6fff" stroke-width="2.5"/></svg>
+            <div class="hv-name">KRISH</div>
+            <div class="hv-tag">Your Coach</div>
+          </div>
+          <div class="hv-dot"></div><div class="hv-dot2"></div>
+        </div>
+        <div class="hv-label hv-l1">💪 1-on-1 Coaching</div>
+        <div class="hv-label hv-l2">🔥 Fat Loss + Muscle</div>
       </div>
     </div>
   </div>
 </section>
-
-<!-- PROGRAMS -->
-<section class="programs sec" id="programs">
-  <div class="prog-head">
-    <div class="sec-label fade">Training Programs</div>
-    <h2 class="sec-title fade d1">Choose Your<br><span class="ac">Path.</span></h2>
-    <p class="fade d2">Six bodyweight programs — each built around real movement, real effort, and real results. No gym ever required.</p>
-  </div>
-  <div class="prog-grid">
-
-    <div class="pcard fade d1">
-      <div class="pcard-img">
-        <!-- push-ups / beginner bodyweight outdoor -->
-        <img src="https://imgs.search.brave.com/5Wc9_bze-cvmc99QFG9eaafDZmml_FUi4GPMFVGEc-4/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMjE5/ODUyNzU4OS9waG90/by9tYW4tZG9pbmct/YS1oYW5kc3RhbmQt/b24taGlnaC12aWV3/cG9pbnQtb24tbW91/bnRhaW4tcmFpbGlu/Zy1lZGdlLXNpbGhv/dWV0dGUuanBnP3M9/NjEyeDYxMiZ3PTAm/az0yMCZjPUJJM2RN/ZE4zcUdCNjhYM2la/Z29DekptR19hcFJT/RUVWcV9tVWJIVnJk/Y1E9?auto=format&fit=crop&w=600&q=80"
-             alt="Beginner bodyweight training">
-        <div class="pcard-img-ov"></div><span class="pcard-num">01</span>
-      </div>
-      <div class="pcard-body">
-        <div class="pcard-title">Beginner Calisthenics</div>
-        <p class="pcard-desc">Start from zero. Push-ups, bodyweight squats, hanging holds, and basic pull-up progressions — all outdoors, all free.</p>
-        <div class="pcard-tags"><span class="ptag">8 Weeks</span><span class="ptag">Beginner</span><span class="ptag">No Equipment</span></div>
-        <div class="pcard-foot">
-          <a href="#contact" class="pcard-cta">Get Started <i class="fas fa-arrow-right"></i></a>
-          <span class="pcard-level">Foundation</span>
+<section id="about" class="s s-alt">
+  <div class="container">
+    <div class="about-grid">
+      <div class="ao fl">
+        <div class="a-frame">
+          <div class="cbr cbr-tl"></div><div class="cbr cbr-br"></div>
+          <svg class="a-fig" viewBox="0 0 100 100" fill="none"><circle cx="50" cy="18" r="9" stroke="#7c6fff" stroke-width="2"/><line x1="50" y1="27" x2="50" y2="58" stroke="#7c6fff" stroke-width="2.5"/><line x1="50" y1="35" x2="28" y2="50" stroke="#7c6fff" stroke-width="2.5"/><line x1="50" y1="35" x2="72" y2="50" stroke="#7c6fff" stroke-width="2.5"/><line x1="50" y1="58" x2="37" y2="80" stroke="#7c6fff" stroke-width="2.5"/><line x1="50" y1="58" x2="63" y2="80" stroke="#7c6fff" stroke-width="2.5"/></svg>
+          <span class="a-lbl">KRISH</span><span class="a-sub">Fitness Coach</span>
+          <div class="a-badge a-b1"><span class="bdot"></span>Certified Trainer</div>
+          <div class="a-badge a-b2"><span class="bdot"></span>Nutrition Specialist</div>
         </div>
       </div>
-    </div>
-
-    <div class="pcard fade d2">
-      <div class="pcard-img">
-        <!-- outdoor running -->
-        <img src="https://images.unsplash.com/photo-1571008887538-b36bb32f4571?auto=format&fit=crop&w=600&q=80"
-             alt="Outdoor running and cardio">
-        <div class="pcard-img-ov"></div><span class="pcard-num">02</span>
-      </div>
-      <div class="pcard-body">
-        <div class="pcard-title">Run &amp; Condition</div>
-        <p class="pcard-desc">Sprint intervals, long runs, and bodyweight circuits. Torch fat, build endurance, and develop an engine that never quits.</p>
-        <div class="pcard-tags"><span class="ptag">12 Weeks</span><span class="ptag">Cardio</span><span class="ptag">Outdoor</span></div>
-        <div class="pcard-foot">
-          <a href="#contact" class="pcard-cta">Get Started <i class="fas fa-arrow-right"></i></a>
-          <span class="pcard-level">All Levels</span>
+      <div class="a-text ao fr">
+        <span class="stag">Meet Your Coach</span>
+        <h2 class="sh">PASSION.<br/><span class="grd">PURPOSE.<br/>PROGRESS.</span></h2>
+        <p>Hey, I'm Krish. I started my own fitness journey and got completely obsessed — with training, nutrition, and what it actually takes to transform your body. That passion became a mission: helping others do what I did, smarter and faster.</p>
+        <p>I don't sell promises. I build plans — real, personalised training and nutrition programs that fit around your life. No templates. No guesswork.</p>
+        <div class="a-creds">
+          <div class="acr"><div class="acr-ic">🏅</div>Certified Personal Trainer</div>
+          <div class="acr"><div class="acr-ic">🥗</div>Sports Nutrition Specialist</div>
+          <div class="acr"><div class="acr-ic">🏋️</div>Strength & Hypertrophy Focus</div>
+          <div class="acr"><div class="acr-ic">📱</div>Full Online Support via WhatsApp</div>
         </div>
-      </div>
-    </div>
-
-    <div class="pcard fade d3">
-      <div class="pcard-img">
-        <!-- push-ups outdoor -->
-        <img src="https://images.unsplash.com/photo-1549060279-7e168fcee0c2?auto=format&fit=crop&w=600&q=80"
-             alt="Outdoor push-ups and muscle building">
-        <div class="pcard-img-ov"></div><span class="pcard-num">03</span>
-      </div>
-      <div class="pcard-body">
-        <div class="pcard-title">Muscle Building</div>
-        <p class="pcard-desc">Build an aesthetic, powerful physique using progressive push-ups, pull-ups, and dips. Pure bodyweight, maximum gains.</p>
-        <div class="pcard-tags"><span class="ptag">16 Weeks</span><span class="ptag">Progressive</span><span class="ptag">Advanced</span></div>
-        <div class="pcard-foot">
-          <a href="#contact" class="pcard-cta">Get Started <i class="fas fa-arrow-right"></i></a>
-          <span class="pcard-level">Advanced</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="pcard fade d1">
-      <div class="pcard-img">
-        <!-- stretching / mobility outdoor -->
-        <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=600&q=80"
-             alt="Mobility and flexibility training">
-        <div class="pcard-img-ov"></div><span class="pcard-num">04</span>
-      </div>
-      <div class="pcard-body">
-        <div class="pcard-title">Mobility &amp; Flexibility</div>
-        <p class="pcard-desc">Move like an athlete. Deepen your range of motion, fix imbalances, eliminate chronic pain, and stay injury-free for life.</p>
-        <div class="pcard-tags"><span class="ptag">6 Weeks</span><span class="ptag">Daily Practice</span><span class="ptag">All Levels</span></div>
-        <div class="pcard-foot">
-          <a href="#contact" class="pcard-cta">Get Started <i class="fas fa-arrow-right"></i></a>
-          <span class="pcard-level">All Levels</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="pcard fade d2">
-      <div class="pcard-img">
-        <!-- street workout / pull-ups bars outdoor -->
-        <img src="https://imgs.search.brave.com/Uv7fLBrdfDwazLN419ocJXaDwOYE3UkghFxkWsMZDl0/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93YWxs/cGFwZXJhY2Nlc3Mu/Y29tL2Z1bGwvMzUx/MjYzNi5qcGc?auto=format&fit=crop&w=600&q=80"
-             alt="Street workout pull-ups and skills">
-        <div class="pcard-img-ov"></div><span class="pcard-num">05</span>
-      </div>
-      <div class="pcard-body">
-        <div class="pcard-title">Street Workout Skills</div>
-        <p class="pcard-desc">Master muscle-ups, handstands, front levers, and planche progressions. Elite calisthenics on the outdoor bars — unlocked.</p>
-        <div class="pcard-tags"><span class="ptag">Ongoing</span><span class="ptag">Skills</span><span class="ptag">Intermediate+</span></div>
-        <div class="pcard-foot">
-          <a href="#contact" class="pcard-cta">Get Started <i class="fas fa-arrow-right"></i></a>
-          <span class="pcard-level">Intermediate+</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="pcard fade d3">
-      <div class="pcard-img">
-        <!-- home/outdoor minimal space workout -->
-        <img src="https://images.unsplash.com/photo-1605296867304-46d5465a13f1?auto=format&fit=crop&w=600&q=80"
-             alt="Home and outdoor bodyweight workout">
-        <div class="pcard-img-ov"></div><span class="pcard-num">06</span>
-      </div>
-      <div class="pcard-body">
-        <div class="pcard-title">Home Workout Plans</div>
-        <p class="pcard-desc">Zero equipment, zero excuses. Built for your living room, balcony, rooftop — anywhere with 2 metres of space.</p>
-        <div class="pcard-tags"><span class="ptag">Flexible</span><span class="ptag">Zero Equipment</span><span class="ptag">All Levels</span></div>
-        <div class="pcard-foot">
-          <a href="#contact" class="pcard-cta">Get Started <i class="fas fa-arrow-right"></i></a>
-          <span class="pcard-level">All Levels</span>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- GALLERY — all outdoor/calisthenics/running images -->
-<section class="gallery sec" id="gallery">
-  <div class="gallery-head">
-    <div>
-      <div class="sec-label fade">In Motion</div>
-      <h2 class="sec-title fade d1">The <span class="ac">Work.</span></h2>
-    </div>
-    <div class="gallery-sub fade d2">Every frame, a rep earned outdoors.</div>
-  </div>
-  <div class="gallery-grid">
-    <!-- large hero cell — outdoor running -->
-    <div class="gitem fade d1">
-      <img src="https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?auto=format&fit=crop&w=900&q=80" alt="Running outdoors">
-      <div class="g-over"><i class="fas fa-expand-alt"></i><span>Running</span></div>
-    </div>
-    <!-- pull-ups -->
-    <div class="gitem fade d2">
-      <img src="https://as1.ftcdn.net/v2/jpg/05/01/16/86/1000_F_501168695_04ESdzVg7HaAfixfV0ugsRxJKdbFdoVe.jpg?auto=format&fit=crop&w=450&q=80" alt="Pull-ups calisthenics">
-      <div class="g-over"><i class="fas fa-expand-alt"></i><span>Pull-Ups</span></div>
-    </div>
-    <!-- push-ups -->
-    <div class="gitem fade d3">
-      <img src="https://imgs.search.brave.com/NP6u1lVhNAFvgFXdmFBx-dcOgP6urCUhNxlNtfWP5nk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMjIw/NTk4Mzg4Ni9waG90/by9tdXNjdWxhci1i/dWlsZC1tZW4tZXhl/cmNpc2luZy1wdXNo/LXVwcy1pbi1hLWd5/bS5qcGc_cz02MTJ4/NjEyJnc9MCZrPTIw/JmM9NUF1TXZhcFBu/NmtIdVlkQThFYjZW/UVRsVVU4blUzZWQ1/U1UyY3hkaWo3ST0?auto=format&fit=crop&w=450&q=80" alt="Push-ups">
-      <div class="g-over"><i class="fas fa-expand-alt"></i><span>Push-Ups</span></div>
-    </div>
-    <!-- outdoor athlete -->
-    <div class="gitem fade d2">
-      <img src="https://images.unsplash.com/photo-1571008887538-b36bb32f4571?auto=format&fit=crop&w=450&q=80" alt="Outdoor athlete">
-      <div class="g-over"><i class="fas fa-expand-alt"></i><span>Endurance</span></div>
-    </div>
-    <!-- handstand / skills -->
-    <div class="gitem fade d3">
-      <img src="https://imgs.search.brave.com/29zlciX24z0gfKqV7LCHsphw7Sy5TNCa1tL4ViOILBI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/YmV0dGVybWUud29y/bGQvYXJ0aWNsZXMv/d3AtY29udGVudC91/cGxvYWRzLzIwMjYv/MDQvbWlsaXRhcnkt/Y2FsaXN0aGVuaWNz/LXdvcmtvdXQtZm9y/LW1lbi5qcGc?auto=format&fit=crop&w=450&q=80" alt="Calisthenics skills">
-      <div class="g-over"><i class="fas fa-expand-alt"></i><span>Skills</span></div>
-    </div>
-    <!-- outdoor park workout — wide -->
-    <div class="gitem fade d4">
-      <img src="https://imgs.search.brave.com/nKbWO8weehWpDBBs_wZmiRlMFWr2-BUPuV-Lv0NEoKo/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90aHVt/YnMuZHJlYW1zdGlt/ZS5jb20vYi9ncm91/cC13b3Jrb3V0LXNl/c3Npb24tb3V0ZG9v/ci1maXRuZXNzLXBh/cmstY2FsaXN0aGVu/aWNzLWVxdWlwbWVu/dC1zdW5ueS1kYXkt/dGhyZWUtcGVvcGxl/LWVuZ2FnZWQtZW5l/cmdldGljLTM4NzM4/NTU5Mi5qcGc?auto=format&fit=crop&w=900&q=80" alt="Park workout">
-      <div class="g-over"><i class="fas fa-expand-alt"></i><span>Park Workout</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- TESTIMONIALS -->
-<section class="testi sec" id="results">
-  <div class="testi-head">
-    <div class="sec-label fade">Client Stories</div>
-    <h2 class="sec-title fade d1">Results <span class="ac">Speak.</span></h2>
-    <p class="fade d2">Real people. Real bodyweight transformations. No gym, ever.</p>
-  </div>
-  <div class="testi-grid">
-    <div class="tcard fade d1">
-      <div class="t-stars">★★★★★</div>
-      <p class="t-text">"Krish changed everything for me. No gym, no equipment — just his program and the open road. I'm in the best shape of my life and I've never touched a dumbbell."</p>
-      <div class="t-author">
-        <div class="t-av">A</div>
-        <div><div class="t-name">Arjun Mehta</div><div class="t-role">Software Engineer, Mumbai</div></div>
-      </div>
-    </div>
-    <div class="tcard fade d2">
-      <div class="t-stars">★★★★★</div>
-      <p class="t-text">"Lost 18 kg in 4 months. Just running, push-ups, and Krish's nutrition guide. No expensive gym, no equipment, zero compromise on results."</p>
-      <div class="t-author">
-        <div class="t-av" style="background:linear-gradient(135deg,#00A876,#00C896)">R</div>
-        <div><div class="t-name">Rahul Sharma</div><div class="t-role">Entrepreneur, Delhi</div></div>
-      </div>
-    </div>
-    <div class="tcard fade d3">
-      <div class="t-stars">★★★★★</div>
-      <p class="t-text">"3 months ago I couldn't do a single pull-up. Now I'm hitting muscle-ups on the park bars every morning. Krish's progression is unmatched."</p>
-      <div class="t-author">
-        <div class="t-av" style="background:linear-gradient(135deg,#007A5C,#00C896)">V</div>
-        <div><div class="t-name">Vikram Nair</div><div class="t-role">Student, Bangalore</div></div>
       </div>
     </div>
   </div>
 </section>
-
-<!-- QUOTE -->
-<div class="quote-sec fade">
-  <div class="quote-bg">
-    <!-- outdoor running / nature -->
-    <img src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?auto=format&fit=crop&w=1920&q=80" alt="Outdoor athlete">
-  </div>
-  <div class="quote-body">
-    <p class="q-text">The <span>streets, parks, and rooftops</span><br>are your gym. They always were.</p>
-    <p class="q-by">— The TrainWithKrish Philosophy</p>
-  </div>
-</div>
-
-<!-- WEEKLY SCHEDULE -->
-<section class="schedule sec" id="schedule">
-  <div class="sched-head">
-    <div class="sec-label fade">The Blueprint</div>
-    <h2 class="sec-title fade d1">A Champion's <span class="ac">Week.</span></h2>
-    <p class="fade d2">Consistency builds champions. This is the weekly bodyweight structure that turns ordinary people into athletes.</p>
-  </div>
-  <div class="week">
-    <div class="day fade d1">
-      <div class="day-name">MON</div>
-      <div class="day-type">Push</div>
-      <div class="day-icon">💪</div>
-      <div class="day-detail">Push-ups, dips, pike press — upper push strength</div>
+<section id="programs" class="s">
+  <div class="container">
+    <div class="hdr-c ao">
+      <span class="stag">Programs</span>
+      <h2 class="sh">PICK YOUR <span class="grd">PROGRAM</span></h2>
+      <p class="ssub">Two focused programs. Both fully customized for your body and goals.</p>
     </div>
-    <div class="day fade d2">
-      <div class="day-name">TUE</div>
-      <div class="day-type">Run</div>
-      <div class="day-icon">🏃</div>
-      <div class="day-detail">5 km outdoor run + sprint finishers</div>
-    </div>
-    <div class="day fade d3">
-      <div class="day-name">WED</div>
-      <div class="day-type">Pull</div>
-      <div class="day-icon">🏋️</div>
-      <div class="day-detail">Pull-ups, chin-ups, rows on bars</div>
-    </div>
-    <div class="day fade d4">
-      <div class="day-name">THU</div>
-      <div class="day-type">Legs</div>
-      <div class="day-icon">🔥</div>
-      <div class="day-detail">Squats, lunges, jump squats, pistols</div>
-    </div>
-    <div class="day fade d1">
-      <div class="day-name">FRI</div>
-      <div class="day-type">Skills</div>
-      <div class="day-icon">🤸</div>
-      <div class="day-detail">Handstands, L-sits, muscle-up progressions</div>
-    </div>
-    <div class="day fade d2">
-      <div class="day-name">SAT</div>
-      <div class="day-type">Long Run</div>
-      <div class="day-icon">🌿</div>
-      <div class="day-detail">8–10 km easy outdoor run or hike</div>
-    </div>
-    <div class="day rest fade d3">
-      <div class="day-name">SUN</div>
-      <div class="day-type">Rest</div>
-      <div class="day-icon">😴</div>
-      <div class="day-detail">Stretching, breathwork, full recovery</div>
+    <div class="prog-grid">
+      <div class="pcard ao d1">
+        <span class="pbadge out">1-ON-1 COACHING</span>
+        <div class="pico">🎯</div>
+        <h3 class="pname">Online Personal Coaching</h3>
+        <p class="pdesc">Full-spectrum coaching that adapts every week — training, nutrition, and real accountability wherever you are.</p>
+        <ul class="plist">
+          <li><svg class="chk" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Personalised training plan</li>
+          <li><svg class="chk" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Custom nutrition & macros</li>
+          <li><svg class="chk" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Weekly WhatsApp check-ins</li>
+          <li><svg class="chk" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Video form feedback</li>
+          <li><svg class="chk" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Direct coach access anytime</li>
+        </ul>
+        <a href="https://wa.me/916374133309?text=Hi%20Krish%2C%20I%27m%20interested%20in%20Online%20Personal%20Coaching!" target="_blank" rel="noopener" class="btn-fire btn-full"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>Speak with Coach</a>
+      </div>
+      <div class="pcard ao d2">
+        <span class="pbadge out">OFFLINE TRAINING</span>
+        <div class="pico">🤝</div>
+        <h3 class="pname">Personal Training — In Person</h3>
+        <p class="pdesc">Train face-to-face with Krish. Real-time coaching, form correction on the spot, and a fully personalised plan built around you.</p>
+        <ul class="plist">
+          <li><svg class="chk" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Attend sessions in person</li>
+          <li><svg class="chk" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Live form correction & coaching</li>
+          <li><svg class="chk" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Custom training plan provided</li>
+          <li><svg class="chk" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Personalised nutrition advice</li>
+          <li><svg class="chk" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Direct accountability every session</li>
+        </ul>
+        <a href="https://wa.me/916374133309?text=Hi%20Krish%2C%20I%27m%20interested%20in%20Offline%20Personal%20Training!" target="_blank" rel="noopener" class="btn-fire btn-full">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+          Speak with Coach
+        </a>
+      </div>
+      <div class="pcard feat glow-border ao d3">
+        <span class="pbadge gold">🔥 MOST POPULAR</span>
+        <div class="pico">⚡</div>
+        <h3 class="pname">Fat Loss Transformation</h3>
+        <p class="pdesc">12-week science-backed program to shred fat and build visible muscle — completely personalised from day one.</p>
+        <ul class="plist">
+          <li><svg class="chk" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>12-week structured program</li>
+          <li><svg class="chk" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Calorie targets & macro split</li>
+          <li><svg class="chk" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>HIIT + strength training combo</li>
+          <li><svg class="chk" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Weekly progress adjustments</li>
+          <li><svg class="chk" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Supplement guidance included</li>
+        </ul>
+        <a href="https://wa.me/916374133309?text=Hi%20Krish%2C%20I%27m%20interested%20in%20the%20Fat%20Loss%20Transformation!" target="_blank" rel="noopener" class="btn-fire btn-full"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>Get Started</a>
+      </div>
     </div>
   </div>
 </section>
-
-<!-- CONTACT -->
-<section class="contact sec" id="contact">
-  <div class="contact-grid">
-    <div class="contact-left">
-      <div class="sec-label fade">Get In Touch</div>
-      <h2 class="sec-title fade d1">Ready to<br><span class="ac">Start?</span></h2>
-      <p class="fade d2">No gym needed. Just fill out the form and let's build a bodyweight program tailored to your goals, your schedule, and your space.</p>
-      <div class="contact-img fade d3">
-        <!-- outdoor training -->
-        <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=700&q=80" alt="Training outdoors">
-      </div>
-      <div class="c-links fade d4">
-        <a href="#" class="c-link"><span class="c-icon ig"><i class="fab fa-instagram"></i></span><div><div class="c-label">Instagram</div><div class="c-val">@trainwithkrish</div></div><i class="fas fa-arrow-right" style="margin-left:auto;font-size:11px;color:#3a5248"></i></a>
-        <a href="#" class="c-link"><span class="c-icon yt"><i class="fab fa-youtube"></i></span><div><div class="c-label">YouTube</div><div class="c-val">TrainWithKrish</div></div><i class="fas fa-arrow-right" style="margin-left:auto;font-size:11px;color:#3a5248"></i></a>
-        <a href="#" class="c-link"><span class="c-icon wa"><i class="fab fa-whatsapp"></i></span><div><div class="c-label">WhatsApp</div><div class="c-val">+91 12345</div></div><i class="fas fa-arrow-right" style="margin-left:auto;font-size:11px;color:#3a5248"></i></a>
-        <a href="mailto:kishore@gmail.com" class="c-link"><span class="c-icon em"><i class="fas fa-envelope"></i></span><div><div class="c-label">Email</div><div class="c-val">kishore@gmail.com</div></div><i class="fas fa-arrow-right" style="margin-left:auto;font-size:11px;color:#3a5248"></i></a>
-      </div>
+<section id="process" class="s s-alt">
+  <div class="container">
+    <div class="hdr-c ao">
+      <span class="stag">How It Works</span>
+      <h2 class="sh">FOUR STEPS TO <span class="grd">TRANSFORMATION</span></h2>
+      <p class="ssub">No gatekeeping. Here's exactly what happens when you reach out.</p>
     </div>
-    <div class="c-form fade-r">
-      <div class="form-h">Start Your Journey</div>
-      <div class="form-sub">Fill out the form — I'll get back to you within 24 hours.</div>
-      <form id="cform" novalidate>
-        <div class="frow">
-          <div class="fg"><label class="fl" for="fn">First Name</label><input type="text" id="fn" class="fi" placeholder="Arjun" required></div>
-          <div class="fg"><label class="fl" for="ln">Last Name</label><input type="text" id="ln" class="fi" placeholder="Mehta"></div>
-        </div>
-        <div class="fg"><label class="fl" for="em">Email</label><input type="email" id="em" class="fi" placeholder="arjun@email.com" required></div>
-        <div class="fg">
-          <label class="fl" for="gl">Your Goal</label>
-          <select id="gl" class="fsel">
-            <option value="">Select your goal</option>
-            <option>Fat Loss &amp; Body Recomposition</option>
-            <option>Muscle Building &amp; Strength</option>
-            <option>Calisthenics Skills</option>
-            <option>Running &amp; Endurance</option>
-            <option>Mobility &amp; Flexibility</option>
-            <option>General Fitness</option>
-          </select>
-        </div>
-        <div class="fg"><label class="fl" for="msg">Message</label><textarea id="msg" class="fta" placeholder="Tell me about your current fitness level and what you want to achieve…"></textarea></div>
-        <button type="submit" class="fsub">Send Message — Let's Build</button>
-      </form>
+    <div class="proc-grid">
+      <div class="pstep ao d1"><div class="pnum"><span class="pnum-in">01</span></div><h3 class="pstep-h">Message Krish</h3><p class="pstep-p">Hit "Speak with Coach" — opens WhatsApp. Tell me your goal in one line. That's all it takes.</p></div>
+      <div class="pstep ao d2"><div class="pnum"><span class="pnum-in">02</span></div><h3 class="pstep-h">Free Discovery Call</h3><p class="pstep-p">A quick 15-min call. I learn your body, lifestyle, and what you actually want to achieve.</p></div>
+      <div class="pstep ao d3"><div class="pnum"><span class="pnum-in">03</span></div><h3 class="pstep-h">Get Your Plan</h3><p class="pstep-p">Fully custom training + nutrition plan — built for your body, not copy-pasted from the internet.</p></div>
+      <div class="pstep ao d4"><div class="pnum"><span class="pnum-in">04</span></div><h3 class="pstep-h">Train & Transform</h3><p class="pstep-p">Execute your plan with weekly check-ins. I adjust everything as you progress.</p></div>
     </div>
   </div>
 </section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="ft-grid">
-    <div class="ft-brand">
-      <a href="#home">Train<span>With</span>Krish</a>
-      <p>"Movement is the medicine for change in a person's physical, emotional, and mental state."<br><br>Train anywhere. Become unstoppable.</p>
-      <div class="ft-socials">
-        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-        <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-        <a href="#" aria-label="X"><i class="fab fa-x-twitter"></i></a>
-      </div>
+<section id="gallery" class="s">
+  <div class="container">
+    <div class="hdr-c ao">
+      <span class="stag">Gallery</span>
+      <h2 class="sh">MOVEMENT <span class="grd">IN MOTION</span></h2>
     </div>
-    <div class="ft-col">
-      <div class="ft-col-h">Programs</div>
-      <ul>
-        <li><a href="#programs">Beginner Calisthenics</a></li>
-        <li><a href="#programs">Run &amp; Condition</a></li>
-        <li><a href="#programs">Muscle Building</a></li>
-        <li><a href="#programs">Mobility &amp; Flexibility</a></li>
-        <li><a href="#programs">Street Workout Skills</a></li>
-      </ul>
-    </div>
-    <div class="ft-col">
-      <div class="ft-col-h">Navigate</div>
-      <ul>
-        <li><a href="#about">About Krish</a></li>
-        <li><a href="#gallery">Gallery</a></li>
-        <li><a href="#results">Results</a></li>
-        <li><a href="#schedule">Weekly Schedule</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </div>
-    <div class="ft-col">
-      <div class="ft-col-h">Coaching</div>
-      <ul>
-        <li><a href="#contact">1-on-1 Coaching</a></li>
-        <li><a href="#contact">Online Programs</a></li>
-        <li><a href="#contact">Custom Plans</a></li>
-        <li><a href="#contact">Nutrition Guide</a></li>
-      </ul>
+    <div class="gal">
+      <div class="gi tall ao"><div class="gp gp-1"><span class="ge">🤸</span><span class="glbl">Handstand</span></div><div class="ov"><span>Balance Training</span></div></div>
+      <div class="gi ao d1"><div class="gp gp-2"><span class="ge">💪</span><span class="glbl">Pull-ups</span></div><div class="ov"><span>Back & Biceps</span></div></div>
+      <div class="gi ao d2"><div class="gp gp-3"><span class="ge">🏋️</span><span class="glbl">Dips</span></div><div class="ov"><span>Chest & Triceps</span></div></div>
+      <div class="gi wide ao"><div class="gp gp-4"><span class="ge">⚡</span><span class="glbl">Power Training</span></div><div class="ov"><span>Strength Circuit</span></div></div>
+      <div class="gi tall ao d1"><div class="gp gp-5"><span class="ge">🌊</span><span class="glbl">Mobility</span></div><div class="ov"><span>Mobility Flow</span></div></div>
+      <div class="gi ao d2"><div class="gp gp-6"><span class="ge">🔥</span><span class="glbl">HIIT</span></div><div class="ov"><span>Fat Burning HIIT</span></div></div>
     </div>
   </div>
-  <div class="ft-bot">
-    <p>&copy; 2026 TrainWithKrish. All rights reserved.</p>
-    <div class="ft-bot-links"><a href="#">Privacy</a><a href="#">Terms</a></div>
+</section>
+<section id="faq" class="s s-alt">
+  <div class="container">
+    <div class="hdr-c ao">
+      <span class="stag">FAQ</span>
+      <h2 class="sh">GOT <span class="grd">QUESTIONS?</span></h2>
+    </div>
+    <div class="faq-wrap">
+      <div class="faq-item ao"><button class="fq">Do I need a gym to train with you?<div class="fq-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div></button><div class="fa"><p>Not at all. I design programs for gym, home, or outdoors. Consistency beats location every time.</p></div></div>
+      <div class="faq-item ao"><button class="fq">I'm a complete beginner. Is this for me?<div class="fq-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div></button><div class="fa"><p>Zero experience needed. Every program starts from where you are. Just show up and do the work — I handle everything else.</p></div></div>
+      <div class="faq-item ao"><button class="fq">How quickly will I see real results?<div class="fq-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div></button><div class="fa"><p>Visible changes in 4–6 weeks with consistency. Major transformations at 12–16 weeks. Honest timelines from day one.</p></div></div>
+      <div class="faq-item ao"><button class="fq">Is nutrition guidance included?<div class="fq-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div></button><div class="fa"><p>Yes — always. Personalised calorie targets, macro splits, and practical food guidance based on what you actually eat.</p></div></div>
+      <div class="faq-item ao"><button class="fq">How do I get started right now?<div class="fq-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div></button><div class="fa"><p>Tap "Speak with Coach" — it opens WhatsApp directly. Tell me your goal and we'll set up a free 15-min call. No forms, no pressure.</p></div></div>
+    </div>
+  </div>
+</section>
+<section id="guide" class="s">
+  <div class="container">
+    <div class="lm-card ao">
+      <div class="lm-bg">FREE</div>
+      <div>
+        <div class="lm-tag">✦ Free Download</div>
+        <h2 class="lm-h">THE <span class="grd">FAT LOSS<br/>STARTER GUIDE</span></h2>
+        <p class="lm-p">A no-fluff beginner playbook with exercises, structure, and nutrition basics you need to see real results — fast.</p>
+        <ul class="lm-list">
+          <li>10 essential exercises with progressions</li>
+          <li>4-week beginner training structure</li>
+          <li>Simple fat-loss nutrition rules that stick</li>
+          <li>Common mistakes to avoid from day 1</li>
+        </ul>
+      </div>
+      <div class="lm-form">
+        <div class="lm-form-h">Get It Free 👇</div>
+        <form id="leadForm">
+          <div class="fg"><input type="text" name="name" placeholder="Your first name" required autocomplete="given-name"/></div>
+          <div class="fg"><input type="email" name="email" placeholder="Your email address" required autocomplete="email"/></div>
+          <button type="submit" class="btn-fire btn-full">Download Free Guide <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg></button>
+          <p class="fnote">No spam. Just good content.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="apply" class="s s-alt">
+  <div class="container">
+    <div class="cta-wrap ao">
+      <span class="stag" style="justify-content:center">Start Today</span>
+      <h2 class="cta-h">STOP WAITING.<br/><span class="grd">START NOW.</span></h2>
+      <p class="cta-p">One message changes everything. Reach out, tell me your goal, and let's build a plan that actually works for you.</p>
+      <div class="apply-card">
+        <form id="applyForm">
+          <div class="frow">
+            <div class="fg"><input type="text" name="name" placeholder="Full Name" required autocomplete="name"/></div>
+            <div class="fg"><input type="email" name="email" placeholder="Email Address" required autocomplete="email"/></div>
+          </div>
+          <div class="frow">
+            <div class="fg"><input type="tel" name="phone" placeholder="WhatsApp Number" autocomplete="tel"/></div>
+            <div class="fg"><select name="program"><option value="" disabled selected>Select a Program</option><option>Online Personal Coaching</option><option>Offline Personal Training</option><option>Fat Loss Transformation</option><option>Not sure yet</option></select></div>
+          </div>
+          <div class="fg"><textarea name="goals" placeholder="What's your #1 goal right now? (optional)"></textarea></div>
+          <button type="submit" class="btn-fire btn-full" style="font-size:16px;padding:19px"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>Send via WhatsApp — Free Consultation</button>
+          <p class="fnote">No commitment. No charge. Just a conversation.</p>
+        </form>
+        <div class="ok" id="applyOk"><div class="ok-ic">✅</div><h3>Message Sent!</h3><p>WhatsApp opened with your details. Krish will reply shortly.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+<footer id="footer">
+  <div class="container">
+    <div class="ft-grid">
+      <div>
+        <a href="#" class="nav-logo"><div class="logo-mark">TK</div><span class="logo-text">TrainWithKrish</span></a>
+        <p class="ft-desc">Personal fitness coaching. Build muscle, burn fat, and transform your body — on your terms, with a coach who actually cares.</p>
+        <div class="ft-soc">
+          <a href="https://instagram.com/trainwithkrish" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+          <a href="https://youtube.com/@trainwithkrish" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+          <a href="https://wa.me/916374133309" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></a>
+        </div>
+      </div>
+      <div class="ft-col"><h4>Programs</h4><ul><li><a href="#programs">Online Personal Coaching</a></li><li><a href="#programs">Fat Loss Transformation</a></li></ul></div>
+      <div class="ft-col"><h4>Navigate</h4><ul><li><a href="#about">About Krish</a></li><li><a href="#process">How It Works</a></li><li><a href="#faq">FAQ</a></li><li><a href="#guide">Free Guide</a></li></ul></div>
+      <div class="ft-col"><h4>Contact</h4><ul><li><a href="https://wa.me/916374133309" target="_blank" rel="noopener">WhatsApp</a></li><li><a href="mailto:krish@trainwithkrish.com">Email Krish</a></li><li><a href="https://instagram.com/trainwithkrish" target="_blank" rel="noopener">Instagram</a></li></ul></div>
+    </div>
+    <div class="ft-bottom"><p>&copy; 2026 TrainWithKrish. All rights reserved.</p><p>Built with fire. Forged with purpose. 🔥</p></div>
   </div>
 </footer>
-
+<div id="wa-bar">
+  <a href="https://wa.me/916374133309?text=Hi%20Krish%2C%20I%20want%20to%20know%20more%20about%20your%20coaching!" target="_blank" rel="noopener">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+    💬 Speak with Coach — Free Consultation
+  </a>
+</div>
 <script>
-/* LOADER */
-window.addEventListener('load', () => {
-  setTimeout(() => {
-    document.getElementById('loader').classList.add('hide');
-    document.body.classList.remove('loading');
-    document.getElementById('hero-img').classList.add('loaded');
-  }, 2500);
-});
-
-/* CURSOR */
-const cur = document.getElementById('cur'), ring = document.getElementById('cur-ring');
-let mx = 0, my = 0, rx = 0, ry = 0;
-document.addEventListener('mousemove', e => {
-  mx = e.clientX; my = e.clientY;
-  cur.style.left = mx + 'px'; cur.style.top = my + 'px';
-});
-(function loop() {
-  rx += (mx - rx) * .1; ry += (my - ry) * .1;
-  ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
-  requestAnimationFrame(loop);
+(function(){
+  'use strict';
+  var WA='916374133309';
+  var sp=document.getElementById('sp'),nav=document.getElementById('nav'),tick=false;
+  function onScroll(){
+    if(tick)return;tick=true;
+    requestAnimationFrame(function(){
+      var s=window.scrollY,h=document.documentElement.scrollHeight-window.innerHeight;
+      sp.style.width=(h>0?s/h*100:0)+'%';
+      nav.classList.toggle('sc',s>50);
+      document.querySelectorAll('.ao').forEach(function(el){
+        if(el.getBoundingClientRect().top<window.innerHeight*.87)el.classList.add('in');
+      });
+      tick=false;
+    });
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  onScroll();
+  var hbg=document.getElementById('hbg'),nm=document.getElementById('nm');
+  hbg.addEventListener('click',function(){hbg.classList.toggle('o');nm.classList.toggle('o');document.body.style.overflow=nm.classList.contains('o')?'hidden':'';});
+  nm.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){hbg.classList.remove('o');nm.classList.remove('o');document.body.style.overflow='';});});
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click',function(e){var t=document.querySelector(this.getAttribute('href'));if(t){e.preventDefault();window.scrollTo({top:t.getBoundingClientRect().top+window.scrollY-72,behavior:'smooth'});}});
+  });
+  document.querySelectorAll('.faq-item').forEach(function(item){
+    item.querySelector('.fq').addEventListener('click',function(){var o=item.classList.contains('o');document.querySelectorAll('.faq-item').forEach(function(i){i.classList.remove('o');});if(!o)item.classList.add('o');});
+  });
+  var af=document.getElementById('applyForm'),ao=document.getElementById('applyOk');
+  if(af){af.addEventListener('submit',function(e){
+    e.preventDefault();
+    var d=new FormData(af);
+    var msg='*New Coaching Enquiry — TrainWithKrish*\n\n👤 *Name:* '+(d.get('name')||'')+'\n📧 *Email:* '+(d.get('email')||'')+'\n📱 *Phone:* '+(d.get('phone')||'')+'\n🎯 *Program:* '+(d.get('program')||'')+'\n💬 *Goal:* '+(d.get('goals')||'');
+    var btn=af.querySelector('button[type=submit]');btn.textContent='Opening WhatsApp…';btn.disabled=true;
+    setTimeout(function(){window.open('https://wa.me/'+WA+'?text='+encodeURIComponent(msg),'_blank');af.style.display='none';ao.classList.add('show');},700);
+  });}
+  var lf=document.getElementById('leadForm');
+  if(lf){lf.addEventListener('submit',function(e){
+    e.preventDefault();var btn=lf.querySelector('button[type=submit]');btn.textContent='Sending…';btn.disabled=true;
+    setTimeout(function(){btn.textContent='✓ Check Your Email!';lf.reset();setTimeout(function(){btn.textContent='Download Free Guide';btn.disabled=false;},3500);},1200);
+  });}
 })();
-document.querySelectorAll('a, button, .pcard, .tcard, .day, .gitem').forEach(el => {
-  el.addEventListener('mouseenter', () => { cur.style.width = '18px'; cur.style.height = '18px'; ring.style.transform = 'translate(-50%,-50%) scale(1.5)'; ring.style.borderColor = 'rgba(52,211,153,.6)'; });
-  el.addEventListener('mouseleave', () => { cur.style.width = '10px'; cur.style.height = '10px'; ring.style.transform = 'translate(-50%,-50%) scale(1)'; ring.style.borderColor = 'rgba(0,200,150,.4)'; });
-});
-if ('ontouchstart' in window) { cur.style.display = 'none'; ring.style.display = 'none'; document.body.style.cursor = 'auto'; }
-
-/* PROGRESS BAR */
-const prog = document.getElementById('prog');
-window.addEventListener('scroll', () => {
-  prog.style.width = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100) + '%';
-});
-
-/* NAVBAR */
-const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => nav.classList.toggle('solid', window.scrollY > 60));
-const hbg = document.getElementById('hbg'), mob = document.getElementById('mob');
-hbg.addEventListener('click', () => {
-  hbg.classList.toggle('open'); mob.classList.toggle('open');
-  document.body.style.overflow = mob.classList.contains('open') ? 'hidden' : '';
-});
-mob.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-  hbg.classList.remove('open'); mob.classList.remove('open'); document.body.style.overflow = '';
-}));
-
-/* ACTIVE NAV */
-document.querySelectorAll('section[id]').forEach(s => {
-  new IntersectionObserver(e => {
-    e.forEach(i => { if (i.isIntersecting) document.querySelectorAll('.nav-links a').forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + i.target.id)); });
-  }, { threshold: .4 }).observe(s);
-});
-
-/* SCROLL REVEAL */
-const ro = new IntersectionObserver(e => e.forEach(i => { if (i.isIntersecting) i.target.classList.add('vis'); }), { threshold: .08, rootMargin: '0px 0px -40px 0px' });
-document.querySelectorAll('.fade, .fade-l, .fade-r, .stat-item').forEach(el => ro.observe(el));
-
-/* COUNTERS */
-const co = new IntersectionObserver(e => e.forEach(i => {
-  if (!i.isIntersecting) return;
-  i.target.querySelectorAll('.cu').forEach(el => {
-    const tgt = +el.dataset.t; let cur = 0;
-    const step = tgt / (1800 / 16);
-    const t = setInterval(() => { cur += step; if (cur >= tgt) { cur = tgt; clearInterval(t); } el.textContent = Math.floor(cur).toLocaleString(); }, 16);
-  });
-  co.unobserve(i.target);
-}), { threshold: .5 });
-const strip = document.querySelector('.stats-strip');
-if (strip) co.observe(strip);
-
-/* HERO PARALLAX */
-window.addEventListener('scroll', () => {
-  const img = document.querySelector('.hero-img img');
-  if (img) img.style.transform = `translateY(${window.scrollY * .22}px)`;
-});
-
-/* CONTACT FORM */
-document.getElementById('cform').addEventListener('submit', e => {
-  e.preventDefault();
-  const btn = e.target.querySelector('.fsub');
-  btn.textContent = 'Message Sent ✓';
-  btn.style.background = '#007A5C';
-  btn.style.color = '#fff';
-  setTimeout(() => { btn.textContent = "Send Message — Let's Build"; btn.style.background = ''; btn.style.color = ''; e.target.reset(); }, 3500);
-});
-
-/* SMOOTH ANCHORS */
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-  a.addEventListener('click', e => {
-    const t = document.querySelector(a.getAttribute('href'));
-    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
-  });
-});
 </script>
 </body>
 </html>
