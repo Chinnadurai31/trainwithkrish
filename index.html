@@ -9,83 +9,85 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet"/>
   <style>
-/* ── RESET & ROOT ── */
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --bg:#070910;--bg2:#0c0e18;--bg3:#10131f;--card:#131625;--card2:#181b2a;
-  --teal:#0ea5e9;--teal2:#38bdf8;--teal3:#7dd3fc;
-  --cyan:#06b6d4;--em:#10b981;
-  --white:#fff;--off:#dde8f0;--muted:#94a3b8;--muted2:#475569;
-  --border:rgba(14,165,233,.16);--border2:rgba(14,165,233,.38);
-  --glow:rgba(14,165,233,.25);--glow2:rgba(6,182,212,.18);
-  --grad:linear-gradient(135deg,#0ea5e9 0%,#06b6d4 100%);
-  --grad2:linear-gradient(135deg,#38bdf8 0%,#0ea5e9 50%,#0284c7 100%);
-  --grad3:linear-gradient(135deg,#10b981 0%,#06b6d4 100%);
-  --t:.28s cubic-bezier(.4,0,.2,1);
-  --r:10px;--r2:16px;--r3:24px;
+  --bg:#f8f9fc;--bg2:#f1f4f9;--bg3:#eaeff7;
+  --card:#ffffff;--card2:#f5f7fb;
+  --ink:#0f1523;--ink2:#1e2a3d;--ink3:#2d3d58;
+  --blue:#0ea5e9;--blue2:#0284c7;--blue3:#38bdf8;
+  --em:#059669;
+  --muted:#64748b;--muted2:#94a3b8;
+  --border:#e2e8f0;--border2:#cbd5e1;
+  --glow:rgba(14,165,233,.18);
+  --grad:linear-gradient(135deg,#0ea5e9 0%,#0284c7 100%);
+  --grad2:linear-gradient(135deg,#38bdf8 0%,#0ea5e9 60%,#0369a1 100%);
+  --grad3:linear-gradient(135deg,#059669 0%,#0ea5e9 100%);
+  --shadow:0 1px 3px rgba(0,0,0,.06),0 4px 16px rgba(0,0,0,.07);
+  --shadow2:0 4px 24px rgba(0,0,0,.1),0 1px 3px rgba(0,0,0,.06);
+  --t:.26s cubic-bezier(.4,0,.2,1);
+  --r:10px;--r2:16px;--r3:22px;
 }
 html{scroll-behavior:smooth}
-body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--white);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 a{text-decoration:none;color:inherit;transition:var(--t)}
 ul{list-style:none}
 button,input,select,textarea{font-family:inherit;border:none;outline:none;background:none;font-size:inherit}
 
-/* ── LAYOUT ── */
+/* LAYOUT */
 .container{width:100%;max-width:1100px;margin:0 auto;padding:0 20px}
 .section{padding:72px 0}
 .section-alt{background:var(--bg2)}
 
-/* ── SCROLL PROGRESS ── */
-#sp{position:fixed;top:0;left:0;height:3px;width:0%;background:var(--grad);z-index:9999;box-shadow:0 0 10px var(--teal);transition:width .1s linear}
+/* SCROLL PROGRESS */
+#sp{position:fixed;top:0;left:0;height:3px;width:0%;background:var(--grad);z-index:9999;transition:width .1s linear}
 
-/* ── NAV ── */
-#nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:18px 0;transition:var(--t)}
-#nav.sc{background:rgba(7,9,16,.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);padding:12px 0;border-bottom:1px solid var(--border)}
+/* NAV */
+#nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:16px 0;transition:var(--t)}
+#nav.sc{background:rgba(248,249,252,.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);padding:11px 0;border-bottom:1px solid var(--border);box-shadow:0 1px 12px rgba(0,0,0,.06)}
 .nav-row{display:flex;align-items:center;justify-content:space-between}
 .nav-logo{display:flex;align-items:center;gap:10px}
-.logo-sq{width:38px;height:38px;background:var(--grad);border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:17px;color:#fff;box-shadow:0 4px 16px var(--glow);flex-shrink:0}
-.logo-name{font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:16px;letter-spacing:.2px}
-/* mobile: only logo + wa button */
+.logo-sq{width:38px;height:38px;background:var(--grad);border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:17px;color:#fff;box-shadow:0 4px 14px var(--glow);flex-shrink:0}
+.logo-name{font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:16px;color:var(--ink)}
 .nav-links{display:none}
-.btn-wa-nav{display:inline-flex;align-items:center;gap:7px;background:#25d366;color:#fff;padding:10px 18px;border-radius:var(--r);font-size:13px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;box-shadow:0 4px 14px rgba(37,211,102,.3);transition:var(--t)}
+.nav-link{font-size:14px;font-weight:500;color:var(--muted)}
+.nav-link:hover{color:var(--ink)}
+.btn-wa-nav{display:inline-flex;align-items:center;gap:7px;background:#25d366;color:#fff;padding:10px 18px;border-radius:var(--r);font-size:13px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;box-shadow:0 4px 14px rgba(37,211,102,.28);transition:var(--t)}
 .btn-wa-nav:hover{background:#1eb85a;transform:translateY(-1px)}
 
-/* ── TICKER ── */
-#ticker{background:var(--grad);padding:10px 0;overflow:hidden;margin-top:62px}
-.ticker-track{display:flex;white-space:nowrap;animation:tick 20s linear infinite}
-.ticker-track span{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:3px;color:#fff;padding:0 24px;opacity:.9}
-.ticker-track .dot{opacity:.5}
+/* TICKER */
+#ticker{background:var(--grad);padding:10px 0;overflow:hidden;margin-top:60px}
+.ticker-track{display:flex;white-space:nowrap;animation:tick 22s linear infinite}
+.ticker-track span{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:3px;color:#fff;padding:0 22px;opacity:.9}
+.ticker-track .dot{opacity:.45}
 @keyframes tick{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 
-/* ── HERO ── */
-#hero{padding:48px 0 56px;position:relative;overflow:hidden;text-align:center}
-.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(14,165,233,.14),transparent 65%);pointer-events:none}
-.hero-pill{display:inline-flex;align-items:center;gap:8px;background:rgba(14,165,233,.1);border:1px solid var(--border2);border-radius:100px;padding:6px 16px;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--teal2);margin-bottom:20px}
-.hero-dot{width:7px;height:7px;background:var(--teal2);border-radius:50%;animation:ppulse 2s ease-in-out infinite}
-@keyframes ppulse{0%,100%{box-shadow:0 0 0 0 rgba(56,189,248,.7)}50%{box-shadow:0 0 0 7px rgba(56,189,248,0)}}
-.hero-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(58px,16vw,100px);line-height:.92;letter-spacing:2px;margin-bottom:16px}
+/* HERO */
+#hero{padding:52px 0 60px;position:relative;overflow:hidden;text-align:center}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 50% -20%,rgba(14,165,233,.09),transparent 65%);pointer-events:none}
+.hero-pill{display:inline-flex;align-items:center;gap:8px;background:rgba(14,165,233,.09);border:1px solid rgba(14,165,233,.25);border-radius:100px;padding:6px 16px;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--blue2);margin-bottom:20px}
+.hero-dot{width:7px;height:7px;background:var(--blue);border-radius:50%;animation:ppulse 2s ease-in-out infinite}
+@keyframes ppulse{0%,100%{box-shadow:0 0 0 0 rgba(14,165,233,.6)}50%{box-shadow:0 0 0 7px rgba(14,165,233,0)}}
+.hero-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(56px,15vw,96px);line-height:.92;letter-spacing:2px;margin-bottom:18px;color:var(--ink)}
 .hero-h .grd{background:var(--grad2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero-h .out{-webkit-text-stroke:2px rgba(255,255,255,.2);color:transparent}
-.hero-p{font-size:16px;color:var(--muted);line-height:1.75;max-width:360px;margin:0 auto 32px}
+.hero-h .out{-webkit-text-stroke:2px rgba(15,21,35,.18);color:transparent}
+.hero-p{font-size:16px;color:var(--muted);line-height:1.78;max-width:360px;margin:0 auto 32px}
 .hero-btns{display:flex;flex-direction:column;gap:12px;max-width:340px;margin:0 auto 40px}
+.hero-feats{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;max-width:380px;margin:0 auto}
+.feat-pill{display:inline-flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--border2);border-radius:100px;padding:7px 14px;font-size:12px;font-weight:600;color:var(--muted);box-shadow:var(--shadow)}
+.feat-pip{width:6px;height:6px;border-radius:50%;background:var(--blue);flex-shrink:0}
 
-/* feature pills */
-.hero-feats{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;max-width:360px;margin:0 auto}
-.feat-pill{display:inline-flex;align-items:center;gap:6px;background:var(--card2);border:1px solid var(--border);border-radius:100px;padding:7px 14px;font-size:12px;font-weight:600;color:var(--muted)}
-.feat-pip{width:6px;height:6px;border-radius:50%;background:var(--teal);flex-shrink:0}
-
-/* ── BUTTONS ── */
-.btn-primary{display:flex;align-items:center;justify-content:center;gap:9px;background:var(--grad);color:#fff;padding:16px 28px;border-radius:var(--r2);font-size:16px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;transition:var(--t);cursor:pointer;box-shadow:0 6px 24px var(--glow);border:none;width:100%}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 36px var(--glow)}
-.btn-wa{display:flex;align-items:center;justify-content:center;gap:9px;background:#25d366;color:#fff;padding:16px 28px;border-radius:var(--r2);font-size:16px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;transition:var(--t);cursor:pointer;box-shadow:0 6px 24px rgba(37,211,102,.3);width:100%}
+/* BUTTONS */
+.btn-primary{display:flex;align-items:center;justify-content:center;gap:9px;background:var(--grad);color:#fff;padding:16px 28px;border-radius:var(--r2);font-size:16px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;transition:var(--t);cursor:pointer;box-shadow:0 6px 20px var(--glow);border:none;width:100%}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 32px var(--glow)}
+.btn-wa{display:flex;align-items:center;justify-content:center;gap:9px;background:#25d366;color:#fff;padding:16px 28px;border-radius:var(--r2);font-size:16px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;transition:var(--t);cursor:pointer;box-shadow:0 6px 20px rgba(37,211,102,.28);width:100%}
 .btn-wa:hover{background:#1eb85a;transform:translateY(-2px)}
-.btn-outline{display:flex;align-items:center;justify-content:center;gap:9px;border:1px solid var(--border2);color:var(--white);padding:15px 28px;border-radius:var(--r2);font-size:15px;font-weight:600;transition:var(--t);width:100%}
-.btn-outline:hover{border-color:var(--teal);color:var(--teal2);background:rgba(14,165,233,.06)}
+.btn-outline{display:flex;align-items:center;justify-content:center;gap:9px;border:1.5px solid var(--border2);color:var(--ink2);padding:15px 28px;border-radius:var(--r2);font-size:15px;font-weight:600;transition:var(--t);background:var(--card);width:100%;box-shadow:var(--shadow)}
+.btn-outline:hover{border-color:var(--blue);color:var(--blue2);background:#f0f8ff}
 
-/* ── SECTION LABELS ── */
-.stag{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:3.5px;text-transform:uppercase;color:var(--teal);margin-bottom:12px}
+/* SECTION LABELS */
+.stag{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:3.5px;text-transform:uppercase;color:var(--blue2);margin-bottom:12px}
 .stag::before{content:'';width:20px;height:2px;background:var(--grad)}
-.sh{font-family:'Bebas Neue',sans-serif;font-size:clamp(38px,9vw,68px);line-height:.95;letter-spacing:2px;margin-bottom:14px}
+.sh{font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,8.5vw,64px);line-height:.95;letter-spacing:2px;margin-bottom:14px;color:var(--ink)}
 .sh .grd{background:var(--grad2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .ssub{font-size:15px;color:var(--muted);line-height:1.8;max-width:480px}
 .sec-hdr{margin-bottom:40px}
@@ -94,148 +96,149 @@ button,input,select,textarea{font-family:inherit;border:none;outline:none;backgr
 .sec-hdr-c .stag::before{display:none}
 .sec-hdr-c .ssub{margin:0 auto}
 
-/* ── ABOUT ── */
-.about-card{background:var(--card);border:1px solid var(--border2);border-radius:var(--r3);overflow:hidden;position:relative}
+/* ABOUT */
+.about-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r3);overflow:hidden;box-shadow:var(--shadow2);position:relative}
 .about-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad)}
 .about-top{padding:32px 24px;text-align:center;border-bottom:1px solid var(--border)}
-.coach-avatar{width:88px;height:88px;background:var(--card2);border-radius:50%;border:2px solid var(--border2);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;position:relative}
-.coach-avatar svg{width:52px;height:52px;opacity:.75}
-.avatar-ring{position:absolute;inset:-6px;border-radius:50%;border:1px dashed rgba(14,165,233,.3);animation:spin-slow 10s linear infinite}
+.coach-avatar{width:88px;height:88px;background:var(--bg3);border-radius:50%;border:2px solid var(--border2);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;position:relative}
+.coach-avatar svg{width:52px;height:52px;opacity:.7}
+.avatar-ring{position:absolute;inset:-6px;border-radius:50%;border:1px dashed rgba(14,165,233,.35);animation:spin-slow 10s linear infinite}
 @keyframes spin-slow{to{transform:rotate(360deg)}}
 .coach-name{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:3px;background:var(--grad2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .coach-role{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--muted2);margin-top:3px}
 .about-body{padding:24px}
 .about-p{font-size:15px;color:var(--muted);line-height:1.8;margin-bottom:13px}
 .cred-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}
-.cred-item{background:var(--card2);border:1px solid var(--border);border-radius:var(--r);padding:12px;text-align:center}
+.cred-item{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:12px;text-align:center}
 .cred-ic{font-size:22px;margin-bottom:6px}
-.cred-lbl{font-size:12px;font-weight:600;color:var(--off);line-height:1.3}
+.cred-lbl{font-size:12px;font-weight:600;color:var(--ink3);line-height:1.3}
 
-/* ── PROGRAMS ── */
+/* PROGRAMS */
 .prog-list{display:flex;flex-direction:column;gap:18px}
-.pcard{background:var(--card);border:1px solid var(--border);border-radius:var(--r3);overflow:hidden;position:relative;transition:var(--t)}
+.pcard{background:var(--card);border:1px solid var(--border);border-radius:var(--r3);overflow:hidden;box-shadow:var(--shadow);transition:var(--t)}
+.pcard:hover{box-shadow:var(--shadow2);transform:translateY(-3px)}
 .pcard-top{height:4px;background:var(--grad)}
 .pcard-top.green{background:var(--grad3)}
 .pcard-body{padding:26px 22px}
 .pcard-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;gap:10px}
-.pcard-icon{font-size:36px;line-height:1}
+.pico{font-size:36px;line-height:1}
 .pbadge{font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:4px 12px;border-radius:100px;background:var(--grad);color:#fff;white-space:nowrap}
-.pbadge.outline{background:transparent;border:1px solid var(--border2);color:var(--muted)}
+.pbadge.outline{background:var(--bg2);border:1px solid var(--border2);color:var(--muted)}
 .pbadge.green{background:var(--grad3)}
-.pname{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:800;margin-bottom:8px}
+.pname{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:800;margin-bottom:8px;color:var(--ink)}
 .pdesc{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:18px}
 .plist{display:flex;flex-direction:column;gap:0;margin-bottom:22px}
-.plist li{display:flex;align-items:center;gap:9px;font-size:14px;color:var(--muted);padding:8px 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.plist li{display:flex;align-items:center;gap:9px;font-size:14px;color:var(--ink3);padding:8px 0;border-bottom:1px solid var(--border)}
 .plist li:last-child{border-bottom:none}
 .chk{width:15px;height:15px;flex-shrink:0}
-.chk polyline{stroke:var(--teal)}
+.chk polyline{stroke:var(--blue)}
 
-/* ── PROCESS ── */
+/* PROCESS */
 .steps{display:flex;flex-direction:column;gap:0}
 .step{display:flex;gap:18px;position:relative;padding-bottom:28px}
 .step:last-child{padding-bottom:0}
 .step-left{display:flex;flex-direction:column;align-items:center;flex-shrink:0}
 .step-num{width:48px;height:48px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:20px;color:#fff;box-shadow:0 4px 16px var(--glow);flex-shrink:0}
-.step-line{flex:1;width:2px;background:linear-gradient(to bottom,var(--teal),transparent);margin-top:6px}
+.step-line{flex:1;width:2px;background:linear-gradient(to bottom,var(--blue),transparent);margin-top:6px}
 .step:last-child .step-line{display:none}
 .step-content{padding-top:8px}
-.step-h{font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:800;margin-bottom:6px}
+.step-h{font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:800;margin-bottom:6px;color:var(--ink)}
 .step-p{font-size:14px;color:var(--muted);line-height:1.7}
 
-/* ── GALLERY ── */
+/* GALLERY */
 .gal{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .gi{border-radius:var(--r2);overflow:hidden;cursor:pointer;position:relative;aspect-ratio:1/1}
 .gi.tall{aspect-ratio:1/2;grid-row:span 2}
-.gp{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;border:1px solid rgba(255,255,255,.05);transition:transform .4s}
+.gp{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;border:1px solid var(--border);transition:transform .4s}
 .ge{font-size:32px;line-height:1}
 .glbl{font-size:11px;font-weight:600;color:var(--muted2);letter-spacing:1px;text-transform:uppercase}
-.gp-1{background:linear-gradient(160deg,#0c0e18,#061520)}
-.gp-2{background:linear-gradient(160deg,#0c0e18,#061a16)}
-.gp-3{background:linear-gradient(160deg,#0c0e18,#081520)}
-.gp-4{background:linear-gradient(160deg,#0c0e18,#051818)}
-.gp-5{background:linear-gradient(160deg,#0c0e18,#061520)}
-.gp-6{background:linear-gradient(160deg,#0c0e18,#081c18)}
-.gov{position:absolute;inset:0;background:linear-gradient(135deg,rgba(14,165,233,.88),rgba(6,182,212,.88));display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s}
+.gp-1{background:linear-gradient(160deg,#e8f4fd,#dbeeff)}
+.gp-2{background:linear-gradient(160deg,#e8fdf5,#d1fae5)}
+.gp-3{background:linear-gradient(160deg,#f0f4ff,#e0e8ff)}
+.gp-4{background:linear-gradient(160deg,#fdf4e8,#fde8cc)}
+.gp-5{background:linear-gradient(160deg,#f4e8fd,#ede0ff)}
+.gp-6{background:linear-gradient(160deg,#fde8e8,#ffd6d6)}
+.gov{position:absolute;inset:0;background:linear-gradient(135deg,rgba(14,165,233,.85),rgba(2,132,199,.85));display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s;border-radius:var(--r2)}
 .gov span{color:#fff;font-weight:900;font-size:12px;letter-spacing:2px;text-transform:uppercase}
 .gi:hover .gov{opacity:1}
-.gi:hover .gp{transform:scale(1.05)}
+.gi:hover .gp{transform:scale(1.04)}
 
-/* ── FAQ ── */
+/* FAQ */
 .faq-list{display:flex;flex-direction:column;gap:0}
 .faq-item{border-bottom:1px solid var(--border)}
 .faq-item:first-child{border-top:1px solid var(--border)}
-.fq{width:100%;display:flex;align-items:center;justify-content:space-between;padding:18px 0;cursor:pointer;font-size:15px;font-weight:600;color:var(--white);text-align:left;gap:14px;transition:var(--t)}
-.fq:hover,.faq-item.o .fq{color:var(--teal2)}
-.fq-ic{width:30px;height:30px;background:var(--card2);border:1px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:var(--t)}
-.fq-ic svg{transition:transform .3s}
-.faq-item.o .fq-ic{background:rgba(14,165,233,.12);border-color:var(--teal)}
-.faq-item.o .fq-ic svg{transform:rotate(180deg)}
+.fq{width:100%;display:flex;align-items:center;justify-content:space-between;padding:18px 0;cursor:pointer;font-size:15px;font-weight:600;color:var(--ink);text-align:left;gap:14px;transition:var(--t);background:none}
+.fq:hover,.faq-item.o .fq{color:var(--blue2)}
+.fq-ic{width:30px;height:30px;background:var(--bg2);border:1px solid var(--border2);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:var(--t)}
+.fq-ic svg{transition:transform .3s;stroke:var(--muted)}
+.faq-item.o .fq-ic{background:rgba(14,165,233,.1);border-color:rgba(14,165,233,.35)}
+.faq-item.o .fq-ic svg{transform:rotate(180deg);stroke:var(--blue2)}
 .fa{max-height:0;overflow:hidden;transition:max-height .4s ease}
 .faq-item.o .fa{max-height:200px}
 .fa p{padding-bottom:18px;font-size:14px;color:var(--muted);line-height:1.8}
 
+/* CTA */
+.cta-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r3);overflow:hidden;box-shadow:var(--shadow2)}
+.cta-card::before{content:'';display:block;height:3px;background:var(--grad)}
+.cta-inner{padding:32px 22px}
+.cta-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(42px,11vw,66px);line-height:.92;letter-spacing:2px;margin-bottom:12px;color:var(--ink)}
+.cta-h .grd{background:var(--grad2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.cta-p{font-size:15px;color:var(--muted);line-height:1.75;margin-bottom:26px}
 
-/* ── FORMS ── */
+/* FORMS */
 .fg{margin-bottom:12px}
-.fg input,.fg select,.fg textarea{width:100%;padding:14px 16px;background:var(--bg3);border:1px solid rgba(255,255,255,.09);border-radius:var(--r);color:var(--white);font-size:15px;transition:var(--t)}
+.fg input,.fg select,.fg textarea{width:100%;padding:14px 16px;background:var(--bg2);border:1.5px solid var(--border2);border-radius:var(--r);color:var(--ink);font-size:15px;transition:var(--t)}
 .fg input::placeholder,.fg textarea::placeholder{color:var(--muted2)}
-.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(14,165,233,.14)}
-.fg select{appearance:none;cursor:pointer;color:var(--muted2)}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(14,165,233,.12);background:#fff}
+.fg select{appearance:none;cursor:pointer;color:var(--ink3)}
 .fg textarea{resize:vertical;min-height:80px}
 .fnote{font-size:12px;color:var(--muted2);text-align:center;margin-top:10px}
 .ok{display:none;text-align:center;padding:28px 16px}
 .ok.show{display:block}
 .ok-ic{font-size:48px;margin-bottom:12px}
-.ok h3{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;margin-bottom:7px}
+.ok h3{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;margin-bottom:7px;color:var(--ink)}
 .ok p{font-size:14px;color:var(--muted)}
 
-/* ── FINAL CTA ── */
-.cta-card{background:var(--card);border:1px solid var(--border2);border-radius:var(--r3);overflow:hidden}
-.cta-card::before{content:'';display:block;height:3px;background:var(--grad)}
-.cta-inner{padding:32px 22px}
-.cta-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(42px,11vw,68px);line-height:.92;letter-spacing:2px;margin-bottom:12px}
-.cta-h .grd{background:var(--grad2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.cta-p{font-size:15px;color:var(--muted);line-height:1.75;margin-bottom:26px}
+/* FOOTER */
+#footer{background:var(--ink);color:#e2e8f0;padding:52px 0 24px}
+.ft-brand{margin-bottom:20px}
+.ft-logo-sq{width:38px;height:38px;background:var(--grad);border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:17px;color:#fff;box-shadow:0 4px 14px var(--glow);flex-shrink:0}
+.ft-logo-name{font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:16px;color:#e2e8f0}
+.ft-logo{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.ft-desc{font-size:14px;color:#94a3b8;line-height:1.75;margin-bottom:18px}
+.ft-soc{display:flex;gap:10px;margin-bottom:36px}
+.ft-soc a{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;transition:var(--t)}
+.ft-soc a:hover{border-color:var(--blue3);background:rgba(14,165,233,.14)}
+.ft-soc svg{width:15px;height:15px;fill:#94a3b8;transition:var(--t)}
+.ft-soc a:hover svg{fill:var(--blue3)}
+.ft-cols{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:32px}
+.ft-col h4{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#38bdf8;margin-bottom:14px}
+.ft-col li{margin-bottom:9px}
+.ft-col a{font-size:14px;color:#94a3b8;transition:var(--t)}
+.ft-col a:hover{color:#e2e8f0}
+.ft-bottom{border-top:1px solid rgba(255,255,255,.08);padding-top:18px;font-size:12px;color:#64748b;text-align:center}
 
-/* ── WA STICKY BAR ── */
-#wa-bar{position:fixed;bottom:0;left:0;right:0;z-index:800;background:linear-gradient(90deg,#075e54,#128c7e,#25d366);padding:13px 0;text-align:center;box-shadow:0 -4px 20px rgba(0,0,0,.4)}
-#wa-bar a{display:inline-flex;align-items:center;gap:10px;color:#fff;font-size:15px;font-weight:900;letter-spacing:.5px;text-transform:uppercase}
+/* WA STICKY */
+#wa-bar{position:fixed;bottom:0;left:0;right:0;z-index:800;background:linear-gradient(90deg,#075e54,#128c7e,#25d366);padding:13px 0;text-align:center;box-shadow:0 -4px 20px rgba(0,0,0,.15)}
+#wa-bar a{display:inline-flex;align-items:center;gap:10px;color:#fff;font-size:15px;font-weight:900;letter-spacing:.4px;text-transform:uppercase}
 #wa-bar a:hover{opacity:.9}
 
-/* ── FOOTER ── */
-#footer{background:var(--bg2);border-top:1px solid var(--border);padding:52px 0 24px}
-.ft-brand{margin-bottom:20px}
-.ft-desc{font-size:14px;color:var(--muted);line-height:1.75;margin:12px 0 18px}
-.ft-soc{display:flex;gap:10px;margin-bottom:36px}
-.ft-soc a{width:36px;height:36px;border-radius:50%;background:var(--card2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;transition:var(--t)}
-.ft-soc a:hover{border-color:var(--teal);background:rgba(14,165,233,.08)}
-.ft-soc svg{width:15px;height:15px;fill:var(--muted);transition:var(--t)}
-.ft-soc a:hover svg{fill:var(--teal2)}
-.ft-cols{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:32px}
-.ft-col h4{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--teal);margin-bottom:14px}
-.ft-col li{margin-bottom:9px}
-.ft-col a{font-size:14px;color:var(--muted)}
-.ft-col a:hover{color:var(--teal2)}
-.ft-bottom{border-top:1px solid var(--border);padding-top:18px;font-size:12px;color:var(--muted2);text-align:center}
-
-/* ── SCROLL ANIMATIONS ── */
-.ao{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
+/* SCROLL ANIMATIONS */
+.ao{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
 .ao.in{opacity:1;transform:translateY(0)}
 .d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}
-.fi{opacity:0;transform:translateY(22px);animation:fup .8s ease forwards}
+.fi{opacity:0;transform:translateY(20px);animation:fup .75s ease forwards}
 @keyframes fup{to{opacity:1;transform:translateY(0)}}
 .fi.d1{animation-delay:.1s}.fi.d2{animation-delay:.22s}.fi.d3{animation-delay:.36s}
 
-/* ── DESKTOP ENHANCEMENTS ── */
+/* DESKTOP */
 @media(min-width:768px){
   .container{padding:0 32px}
   .section{padding:96px 0}
   .nav-links{display:flex;align-items:center;gap:28px}
-  .nav-link{font-size:14px;font-weight:500;color:var(--muted)}
-  .nav-link:hover{color:var(--white)}
   #ticker{margin-top:0}
-  #hero{padding:120px 0 80px;text-align:left}
-  .hero-bg{background:radial-gradient(ellipse at 70% 40%,rgba(14,165,233,.12),transparent 60%)}
+  #hero{padding:120px 0 88px;text-align:left}
+  .hero-bg{background:radial-gradient(ellipse at 80% 40%,rgba(14,165,233,.08),transparent 55%)}
   .hero-pill,.hero-p,.hero-btns,.hero-feats{margin-left:0;margin-right:auto;max-width:none}
   .hero-p{max-width:480px}
   .hero-btns{flex-direction:row;max-width:none}
@@ -244,10 +247,9 @@ button,input,select,textarea{font-family:inherit;border:none;outline:none;backgr
   .about-card{display:grid;grid-template-columns:240px 1fr}
   .about-top{border-bottom:none;border-right:1px solid var(--border);padding:40px 28px}
   .about-body{padding:40px 32px}
-  .cred-grid{grid-template-columns:1fr 1fr}
   .prog-list{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative}
-  .steps::before{content:'';position:absolute;top:24px;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--border2),var(--teal2),var(--border2),transparent)}
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);position:relative}
+  .steps::before{content:'';position:absolute;top:24px;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--border2),var(--blue),var(--border2),transparent)}
   .step{flex-direction:column;align-items:center;text-align:center;padding-bottom:0;padding:0 12px}
   .step-left{flex-direction:row;justify-content:center;margin-bottom:16px}
   .step-line{display:none}
@@ -255,26 +257,16 @@ button,input,select,textarea{font-family:inherit;border:none;outline:none;backgr
   .step-content{padding-top:0}
   .gal{grid-template-columns:repeat(4,1fr);gap:14px}
   .gi{aspect-ratio:auto}
-  .gi.tall{grid-row:span 2}
   .gal{grid-auto-rows:180px}
-  .lm-card{display:grid;grid-template-columns:1fr 1fr;align-items:start}
-  .lm-body{padding:40px 32px}
-  .lm-form{padding:40px 32px 40px 0}
-  .cta-card{display:grid;grid-template-columns:1fr 1fr;gap:0}
+  .cta-card{display:grid;grid-template-columns:1fr 1fr}
   .cta-inner{padding:48px 40px}
   .cta-form{padding:40px 40px 40px 0}
   .ft-grid{display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr;gap:40px}
-  .ft-cols{display:none}
-  .ft-soc{margin-bottom:0}
+  .ft-cols,.ft-brand{display:none}
   .ft-bottom{text-align:left;display:flex;justify-content:space-between;align-items:center}
 }
-@media(min-width:1024px){
-  .container{padding:0 40px}
-}
-
-/* mobile padding-bottom for sticky bar */
+@media(min-width:1024px){.container{padding:0 40px}}
 body{padding-bottom:58px}
-@media(min-width:768px){body{padding-bottom:58px}}
   </style>
 </head>
 <body>
@@ -293,7 +285,7 @@ body{padding-bottom:58px}
         <a href="#programs" class="nav-link">Programs</a>
         <a href="#faq" class="nav-link">FAQ</a>
       </div>
-      <a href="https://wa.me/916374133309?text=Hi%20Krish%2C%20I%27d%20love%20to%20know%20more!" target="_blank" rel="noopener" class="btn-wa-nav">
+      <a href="https://wa.me/916374133309?text=Hi%20Krish%2C%20I%20wanted%20to%20know%20more%20about%20your%20coaching%2C%20can%20we%20connect%20on%20this%3F" target="_blank" rel="noopener" class="btn-wa-nav">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
         Speak with Coach
       </a>
@@ -316,8 +308,8 @@ body{padding-bottom:58px}
     <h1 class="hero-h fi d1">NO GYM.<br/>NO <span class="grd">EXCUSES.</span><br/><span class="out">JUST RESULTS.</span></h1>
     <p class="hero-p fi d2">You don't need a gym to get strong. You need the right plan and someone who keeps you accountable. That's exactly what I do.</p>
     <div class="hero-btns fi d3">
-      <a href="https://wa.me/916374133309?text=Hi%20Krish%2C%20I%20want%20to%20start%20coaching!" target="_blank" rel="noopener" class="btn-wa">
-        <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+      <a href="https://wa.me/916374133309?text=Hi%20Krish%2C%20I%20wanted%20to%20know%20more%20about%20your%20coaching%2C%20can%20we%20connect%20on%20this%3F" target="_blank" rel="noopener" class="btn-wa">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
         Speak with Coach
       </a>
       <a href="#programs" class="btn-outline">See Programs ↓</a>
@@ -379,12 +371,12 @@ body{padding-bottom:58px}
           <p class="pdesc">Full coaching that adapts every week — training, nutrition, and real accountability wherever you are.</p>
           <ul class="plist">
             <li><svg class="chk" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Personalised training plan</li>
-            <li><svg class="chk" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Custom nutrition & macros</li>
+            <li><svg class="chk" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Custom nutrition &amp; macros</li>
             <li><svg class="chk" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Weekly WhatsApp check-ins</li>
             <li><svg class="chk" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Video form feedback</li>
             <li><svg class="chk" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Direct coach access anytime</li>
           </ul>
-          <a href="https://wa.me/916374133309?text=Hi%20Krish%2C%20I%27m%20interested%20in%20Online%20Personal%20Coaching!" target="_blank" rel="noopener" class="btn-wa">
+          <a href="https://wa.me/916374133309?text=Hi%20Krish%2C%20I%20wanted%20to%20know%20more%20about%20your%20coaching%2C%20can%20we%20connect%20on%20this%3F%20I%27m%20interested%20in%20Online%20Personal%20Coaching." target="_blank" rel="noopener" class="btn-wa">
             <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
             Speak with Coach
           </a>
@@ -399,12 +391,12 @@ body{padding-bottom:58px}
           <p class="pdesc">Train face-to-face with Krish. Real-time coaching, live form correction, and a fully personalised plan built just for you.</p>
           <ul class="plist">
             <li><svg class="chk" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Attend sessions in person</li>
-            <li><svg class="chk" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Live form correction & coaching</li>
+            <li><svg class="chk" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Live form correction &amp; coaching</li>
             <li><svg class="chk" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Custom training plan provided</li>
             <li><svg class="chk" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Personalised nutrition advice</li>
             <li><svg class="chk" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Direct accountability every session</li>
           </ul>
-          <a href="https://wa.me/916374133309?text=Hi%20Krish%2C%20I%27m%20interested%20in%20Offline%20Personal%20Training!" target="_blank" rel="noopener" class="btn-wa">
+          <a href="https://wa.me/916374133309?text=Hi%20Krish%2C%20I%20wanted%20to%20know%20more%20about%20your%20coaching%2C%20can%20we%20connect%20on%20this%3F%20I%27m%20interested%20in%20Offline%20Personal%20Training." target="_blank" rel="noopener" class="btn-wa">
             <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
             Speak with Coach
           </a>
@@ -419,12 +411,12 @@ body{padding-bottom:58px}
           <p class="pdesc">12-week program to shred fat and build visible muscle — completely personalised from day one.</p>
           <ul class="plist">
             <li><svg class="chk" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>12-week structured program</li>
-            <li><svg class="chk" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Calorie targets & macro split</li>
+            <li><svg class="chk" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Calorie targets &amp; macro split</li>
             <li><svg class="chk" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>HIIT + strength training combo</li>
             <li><svg class="chk" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Weekly progress adjustments</li>
             <li><svg class="chk" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Supplement guidance included</li>
           </ul>
-          <a href="https://wa.me/916374133309?text=Hi%20Krish%2C%20I%27m%20interested%20in%20the%20Fat%20Loss%20Transformation!" target="_blank" rel="noopener" class="btn-primary">
+          <a href="https://wa.me/916374133309?text=Hi%20Krish%2C%20I%20wanted%20to%20know%20more%20about%20your%20coaching%2C%20can%20we%20connect%20on%20this%3F%20I%27m%20interested%20in%20the%20Fat%20Loss%20Transformation." target="_blank" rel="noopener" class="btn-primary">
             <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             Get Started
           </a>
@@ -457,7 +449,7 @@ body{padding-bottom:58px}
       </div>
       <div class="step ao d4">
         <div class="step-left"><div class="step-num">04</div><div class="step-line"></div></div>
-        <div class="step-content"><h3 class="step-h">Train & Transform</h3><p class="step-p">Execute with weekly check-ins. I adjust everything as you progress.</p></div>
+        <div class="step-content"><h3 class="step-h">Train &amp; Transform</h3><p class="step-p">Execute with weekly check-ins. I adjust everything as you progress.</p></div>
       </div>
     </div>
   </div>
@@ -472,8 +464,8 @@ body{padding-bottom:58px}
     </div>
     <div class="gal">
       <div class="gi tall ao"><div class="gp gp-1"><span class="ge">🤸</span><span class="glbl">Balance</span></div><div class="gov"><span>Handstand</span></div></div>
-      <div class="gi ao d1"><div class="gp gp-2"><span class="ge">💪</span><span class="glbl">Pull-ups</span></div><div class="gov"><span>Back & Biceps</span></div></div>
-      <div class="gi ao d2"><div class="gp gp-3"><span class="ge">🏋️</span><span class="glbl">Dips</span></div><div class="gov"><span>Chest & Triceps</span></div></div>
+      <div class="gi ao d1"><div class="gp gp-2"><span class="ge">💪</span><span class="glbl">Pull-ups</span></div><div class="gov"><span>Back &amp; Biceps</span></div></div>
+      <div class="gi ao d2"><div class="gp gp-3"><span class="ge">🏋️</span><span class="glbl">Dips</span></div><div class="gov"><span>Chest &amp; Triceps</span></div></div>
       <div class="gi ao"><div class="gp gp-4"><span class="ge">⚡</span><span class="glbl">Power</span></div><div class="gov"><span>Strength Circuit</span></div></div>
       <div class="gi tall ao d1"><div class="gp gp-5"><span class="ge">🌊</span><span class="glbl">Mobility</span></div><div class="gov"><span>Mobility Flow</span></div></div>
       <div class="gi ao d2"><div class="gp gp-6"><span class="ge">🔥</span><span class="glbl">HIIT</span></div><div class="gov"><span>Fat Burning</span></div></div>
@@ -499,7 +491,7 @@ body{padding-bottom:58px}
 </section>
 
 <!-- FINAL CTA -->
-<section id="apply" class="section section-alt">
+<section id="apply" class="section">
   <div class="container">
     <div class="cta-card ao">
       <div class="cta-inner">
@@ -537,9 +529,9 @@ body{padding-bottom:58px}
 <!-- FOOTER -->
 <footer id="footer">
   <div class="container">
-    <!-- mobile layout -->
+    <!-- mobile -->
     <div class="ft-brand">
-      <a href="#" class="nav-logo" style="margin-bottom:0"><div class="logo-sq">TK</div><span class="logo-name">TrainWithKrish</span></a>
+      <div class="ft-logo"><div class="ft-logo-sq">TK</div><span class="ft-logo-name">TrainWithKrish</span></div>
       <p class="ft-desc">Personal fitness coaching. Build muscle, burn fat, and transform your body — on your terms.</p>
       <div class="ft-soc">
         <a href="https://instagram.com/trainwithkrish" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
@@ -551,9 +543,16 @@ body{padding-bottom:58px}
       <div class="ft-col"><h4>Programs</h4><ul><li><a href="#programs">Online Coaching</a></li><li><a href="#programs">Offline Training</a></li><li><a href="#programs">Fat Loss</a></li></ul></div>
       <div class="ft-col"><h4>Links</h4><ul><li><a href="#about">About</a></li><li><a href="#faq">FAQ</a></li></ul></div>
     </div>
-    <!-- desktop grid -->
+    <!-- desktop -->
     <div class="ft-grid" style="display:none">
-      <div><a href="#" class="nav-logo"><div class="logo-sq">TK</div><span class="logo-name">TrainWithKrish</span></a><p class="ft-desc">Personal fitness coaching. Build muscle, burn fat, transform your body — on your terms.</p><div class="ft-soc"><a href="https://instagram.com/trainwithkrish" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a></div></div>
+      <div>
+        <div class="ft-logo"><div class="ft-logo-sq">TK</div><span class="ft-logo-name">TrainWithKrish</span></div>
+        <p class="ft-desc">Personal fitness coaching. Build muscle, burn fat, transform your body — on your terms.</p>
+        <div class="ft-soc">
+          <a href="https://instagram.com/trainwithkrish" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+          <a href="https://youtube.com/@trainwithkrish" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+        </div>
+      </div>
       <div class="ft-col"><h4>Programs</h4><ul><li><a href="#programs">Online Coaching</a></li><li><a href="#programs">Offline Training</a></li><li><a href="#programs">Fat Loss Transformation</a></li></ul></div>
       <div class="ft-col"><h4>Navigate</h4><ul><li><a href="#about">About</a></li><li><a href="#process">How It Works</a></li><li><a href="#faq">FAQ</a></li></ul></div>
       <div class="ft-col"><h4>Contact</h4><ul><li><a href="https://wa.me/916374133309" target="_blank">WhatsApp</a></li><li><a href="mailto:krish@trainwithkrish.com">Email</a></li><li><a href="https://instagram.com/trainwithkrish" target="_blank">Instagram</a></li></ul></div>
@@ -564,7 +563,7 @@ body{padding-bottom:58px}
 
 <!-- WA STICKY -->
 <div id="wa-bar">
-  <a href="https://wa.me/916374133309?text=Hi%20Krish%2C%20I%20want%20to%20know%20more%20about%20coaching!" target="_blank" rel="noopener">
+  <a href="https://wa.me/916374133309?text=Hi%20Krish%2C%20I%20wanted%20to%20know%20more%20about%20your%20coaching%2C%20can%20we%20connect%20on%20this%3F" target="_blank" rel="noopener">
     <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
     💬 Speak with Coach — Free Consultation
   </a>
@@ -575,7 +574,6 @@ body{padding-bottom:58px}
   'use strict';
   var WA='916374133309';
   var sp=document.getElementById('sp'),nav=document.getElementById('nav'),t=false;
-  /* show/hide desktop footer grid */
   var ftGrid=document.querySelector('.ft-grid');
   var ftBrand=document.querySelector('.ft-brand');
   var ftCols=document.querySelector('.ft-cols');
@@ -601,14 +599,12 @@ body{padding-bottom:58px}
   }
   window.addEventListener('scroll',onScroll,{passive:true});
   onScroll();
-  /* smooth scroll */
   document.querySelectorAll('a[href^="#"]').forEach(function(a){
     a.addEventListener('click',function(e){
       var tgt=document.querySelector(this.getAttribute('href'));
       if(tgt){e.preventDefault();window.scrollTo({top:tgt.getBoundingClientRect().top+window.scrollY-66,behavior:'smooth'});}
     });
   });
-  /* faq */
   document.querySelectorAll('.faq-item').forEach(function(item){
     item.querySelector('.fq').addEventListener('click',function(){
       var o=item.classList.contains('o');
@@ -616,7 +612,6 @@ body{padding-bottom:58px}
       if(!o)item.classList.add('o');
     });
   });
-  /* apply form */
   var af=document.getElementById('applyForm'),ao=document.getElementById('applyOk');
   if(af){af.addEventListener('submit',function(e){
     e.preventDefault();
